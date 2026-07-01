@@ -7,6 +7,15 @@ Route::get('/', function () {
     return view('landing');
 })->name('home');
 
+// Menampilkan halaman login
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.post');
+
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
 Route::get('/admin/home', [AdminController::class, 'home']);
 
 Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa']);
