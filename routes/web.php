@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
-Route::redirect('/', '/admin/home');
+Route::get('/', function () {
+    return view('landing');
+})->name('home');
 
 Route::get('/admin/home', [AdminController::class, 'home']);
 
