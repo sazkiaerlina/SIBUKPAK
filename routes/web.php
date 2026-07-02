@@ -12,6 +12,14 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::get('/kirim', function () {
+    return view('create');
+})->name('create');
+
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.post');
 
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -34,6 +42,3 @@ Route::get('/admin/rekap', [AdminController::class, 'rekap']);
 
 Route::delete('/admin/mahasiswa/{id}', [AdminController::class, 'hapusmahasiswa']);
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');

@@ -28,12 +28,12 @@
             </p>
 
             <a
-    href="{{ route('register') }}"
-    class="inline-block mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-xl px-10 py-4 rounded-2xl shadow-lg transition">
+                href="{{ route('register') }}"
+                class="inline-block mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-xl px-10 py-4 rounded-2xl shadow-lg transition">
 
-    Daftar Magang
+                Daftar Magang
 
-        </a>
+            </a>
 
         </div>
 

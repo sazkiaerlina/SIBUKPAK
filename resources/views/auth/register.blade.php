@@ -21,37 +21,37 @@
 
     ✕
 
-</a>
+    </a>
 
 <div class="min-h-screen flex flex-col lg:flex-row">
 
     <!-- ======================= KIRI ======================= -->
-<div class="relative w-full lg:w-1/2 min-h-[350px] lg:min-h-screen overflow-hidden">
+    <div class="relative w-full lg:w-1/2 min-h-[350px] lg:min-h-screen overflow-hidden">
 
-    <img
-    src="{{ asset('assets/images/bgbps1.png') }}"
-    alt="Gedung BPS Kabupaten Ogan Ilir"
-    class="absolute inset-0 w-full h-full object-cover"
-    style="object-position: 65% center;">
+        <img
+        src="{{ asset('assets/images/bgbps1.png') }}"
+        alt="Gedung BPS Kabupaten Ogan Ilir"
+        class="absolute inset-0 w-full h-full object-cover"
+        style="object-position: 65% center;">
 
-    <!-- Overlay Biru -->
-    <div class="absolute inset-0 bg-[#043277]/70"></div>
+        <!-- Overlay Biru -->
+        <div class="absolute inset-0 bg-[#043277]/70"></div>
 
-    <!-- Tulisan -->
-   <div
-    class="absolute z-10"
-    style="left: 50px; top: 50%; transform: translateY(-50%);">
+        <!-- Tulisan -->
+    <div
+        class="absolute z-10"
+        style="left: 50px; top: 50%; transform: translateY(-50%);">
 
-    <h1 class="text-white text-4xl lg:text-5xl font-bold leading-tight">
-        HALO,<br>
-        SELAMAT DATANG DI
-    </h1>
+        <h1 class="text-white text-4xl lg:text-5xl font-bold leading-tight">
+            HALO,<br>
+            SELAMAT DATANG DI
+        </h1>
 
-    <p class="text-white mt-4 text-lg">
-        SIBUKPAK Statistik Berdampak Untuk Kampus Berdampak
-    </p>
+        <p class="text-white mt-4 text-lg">
+            SIBUKPAK Statistik Berdampak Untuk Kampus Berdampak
+        </p>
 
-</div>
+    </div>
 
 </div>
     <!-- ======================= KANAN ======================= -->
@@ -104,34 +104,34 @@
 
                
                 <!-- Password -->
-<div class="relative">
+                <div class="relative">
 
-    <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-        required
-        class="w-full rounded-full border border-gray-300 px-5 py-3 pr-14 focus:border-[#043277] focus:ring-[#043277]">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                        class="w-full rounded-full border border-gray-300 px-5 py-3 pr-14 focus:border-[#043277] focus:ring-[#043277]">
 
-    <button
-        type="button"
-        onclick="togglePassword('password','iconPassword')"
-        class="absolute right-4 top-1/2 -translate-y-1/2">
+                    <button
+                        type="button"
+                        onclick="togglePassword('password','iconPassword')"
+                        class="absolute right-4 top-1/2 -translate-y-1/2">
 
-        <img
-            id="iconPassword"
-            src="{{ asset('assets/images/hidden.png') }}"
-            class="w-6 h-6"
-            alt="Show Password">
+                        <img
+                            id="iconPassword"
+                            src="{{ asset('assets/images/hidden.png') }}"
+                            class="w-6 h-6"
+                            alt="Show Password">
 
-    </button>
+                    </button>
 
-    @error('password')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-    @enderror
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
 
-</div>
+                </div>
 
                 <!-- Konfirmasi Password -->
                 <div>
@@ -144,13 +144,14 @@
                 </div>
 
                 <!-- Tombol -->
-                <button
+                <a
+                    href="{{ route('create') }}"
                     type="submit"
                     class="w-full bg-[#043277] hover:bg-[#03255a] text-white font-semibold py-3 rounded-full transition duration-300">
 
                     KIRIM
 
-                </button>
+                </a>
 
             </form>
 
