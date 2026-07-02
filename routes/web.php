@@ -33,3 +33,7 @@ Route::put('/admin/mahasiswa/{id}', [AdminController::class,'updatemahasiswa']);
 Route::get('/admin/rekap', [AdminController::class, 'rekap']);
 
 Route::delete('/admin/mahasiswa/{id}', [AdminController::class, 'hapusmahasiswa']);
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');

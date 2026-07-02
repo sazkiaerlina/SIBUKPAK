@@ -27,12 +27,13 @@
                 melakukan absensi harian secara mudah setelah diterima sebagai peserta magang di BPS Kabupaten Ogan Ilir.
             </p>
 
-            <button
-                class="mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-xl px-10 py-4 rounded-2xl shadow-lg transition">
+            <a
+    href="{{ route('register') }}"
+    class="inline-block mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-xl px-10 py-4 rounded-2xl shadow-lg transition">
 
-                Daftar Magang
+    Daftar Magang
 
-            </button>
+        </a>
 
         </div>
 
