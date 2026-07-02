@@ -33,7 +33,7 @@
         }
 
         .navbar-bps{
-            background:#0d6efd;
+            background:#043277;
         }
 
         .navbar-bps .navbar-brand,

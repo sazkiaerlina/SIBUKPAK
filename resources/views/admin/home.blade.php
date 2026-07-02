@@ -102,7 +102,8 @@
 
 <div class="card card-dashboard mt-4">
 
-    <div class="card-header bg-primary text-white">
+    <div class="card-header text-white"
+        style="background:#043277;">
 
     Data Presensi
     </div>
@@ -193,8 +194,6 @@
 
 
     </div>
-    
-
 </div>
 
 <div class="row mt-4">
@@ -204,10 +203,11 @@
 
         <div class="card card-dashboard h-100">
 
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-white"
+                style="background:#043277;">
 
-                Diagram Persentase Presensi
-
+                Diagram Presentase Presensi
+                
             </div>
 
             <div class="card-body text-center">
@@ -229,7 +229,8 @@
 
         <div class="card card-dashboard h-100">
 
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-white"
+                style="background:#043277;">
 
                 Diagram Jumlah Presensi
 
