@@ -1,6 +1,10 @@
-<nav x-data="{ open: false }" class="max-w-7xl mx-auto mt-6">
+<nav
+x-data="{ open:false }"
+id="navbar"
+class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6xl mx-auto mt-3 px-1">
 
-    <div class="bg-[#043277] rounded-2xl px-6 py-4">
+
+    <div class="max-w-5x1 mx-auto mt-0 bg-[#043277] rounded-2xl px-6 py-4">
 
         <div class="flex justify-between items-center">
 
@@ -68,3 +72,38 @@
     </div>
 
 </nav>
+
+<script>
+
+let lastScroll = 0;
+
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', function(){
+
+    let currentScroll = window.pageYOffset;
+
+    if(currentScroll <= 0){
+
+        navbar.style.transform = "translateY(0)";
+        return;
+
+    }
+
+    if(currentScroll > lastScroll){
+
+        // Scroll ke bawah
+        navbar.style.transform = "translateY(-120%)";
+
+    }else{
+
+        // Scroll ke atas
+        navbar.style.transform = "translateY(0)";
+
+    }
+
+    lastScroll = currentScroll;
+
+});
+
+</script>

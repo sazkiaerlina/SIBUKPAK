@@ -6,7 +6,18 @@
     <title>Login — Sistem Presensi Magang</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-[#E3EEFF] flex items-center justify-center px-4">
+
+<body class="min-h-screen bg-[#E3EEFF] flex items-center justify-center px-4 relative">
+
+<!-- Tombol Tutup -->
+<a href="/"
+   class="absolute top-6 right-6 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center
+          text-2xl font-bold text-gray-600 hover:bg-red-500 hover:text-white
+          transition duration-200">
+
+    ✕
+
+</a>
 
     <div class="w-full max-w-lg">
         {{-- Logo / Header --}}
