@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('landing');
@@ -16,7 +17,10 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/kirim', function () {
+
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+Route::get('/create', function () {
     return view('create');
 })->name('create');
 

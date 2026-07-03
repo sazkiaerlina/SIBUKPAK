@@ -9,12 +9,18 @@
         <div class="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
 
             <!-- Logo -->
-            <div class="flex justify-center mb-10">
-                <img
-                    src="{{ asset('assets/images/bps-logo.png') }}"
-                    alt="Logo BPS"
-                    class="w-48 md:w-64">
-            </div>
+                <div style="
+                        width:400px;
+                        position:relative;
+                        top:-20px;
+                        left: -15px;">
+
+                        <img
+                            src="{{ asset('assets/images/bps-logo-hitam.png') }}"
+                            alt="Logo BPS">
+
+                 </div>
+
 
             <div class="grid lg:grid-cols-4 gap-8">
 

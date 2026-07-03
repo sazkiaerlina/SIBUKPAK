@@ -170,9 +170,61 @@ public function hapusMahasiswa($id)
             ->with('success', 'Data mahasiswa berhasil dihapus.');
 }
 
-  public function rekap()
+  public function rekap(Request $request)
 {
-    return view('admin.rekap');
+    $periode = $request->periode ?? 'hari_ini';
+
+    $queryTabel = Presensi::with('mahasiswa.user');
+
+    switch ($periode) {
+
+        case '7_hari':
+
+            $queryTabel->whereDate('tanggal', '>=', now()->subDays(6));
+
+            break;
+
+        case '30_hari':
+
+            $queryTabel->whereDate('tanggal', '>=', now()->subDays(29));
+
+            break;
+
+        case 'bulan':
+
+            $queryTabel->whereMonth('tanggal', now()->month)
+                       ->whereYear('tanggal', now()->year);
+
+            break;
+
+        case 'tahun':
+
+            $queryTabel->whereYear('tanggal', now()->year);
+
+            break;
+
+        case 'semua':
+
+            // tidak difilter
+
+            break;
+
+        default:
+
+            $queryTabel->whereDate('tanggal', today());
+
+            break;
+    }
+
+    $presensiRekap = $queryTabel
+        ->orderBy('tanggal', 'desc')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.rekap', compact(
+        'presensiRekap',
+        'periode'
+    ));
 }
 
 public function kelolaPendaftar()

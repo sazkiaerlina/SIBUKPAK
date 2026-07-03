@@ -1,17 +1,26 @@
 <footer class="mt-20 px-4 lg:px-8 mb-6">
 
-    <div class="max-w-7xl mx-auto bg-[#043277] rounded-2xl border-2 border-[#0D3D88] p-8">
+    <div class="max-w-7xl mx-auto bg-[#043277] rounded-2xl border-2 border-[#0D3D88] p-10">
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
 
             <!-- ================= LEFT ================= -->
             <div>
 
+
                 <!-- Logo -->
-                <img
-                    src="{{ asset('assets/images/bps-logo.png') }}"
-                    alt="Logo BPS"
-                    class="w-72 mb-6">
+                    <div style="
+                        width:500px;
+                        position:relative;
+                        top:-20px;
+                        left: -20px;">
+
+                        <img
+                            src="{{ asset('assets/images/bps-logo-putih.png') }}"
+                            alt="Logo BPS">
+
+                    </div>
+                    
 
                 <h2 class="text-white text-3xl font-bold">
                     SIBUKPAK
