@@ -6,13 +6,18 @@
     Rekap Presensi
 </h3>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+{{-- batas filter --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h5 class="mb-0">
-        Data Presensi
-    </h5>
+        <a href="{{ route('rekap.export', request()->query()) }}"
+            class="btn btn-success ">
 
-    <form method="GET" action="{{ url('/admin/rekap') }}">
+                Export CSV
+
+        </a>
+
+
+    <form method="GET" action="{{ url('/admin/rekap') }}" class="d-flex gap-2">
 
         <select
             name="periode"
@@ -44,6 +49,16 @@
                 Tahun Ini
             </option>
 
+            <option value="custom"
+            {{ $periode=='custom' ? 'selected' : '' }}>
+                Pilih Bulan & Tahun
+            </option>
+
+            <option value="tanggal"
+            {{ $periode=='tanggal' ? 'selected' : '' }}>
+                Tanggal Tertentu
+            </option>
+
             <option value="semua"
             {{ $periode=='semua' ? 'selected' : '' }}>
                 Semua Data
@@ -51,9 +66,59 @@
 
         </select>
 
+        @if($periode == 'custom')
+
+            <select
+                name="bulan"
+                class="form-select"
+                onchange="this.form.submit()">
+
+                @php
+                    $namaBulan = [
+                        1=>'Januari', 2=>'Februari', 3=>'Maret', 4=>'April',
+                        5=>'Mei', 6=>'Juni', 7=>'Juli', 8=>'Agustus',
+                        9=>'September', 10=>'Oktober', 11=>'November', 12=>'Desember'
+                    ];
+                @endphp
+
+                @foreach($namaBulan as $angka => $nama)
+                    <option value="{{ $angka }}" {{ $bulan == $angka ? 'selected' : '' }}>
+                        {{ $nama }}
+                    </option>
+                @endforeach
+
+            </select>
+
+            <select
+                name="tahun"
+                class="form-select"
+                onchange="this.form.submit()">
+
+                @for($i = now()->year; $i >= now()->year - 5; $i--)
+                    <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
+                        {{ $i }}
+                    </option>
+                @endfor
+
+            </select>
+
+        @endif
+
+        @if($periode == 'tanggal')
+
+            <input
+                type="date"
+                name="tanggal_pilih"
+                value="{{ $tanggalPilih }}"
+                class="form-control"
+                onchange="this.form.submit()">
+
+        @endif
+
     </form>
 
 </div>
+{{-- batas filter --}}
 
 <div class="card card-dashboard mt-4">
 

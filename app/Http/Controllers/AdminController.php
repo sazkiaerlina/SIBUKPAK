@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Presensi;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 
 class AdminController extends Controller
 {
@@ -173,6 +175,9 @@ public function hapusMahasiswa($id)
   public function rekap(Request $request)
 {
     $periode = $request->periode ?? 'hari_ini';
+    $bulan   = $request->bulan ?? now()->month;
+    $tahun   = $request->tahun ?? now()->year;
+    $tanggalPilih = $request->tanggal_pilih ?? today()->format('Y-m-d');
 
     $queryTabel = Presensi::with('mahasiswa.user');
 
@@ -203,6 +208,19 @@ public function hapusMahasiswa($id)
 
             break;
 
+        case 'custom':
+
+            $queryTabel->whereMonth('tanggal', $bulan)
+                       ->whereYear('tanggal', $tahun);
+
+            break;
+
+        case 'tanggal':
+
+            $queryTabel->whereDate('tanggal', $tanggalPilih);
+
+            break;
+
         case 'semua':
 
             // tidak difilter
@@ -223,9 +241,107 @@ public function hapusMahasiswa($id)
 
     return view('admin.rekap', compact(
         'presensiRekap',
-        'periode'
+        'periode',
+        'bulan',
+        'tahun',
+        'tanggalPilih'
     ));
 }
+
+
+public function export(Request $request)
+{
+    $periode = $request->periode ?? 'hari_ini';
+    $bulan   = $request->bulan ?? now()->month;
+    $tahun   = $request->tahun ?? now()->year;
+    $tanggalPilih = $request->tanggal_pilih ?? today()->format('Y-m-d');
+
+    $query = Presensi::with('mahasiswa.user');
+
+    switch ($periode) {
+
+        case '7_hari':
+            $query->whereDate('tanggal', '>=', now()->subDays(6));
+            break;
+
+        case '30_hari':
+            $query->whereDate('tanggal', '>=', now()->subDays(29));
+            break;
+
+        case 'bulan':
+            $query->whereMonth('tanggal', now()->month)
+                  ->whereYear('tanggal', now()->year);
+            break;
+
+        case 'tahun':
+            $query->whereYear('tanggal', now()->year);
+            break;
+
+        case 'custom':
+            $query->whereMonth('tanggal', $bulan)
+                  ->whereYear('tanggal', $tahun);
+            break;
+
+        case 'tanggal':
+            $query->whereDate('tanggal', $tanggalPilih);
+            break;
+
+        case 'semua':
+            // tidak difilter
+            break;
+
+        default:
+            $query->whereDate('tanggal', today());
+            break;
+    }
+
+    $data = $query->orderBy('tanggal', 'desc')->get();
+
+    $response = new StreamedResponse(function () use ($data) {
+
+        $handle = fopen('php://output', 'w');
+
+        // Header CSV
+        fputcsv($handle, [
+            'No',
+            'Nama Mahasiswa',
+            'Tanggal',
+            'Jam Masuk',
+            'Jam Pulang',
+            'Status'
+        ]);
+
+        $no = 1;
+
+        foreach ($data as $item) {
+
+            fputcsv($handle, [
+                $no++,
+                $item->mahasiswa->user->name,
+                $item->tanggal,
+                $item->jam_masuk,
+                $item->jam_pulang,
+                $item->status
+            ]);
+
+        }
+
+        fclose($handle);
+    });
+
+    $filename = 'rekap_presensi_' . now()->format('Ymd_His') . '.csv';
+
+    $response->headers->set('Content-Type', 'text/csv');
+    $response->headers->set(
+        'Content-Disposition',
+        'attachment; filename="'.$filename.'"'
+    );
+
+    return $response;
+}
+
+
+
 
 public function kelolaPendaftar()
 {

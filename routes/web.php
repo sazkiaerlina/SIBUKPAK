@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 
+
 Route::get('/', function () {
     return view('landing');
 })->name('home');
@@ -43,6 +44,9 @@ Route::get('/admin/mahasiswa/{id}/edit', [AdminController::class,'editmahasiswa'
 Route::put('/admin/mahasiswa/{id}', [AdminController::class,'updatemahasiswa']);
 
 Route::get('/admin/rekap', [AdminController::class, 'rekap']);
+
+Route::get('/admin/rekap/export', [AdminController::class, 'export'])
+    ->name('rekap.export');
 
 Route::delete('/admin/mahasiswa/{id}', [AdminController::class, 'hapusmahasiswa']);
 
