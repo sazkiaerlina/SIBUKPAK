@@ -101,13 +101,26 @@ public function home(Request $request)
 }
 
 
-public function mahasiswa()
 
+public function mahasiswa(Request $request)
 {
-    $mahasiswas = Mahasiswa::with('user')->get();
+    $keyword = $request->keyword;
 
-return view('admin.mahasiswa', compact('mahasiswas'));
+    $mahasiswas = Mahasiswa::with('user')
+        ->when($keyword, function ($query) use ($keyword) {
+
+            $query->where('nim', 'like', "%{$keyword}%")
+                  ->orWhereHas('user', function ($q) use ($keyword) {
+                      $q->where('name', 'like', "%{$keyword}%");
+                  });
+
+        })
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.mahasiswa', compact('mahasiswas', 'keyword'));
 }
+
 
 public function detailMahasiswa($id)
 {
@@ -123,7 +136,8 @@ public function editMahasiswa($id)
 return view('admin.edit-mahasiswa', compact('mahasiswa'));
 }
 
-public function updateMahasiswa(Request $request,$id)
+
+public function updateMahasiswa(Request $request, $id)
 {
     $request->validate([
         'name' => 'required|max:100',
@@ -139,23 +153,23 @@ public function updateMahasiswa(Request $request,$id)
 
     $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
 
-    // Update tabel users
     $mahasiswa->user->update([
         'name' => $request->name,
         'email' => $request->email,
         'is_active' => $request->is_active,
     ]);
 
-    // Update tabel mahasiswas
     $mahasiswa->update([
         'nim' => $request->nim,
         'jurusan' => $request->jurusan,
+        'prodi' => $request->prodi,
+        'fakultas' => $request->fakultas,
         'universitas' => $request->universitas,
         'nomor_hp' => $request->nomor_hp,
         'tanggal_mulai' => $request->tanggal_mulai,
         'tanggal_selesai' => $request->tanggal_selesai,
     ]);
-    
+
     return redirect('/admin/mahasiswa')
             ->with('success', 'Data mahasiswa berhasil diperbarui.');
 }

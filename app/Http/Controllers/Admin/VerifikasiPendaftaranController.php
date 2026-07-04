@@ -12,15 +12,24 @@ class VerifikasiPendaftaranController extends Controller
      * Daftar semua pendaftaran yang menunggu verifikasi.
      * Kalau kelompok, cukup tampilkan baris milik ketua saja (biar tidak dobel).
      */
-    public function index()
-    {
-        $pendaftaran = Mahasiswa::with('user')
-            ->where('peran_kelompok', '!=', 'anggota')
-            ->latest()
-            ->paginate(20);
 
-        return view('admin.verifikasi.index', compact('pendaftaran'));
-    }
+
+    public function index(Request $request) 
+    {
+        $keyword = $request->keyword;
+        $pendaftaran = Mahasiswa::with('user') 
+        ->where('peran_kelompok', '!=', 'anggota') 
+        ->when($keyword, function ($query) use ($keyword) {
+
+        $query ->WhereHas('user', function ($q) use ($keyword) { 
+            $q->where('name', 'like', "%{$keyword}%"); });
+
+            }) 
+            ->orderBy('created_at', 'desc') 
+            ->paginate(10) 
+            ->withQueryString();
+
+            return view('admin.verifikasi.index', compact('pendaftaran', 'keyword')); }
 
     public function show(Mahasiswa $mahasiswa)
     {

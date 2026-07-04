@@ -8,6 +8,17 @@ Edit Biodata Mahasiswa
 
 </h3>
 
+@if($errors->any())
+<div class="alert alert-danger">
+    <strong>❌ Gagal menyimpan, periksa kembali:</strong>
+    <ul class="mb-0 mt-2">
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 <div class="card card-dashboard">
 
 <div class="card-body">
@@ -65,6 +76,42 @@ value="{{ old('jurusan', $mahasiswa->jurusan) }}">
 
 </div>
 
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Prodi
+
+</label>
+
+<input
+type="text"
+name="prodi"
+class="form-control"
+value="{{ old('prodi', $mahasiswa->prodi) }}">
+
+</div>
+
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Fakultas
+
+</label>
+
+<input
+type="text"
+name="fakultas"
+class="form-control"
+value="{{ old('fakultas', $mahasiswa->fakultas) }}">
+
+</div>
+
+
+
 <div class="mb-3">
 
 <label class="form-label">
@@ -109,7 +156,7 @@ Tanggal Mulai
 type="date"
 name="tanggal_mulai"
 class="form-control"
-value="{{ old('tanggal_mulai', $mahasiswa->tanggal_mulai) }}">
+value="{{ old('tanggal_mulai', optional($mahasiswa->tanggal_mulai)->format('Y-m-d')) }}">
 
 </div>
 
@@ -125,7 +172,7 @@ Tanggal Selesai
 type="date"
 name="tanggal_selesai"
 class="form-control"
-value="{{ old('tanggal_selesai', $mahasiswa->tanggal_selesai) }}">
+value="{{ old('tanggal_selesai', optional($mahasiswa->tanggal_selesai)->format('Y-m-d')) }}">
 
 </div>
 
@@ -158,14 +205,14 @@ name="is_active"
 class="form-select">
 
 <option value="1"
-{{ $mahasiswa->user->is_active ? 'selected' : '' }}>
+{{ old('is_active', $mahasiswa->user->is_active) == 1 ? 'selected' : '' }}>
 
 Aktif
 
 </option>
 
 <option value="0"
-{{ !$mahasiswa->user->is_active ? 'selected' : '' }}>
+{{ old('is_active', $mahasiswa->user->is_active) == 0 ? 'selected' : '' }}>
 
 Tidak Aktif
 
@@ -197,6 +244,3 @@ Simpan
 </div>
 
 @endsection
-
-
-

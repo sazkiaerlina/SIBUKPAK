@@ -6,6 +6,27 @@
     Kelola Pendaftar
 </h3>
 
+<div class="row mb-3"> 
+    <div class="col-md-5">
+        <form method="GET" action="{{ route('admin.verifikasi.index') }}">
+
+            <div class="input-group">
+                <input 
+                type="text" 
+                name="keyword" 
+                class="form-control" 
+                placeholder="Cari nama" 
+                value="{{ request('keyword') }}">
+
+            <button class="btn btn-primary"> Cari 
+
+            </button>
+            </div> 
+        </form> 
+    </div>
+ </div>
+
+
 @if(session('success'))
 <div class="alert alert-success">
     {{ session('success') }}

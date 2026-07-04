@@ -16,6 +16,35 @@
     Data mahasiswa
 </h1>
 
+
+<div class="row mb-3">
+
+    <div class="col-md-5">
+
+        <form method="GET" action="{{ route('admin.mahasiswa.index') }}">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="keyword"
+                    class="form-control"
+                    placeholder="Cari nama atau NIM..."
+                    value="{{ request('keyword') }}">
+
+                <button class="btn btn-primary">
+                    Cari
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
 <div class="card card-dashboard">
 
     <div class="card-body">
@@ -46,7 +75,7 @@
 
                 <tr>
 
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ ($mahasiswas->currentPage()-1) * $mahasiswas->perPage() + $loop->iteration }}</td>
 
                     <td>{{ $item->nim }}</td>
 
@@ -111,6 +140,13 @@ class="d-inline form-hapus">
 
         </table>
 
+        <div class="d-flex justify-content-end mt-3">
+
+    {{ $mahasiswas->links() }}
+
+        </div>
+
+        
     </div>
 
 </div>

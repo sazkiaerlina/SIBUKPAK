@@ -28,6 +28,16 @@
             </tr>
 
             <tr>
+                <th>Prodi</th>
+                <td>{{ $mahasiswa->prodi }}</td>
+            </tr>
+
+             <tr>
+                <th>Fakultas</th>
+                <td>{{ $mahasiswa->fakultas }}</td>
+            </tr>
+
+            <tr>
                 <th>Universitas</th>
                 <td>{{ $mahasiswa->universitas }}</td>
             </tr>
