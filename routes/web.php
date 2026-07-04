@@ -2,51 +2,62 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\VerifikasiPendaftaranController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\Mahasiswa\DashboardController;
 
-
+// ── Halaman Utama ────────────────────────────────────────
 Route::get('/', function () {
     return view('landing');
 })->name('home');
 
-// Menampilkan halaman login
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// ── Autentikasi (Login & Register) ───────────────────────
+// Hanya bisa diakses TAMU (belum login). Kalau sudah login,
+// otomatis dilempar ke redirectPath() lewat RedirectIfAuthenticated.
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.post');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
+});
 
+// Logout hanya untuk yang sudah login
+Route::post('/logout', [LoginController::class, 'destroy'])
+    ->name('logout')
+    ->middleware('auth');
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+// ── Pendaftaran Magang (Satu Pintu Utama) ────────────────
+// Tidak perlu login untuk mulai daftar
+Route::middleware('auth')->group(function () {
+    Route::get('/daftar', [PendaftaranController::class, 'create'])->name('daftar.create');
+    Route::post('/daftar', [PendaftaranController::class, 'store'])->name('daftar.store');
+    Route::get('/daftar/sukses/{mahasiswa}', [PendaftaranController::class, 'riwayat'])
+    ->name('daftar.sukses');
+});
+// ── Dashboard (khusus user yang sudah disetujui admin) ───
+Route::middleware(['auth', 'approved'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
-Route::get('/create', function () {
-    return view('create');
-})->name('create');
+// ── Area Admin ────────────────────────────────────────────
+Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
 
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.post');
+    Route::get('/home', [AdminController::class, 'home'])->name('home');
+    Route::get('/kelola-pendaftar', [AdminController::class, 'kelolaPendaftar'])->name('kelola-pendaftar');
+    Route::get('/sertifikat', [AdminController::class, 'sertifikat'])->name('sertifikat');
+    Route::get('/rekap', [AdminController::class, 'rekap'])->name('rekap');
 
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::get('/mahasiswa', [AdminController::class, 'mahasiswa'])->name('mahasiswa.index');
+    Route::get('/mahasiswa/{id}', [AdminController::class, 'detailmahasiswa'])->name('mahasiswa.show');
+    Route::get('/mahasiswa/{id}/edit', [AdminController::class, 'editmahasiswa'])->name('mahasiswa.edit');
+    Route::put('/mahasiswa/{id}', [AdminController::class, 'updatemahasiswa'])->name('mahasiswa.update');
+    Route::delete('/mahasiswa/{id}', [AdminController::class, 'hapusmahasiswa'])->name('mahasiswa.destroy');
 
-Route::get('/admin/home', [AdminController::class, 'home']);
-
-Route::get('/admin/mahasiswa', [AdminController::class, 'mahasiswa']);
-
-Route::get('/admin/kelola-pendaftar', [AdminController::class, 'kelolaPendaftar']);
-
-Route::get('/admin/sertifikat', [AdminController::class, 'sertifikat']);
-
-Route::get('/admin/mahasiswa/{id}', [AdminController::class, 'detailmahasiswa']);
-
-Route::get('/admin/mahasiswa/{id}/edit', [AdminController::class,'editmahasiswa']);
-
-Route::put('/admin/mahasiswa/{id}', [AdminController::class,'updatemahasiswa']);
-
-Route::get('/admin/rekap', [AdminController::class, 'rekap']);
-
-Route::get('/admin/rekap/export', [AdminController::class, 'export'])
-    ->name('rekap.export');
-
-Route::delete('/admin/mahasiswa/{id}', [AdminController::class, 'hapusmahasiswa']);
-
+    Route::get('/verifikasi', [VerifikasiPendaftaranController::class, 'index'])->name('verifikasi.index');
+    Route::get('/verifikasi/{mahasiswa}', [VerifikasiPendaftaranController::class, 'show'])->name('verifikasi.show');
+    Route::patch('/verifikasi/{mahasiswa}/approve', [VerifikasiPendaftaranController::class, 'approve'])->name('verifikasi.approve');
+    Route::patch('/verifikasi/{mahasiswa}/reject', [VerifikasiPendaftaranController::class, 'reject'])->name('verifikasi.reject');
+});

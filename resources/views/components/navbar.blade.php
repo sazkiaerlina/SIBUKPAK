@@ -56,7 +56,7 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6
                 <li>
 
                     <a
-                        href="/login"
+                        href="{{ route('login') }}"
                         class="inline-block bg-white text-[#043277] px-5 py-2 rounded-lg">
 
                         Login

@@ -11,7 +11,7 @@
         tambahAnggota() {
             this.anggota.push({
                 nama: '', email: '', nim: '', whatsapp: '',
-                jenis_kelamin: '', instansi: '', jenis_instansi: '',
+                jenis_kelamin: '', instansi: '',
                 fakultas: '', prodi: '', jurusan: '',
                 kelas: '', kompetensi_keahlian: ''
             });
@@ -159,10 +159,10 @@
                         <input
                             type="text"
                             name="nama"
-                            value="{{ old('nama') }}"
-                            placeholder="Masukkan nama lengkap sesuai identitas"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                focus:outline-none focus:ring-2 focus:ring-[#043277] transition
+                            value="{{ old('nama', auth()->user()->name) }}"
+                            readonly
+                            class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-sm text-gray-600
+                                cursor-not-allowed
                                 @error('nama') border-red-400 bg-red-50 @enderror"
                         >
                         @error('nama') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
@@ -236,171 +236,165 @@
                         Muncul jika jenisInstansi = perguruan_tinggi
                         (dipilih dari dropdown di seksi Informasi Permohonan)
                     ════════════════════════════════════════════ --}}
-                    <div
-                        x-show="jenisInstansi === 'perguruan_tinggi'"
-                        x-transition
-                        x-cloak
-                        class="space-y-4"
-                    >
-                        <p class="text-xs font-semibold text-[#043277] flex items-center gap-1">
-                            🎓 Data Perguruan Tinggi
-                        </p>
+                    <template x-if="jenisInstansi === 'perguruan_tinggi'">
+                        <div class="space-y-4">
+                            <p class="text-xs font-semibold text-[#043277] flex items-center gap-1">
+                                🎓 Data Perguruan Tinggi
+                            </p>
 
-                        {{-- NIM --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                NIM <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="nim"
-                                value="{{ old('nim') }}"
-                                placeholder="Nomor Induk Mahasiswa"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition
-                                    @error('nim') border-red-400 bg-red-50 @enderror"
-                            >
-                            @error('nim') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- NIM --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    NIM <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="nim"
+                                    value="{{ old('nim') }}"
+                                    placeholder="Nomor Induk Mahasiswa"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition
+                                        @error('nim') border-red-400 bg-red-50 @enderror"
+                                >
+                                @error('nim') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Fakultas --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Fakultas <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="fakultas"
-                                value="{{ old('fakultas') }}"
-                                placeholder="Contoh: Fakultas Teknik"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                            @error('fakultas') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- Fakultas --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Fakultas <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="fakultas"
+                                    value="{{ old('fakultas') }}"
+                                    placeholder="Contoh: Fakultas Teknik"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                @error('fakultas') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Program Studi --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Program Studi <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="prodi"
-                                value="{{ old('prodi') }}"
-                                placeholder="Contoh: S1 Teknik Informatika"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                            @error('prodi') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- Program Studi --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Program Studi <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="prodi"
+                                    value="{{ old('prodi') }}"
+                                    placeholder="Contoh: S1 Teknik Informatika"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                @error('prodi') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Jurusan --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Jurusan <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="jurusan"
-                                value="{{ old('jurusan') }}"
-                                placeholder="Contoh: Teknik Informatika"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                            @error('jurusan') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            {{-- Jurusan --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Jurusan <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="jurusan"
+                                    value="{{ old('jurusan') }}"
+                                    placeholder="Contoh: Teknik Informatika"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                @error('jurusan') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
                         </div>
-                    </div>
+                    </template>
 
                     {{-- ════════════════════════════════════════════
                         FIELD SMK
                         Muncul jika jenisInstansi = smk
                         (dipilih dari dropdown di seksi Informasi Permohonan)
                     ════════════════════════════════════════════ --}}
-                    <div
-                        x-show="jenisInstansi === 'smk'"
-                        x-transition
-                        x-cloak
-                        class="space-y-4"
-                    >
-                        <p class="text-xs font-semibold text-orange-600 flex items-center gap-1">
-                            🏫 Data SMK
-                        </p>
+                    <template x-if="jenisInstansi === 'smk'">
+                        <div class="space-y-4">
+                            <p class="text-xs font-semibold text-orange-600 flex items-center gap-1">
+                                🏫 Data SMK
+                            </p>
 
-                        {{-- NISN --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                NISN <span class="text-red-500">*</span>
-                                <span class="font-normal text-gray-400 text-xs">(Nomor Induk Siswa Nasional)</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="nim"
-                                value="{{ old('nim') }}"
-                                placeholder="10 digit NISN"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition
-                                    @error('nim') border-red-400 bg-red-50 @enderror"
-                            >
-                            @error('nim') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- NISN --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    NISN <span class="text-red-500">*</span>
+                                    <span class="font-normal text-gray-400 text-xs">(Nomor Induk Siswa Nasional)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="nim"
+                                    value="{{ old('nim') }}"
+                                    placeholder="10 digit NISN"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition
+                                        @error('nim') border-red-400 bg-red-50 @enderror"
+                                >
+                                @error('nim') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Kelas --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Kelas <span class="text-red-500">*</span>
-                            </label>
-                            <select
-                                name="kelas"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                                <option value="">-- Pilih Kelas --</option>
-                                <option value="X"   {{ old('kelas') === 'X'   ? 'selected' : '' }}>Kelas X (10)</option>
-                                <option value="XI"  {{ old('kelas') === 'XI'  ? 'selected' : '' }}>Kelas XI (11)</option>
-                                <option value="XII" {{ old('kelas') === 'XII' ? 'selected' : '' }}>Kelas XII (12)</option>
-                            </select>
-                            @error('kelas') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- Kelas --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Kelas <span class="text-red-500">*</span>
+                                </label>
+                                <select
+                                    name="kelas"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <option value="X"   {{ old('kelas') === 'X'   ? 'selected' : '' }}>Kelas X (10)</option>
+                                    <option value="XI"  {{ old('kelas') === 'XI'  ? 'selected' : '' }}>Kelas XI (11)</option>
+                                    <option value="XII" {{ old('kelas') === 'XII' ? 'selected' : '' }}>Kelas XII (12)</option>
+                                </select>
+                                @error('kelas') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Kompetensi Keahlian --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Kompetensi Keahlian <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="kompetensi_keahlian"
-                                value="{{ old('kompetensi_keahlian') }}"
-                                placeholder="Contoh: Teknik Komputer dan Jaringan"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                            @error('kompetensi_keahlian') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                            {{-- Kompetensi Keahlian --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Kompetensi Keahlian <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="kompetensi_keahlian"
+                                    value="{{ old('kompetensi_keahlian') }}"
+                                    placeholder="Contoh: Teknik Komputer dan Jaringan"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                @error('kompetensi_keahlian') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
 
-                        {{-- Jurusan SMK --}}
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                Jurusan <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                name="jurusan"
-                                value="{{ old('jurusan') }}"
-                                placeholder="Contoh: Teknik Informatika"
-                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                            >
-                            @error('jurusan') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            {{-- Jurusan SMK --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                    Jurusan <span class="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="jurusan"
+                                    value="{{ old('jurusan') }}"
+                                    placeholder="Contoh: Teknik Informatika"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
+                                >
+                                @error('jurusan') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            </div>
                         </div>
-                    </div>
+                    </template>
 
                     {{-- ─── EMAIL ──────────────────────────────────── --}}
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1.5">
                             Email <span class="text-red-500">*</span>
-                            <span class="font-normal text-gray-400 text-xs">(untuk login)</span>
+                            <span class="font-normal text-gray-400 text-xs">(sesuai akun login)</span>
                         </label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -412,10 +406,10 @@
                             <input
                                 type="email"
                                 name="email"
-                                value="{{ old('email') }}"
-                                placeholder="Contoh@gmail.com"
-                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition
+                                value="{{ old('email', auth()->user()->email) }}"
+                                readonly
+                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 bg-gray-100 text-sm text-gray-600
+                                    cursor-not-allowed
                                     @error('email') border-red-400 bg-red-50 @enderror"
                             >
                         </div>
@@ -443,38 +437,7 @@
                             >
                         </div>
                         @error('whatsapp') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                    </div>
-
-                    {{-- ─── PASSWORD ────────────────────────────────── --}}
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Password <span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Minimal 8 karakter"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                focus:outline-none focus:ring-2 focus:ring-[#043277] transition
-                                @error('password') border-red-400 bg-red-50 @enderror"
-                        >
-                        @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                    </div>
-
-                    {{-- ─── KONFIRMASI PASSWORD ─────────────────────── --}}
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Konfirmasi Password <span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="password"
-                            name="password_confirmation"
-                            placeholder="Ulangi password"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                focus:outline-none focus:ring-2 focus:ring-[#043277] transition"
-                        >
-                    </div>
-
+                    </div>    
                 </div>
             </div>
 
@@ -541,7 +504,7 @@
 
                             {{-- Field Anggota --}}
                             <div class="p-6 space-y-4">
-
+                            <input type="hidden" :name="'anggota[' + index + '][jenis_instansi]'" :value="jenisInstansi">
                                 {{-- Nama --}}
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-1.5">
@@ -576,92 +539,80 @@
                                                 focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
                                 </div>
 
-                                {{-- Jenis Instansi Anggota (dropdown, konsisten dgn seksi atas) --}}
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                        Jenis Instansi <span class="text-red-500">*</span>
-                                    </label>
-                                    <select :name="'anggota[' + index + '][jenis_instansi]'" x-model="item.jenis_instansi"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                                focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                        <option value="">-- Pilih Jenis Instansi --</option>
-                                        <option value="perguruan_tinggi">🎓 Perguruan Tinggi</option>
-                                        <option value="smk">🏫 SMK</option>
-                                    </select>
-                                </div>
-
                                 {{-- Field Perguruan Tinggi --}}
-                                <div x-show="item.jenis_instansi === 'perguruan_tinggi'" x-transition
-                                    class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">NIM <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][nim]'" x-model="item.nim"
-                                            placeholder="Nomor Induk Mahasiswa"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                <template x-if="jenisInstansi === 'perguruan_tinggi'">                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">NIM <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][nim]'" x-model="item.nim"
+                                                placeholder="Nomor Induk Mahasiswa"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Fakultas <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][fakultas]'" x-model="item.fakultas"
+                                                placeholder="Contoh: Fakultas Teknik"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Program Studi <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][prodi]'" x-model="item.prodi"
+                                                placeholder="Contoh: S1 Teknik Informatika"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Jurusan <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][jurusan]'" x-model="item.jurusan"
+                                                placeholder="Contoh: Teknik Informatika"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Fakultas <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][fakultas]'" x-model="item.fakultas"
-                                            placeholder="Contoh: Fakultas Teknik"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Program Studi <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][prodi]'" x-model="item.prodi"
-                                            placeholder="Contoh: S1 Teknik Informatika"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Jurusan <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][jurusan]'" x-model="item.jurusan"
-                                            placeholder="Contoh: Teknik Informatika"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                    </div>
-                                </div>
+                                </template>
 
                                 {{-- Field SMK --}}
-                                <div x-show="item.jenis_instansi === 'smk'" x-transition
-                                    class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                                            NISN <span class="text-red-500">*</span>
-                                            <span class="font-normal text-gray-400 text-xs">(password default = NISN ini)</span>
-                                        </label>
-                                        <input type="text" :name="'anggota[' + index + '][nim]'" x-model="item.nim"
-                                            placeholder="10 digit NISN"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                <template x-if="jenisInstansi === 'smk'"> 
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                                                NISN <span class="text-red-500">*</span>
+                                                <span class="font-normal text-gray-400 text-xs">(password default = NISN ini)</span>
+                                            </label>
+                                            <input type="text" :name="'anggota[' + index + '][nim]'" x-model="item.nim"
+                                                placeholder="10 digit NISN"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Kelas <span class="text-red-500">*</span></label>
+                                            <select :name="'anggota[' + index + '][kelas]'" x-model="item.kelas"
+                                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                                <option value="">-- Pilih Kelas --</option>
+                                                <option value="X">Kelas X (10)</option>
+                                                <option value="XI">Kelas XI (11)</option>
+                                                <option value="XII">Kelas XII (12)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Kompetensi Keahlian <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][kompetensi_keahlian]'" x-model="item.kompetensi_keahlian"
+                                                placeholder="Contoh: Teknik Komputer dan Jaringan"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Jurusan <span class="text-red-500">*</span></label>
+                                            <input type="text" :name="'anggota[' + index + '][jurusan]'" x-model="item.jurusan"
+                                                placeholder="Contoh: Teknik Informatika"
+                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Kelas <span class="text-red-500">*</span></label>
-                                        <select :name="'anggota[' + index + '][kelas]'" x-model="item.kelas"
-                                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                            <option value="">-- Pilih Kelas --</option>
-                                            <option value="X">Kelas X (10)</option>
-                                            <option value="XI">Kelas XI (11)</option>
-                                            <option value="XII">Kelas XII (12)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Kompetensi Keahlian <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][kompetensi_keahlian]'" x-model="item.kompetensi_keahlian"
-                                            placeholder="Contoh: Teknik Komputer dan Jaringan"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Jurusan <span class="text-red-500">*</span></label>
-                                        <input type="text" :name="'anggota[' + index + '][jurusan]'" x-model="item.jurusan"
-                                            placeholder="Contoh: Teknik Informatika"
-                                            class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm
-                                                    focus:outline-none focus:ring-2 focus:ring-[#043277] transition">
-                                    </div>
-                                </div>
+                                </template>
 
                                 {{-- Email --}}
                                 <div>
@@ -833,7 +784,7 @@
                 x-show="kategori !== '' && jenisInstansi !== ''"
                 x-transition
                 x-cloak
-                class="sticky bottom-0 px-6 py-4 pb-8"
+                class="bottom-0 px-6 py-4 pb-8"
             >
 
                 <button

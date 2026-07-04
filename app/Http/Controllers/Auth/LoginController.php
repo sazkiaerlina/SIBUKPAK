@@ -3,57 +3,47 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    public function create()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function store(Request $request)
     {
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
-            'password' => ['required'],
-        ], [
-            'email.required'    => 'Email wajib diisi.',
-            'email.email'       => 'Format email tidak valid.',
-            'password.required' => 'Password wajib diisi.',
+            'password' => ['required', 'string'],
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
-
-            // TAMBAHKAN BARIS INI: Memberi tahu VS Code bahwa ini adalah Model User kita
-            /** @var \App\Models\User $user */
-            $user = Auth::user();
-
-            if (!$user->is_active) {
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Akun Anda telah dinonaktifkan.',
-                ]);
-            }
-
-            return $user->isAdmin()
-                ? redirect()->intended(route('admin.dashboard'))
-                : redirect()->intended(route('mahasiswa.dashboard'));
+        if (! Auth::validate($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => 'Email atau password salah.',
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password yang Anda masukkan salah.',
-        ])->onlyInput('email');
+        $user = User::where('email', $credentials['email'])->first();
+
+        // Semua status boleh login (tidak ada Auth::logout paksa di sini)
+        Auth::login($user, $request->boolean('remember'));
+        $request->session()->regenerate();
+
+    
+        return redirect()->intended($user->redirectPath());
     }
 
-    public function logout(Request $request)
+    public function destroy(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login')
-                         ->with('success', 'Anda berhasil logout.');
+
+        return redirect('/');
     }
 }

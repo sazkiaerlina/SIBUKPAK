@@ -145,10 +145,13 @@
 
                 <!-- Logout -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-box-arrow-right"></i>
-                        Logout
-                    </a>
+                   <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="nav-link btn btn-link text-white" style="text-decoration: none; border: none; padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+                        </button>
+                    </form>
                 </li>
 
             </ul>

@@ -109,40 +109,40 @@
 
                
                 <!-- Password -->
-                    <div class="relative mb-5">
+                <div class="relative mb-5">
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                autocomplete="new-password"
-                placeholder="Password"
-                required
-                class="w-full rounded-full border border-gray-300 px-5 py-3 pr-14 focus:border-[#043277] focus:ring-[#043277]">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="new-password"
+                        placeholder="Password"
+                        required
+                        class="w-full rounded-full border border-gray-300 px-5 py-3 pr-14 focus:border-[#043277] focus:ring-[#043277]">
 
-            <button
-                type="button"
-                onclick="togglePassword('password','iconPassword')"
-                class="absolute right-4 top-1/2 -translate-y-[50%]">
+                    <button
+                        type="button"
+                        onclick="togglePassword('password','iconPassword')"
+                        class="absolute right-4 top-1/2 translate-y-[50%]">
 
-                <img
-                    id="iconPassword"
-                    src="{{ asset('assets/images/hidden.png') }}"
-                    class="w-6 h-6">
+                        <img
+                            id="iconPassword"
+                            src="{{ asset('assets/images/hidden.png') }}"
+                            class="w-6 h-6">
 
-            </button>
+                    </button>
 
-           @error('password')
-                <p class="absolute left-2 top-full mt-1 text-[10px] text-red-500">
-                    {{ $message }}
-                </p>
-            @enderror
+                @error('password')
+                        <p class="absolute left-2 top-full mt-1 text-[10px] text-red-500">
+                            {{ $message }}
+                        </p>
+                    @enderror
 
-        </div>
+                </div>
   
 
                 <!-- Konfirmasi Password -->
-              <div class="relative mb-10">
+                <div class="relative mb-10">
 
                     <input
                         type="password"
@@ -171,7 +171,7 @@
                 Sudah punya akun?
 
                 <a
-                    href="{{ route('login') }}"
+                    href="{{ route('daftar.create') }}"
                     class="font-semibold text-[#043277] hover:underline">
 
                     Masuk
