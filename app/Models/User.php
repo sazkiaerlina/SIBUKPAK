@@ -79,6 +79,6 @@ class User extends Authenticatable
         }
 
         // Lolos semua -> dashboard
-        return route('dashboard');
+        return route('mahasiswa.dashboard');
     }
 }

@@ -7,6 +7,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\Mahasiswa\DashboardController;
+use App\Http\Controllers\Mahasiswa\PresensiController;
+use App\Http\Controllers\Mahasiswa\LaporanController;
+use App\Http\Controllers\Mahasiswa\ProfilController;
+ 
 
 // ── Halaman Utama ────────────────────────────────────────
 Route::get('/', function () {
@@ -37,10 +41,37 @@ Route::middleware('auth')->group(function () {
     Route::get('/daftar/sukses/{mahasiswa}', [PendaftaranController::class, 'riwayat'])
     ->name('daftar.sukses');
 });
-// ── Dashboard (khusus user yang sudah disetujui admin) ───
-Route::middleware(['auth', 'approved'])->group(function () {
+
+// ══════════════════════════════════════════════════════════════
+//  AREA MAHASISWA — wajib login DAN sudah disetujui admin
+//  (middleware 'approved' menolak akses kalau status masih pending)
+// ══════════════════════════════════════════════════════════════
+Route::middleware(['auth', 'approved'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+ 
+    // ── Dashboard ──────────────────────────────────────────
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+ 
+    // ── Presensi (absen masuk/pulang) ─────────────────────
+    Route::post('/absen/masuk', [PresensiController::class, 'absenMasuk'])->name('absen.masuk');
+    Route::post('/absen/pulang', [PresensiController::class, 'absenPulang'])->name('absen.pulang');
+ 
+    // ── Ketidakhadiran (izin/sakit) ────────────────────────
+    Route::get('/ketidakhadiran', [PresensiController::class, 'formKetidakhadiran'])->name('ketidakhadiran.form');
+    Route::post('/ketidakhadiran', [PresensiController::class, 'submitKetidakhadiran'])->name('ketidakhadiran.store');
+ 
+    // ── Riwayat Kehadiran ───────────────────────────────────
+    Route::get('/riwayat', [PresensiController::class, 'riwayat'])->name('riwayat');
+ 
+    // ── Laporan & Sertifikat ────────────────────────────────
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.store');
+ 
+    // ── Profil ──────────────────────────────────────────────
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+    Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::put('/profil/password', [ProfilController::class, 'updatePassword'])->name('profil.password');
 });
+
 
 // ── Area Admin ────────────────────────────────────────────
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
