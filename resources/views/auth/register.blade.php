@@ -123,7 +123,7 @@
                     <button
                         type="button"
                         onclick="togglePassword('password','iconPassword')"
-                        class="absolute right-4 top-1/2 translate-y-[50%]">
+                        class="absolute right-4 top-1/2 translate-y-[10%]">
 
                         <img
                             id="iconPassword"

@@ -9,7 +9,7 @@
 {{-- batas filter --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <a href="{{ route('rekap.export', request()->query()) }}"
+        <a href="{{ route('admin.rekap.export', request()->query()) }}"
             class="btn btn-success ">
 
                 Export CSV
