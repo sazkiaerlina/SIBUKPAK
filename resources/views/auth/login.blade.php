@@ -156,7 +156,7 @@
                 Belum punya akun?
 
                 <a
-                    href="{{ route('daftar.create') }}"
+                    href="{{ route('register') }}"
                     class="font-semibold text-[#043277] hover:underline">
 
                     Daftar
