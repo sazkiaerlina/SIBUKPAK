@@ -120,10 +120,10 @@
                         required
                         class="w-full rounded-full border border-gray-300 px-5 py-3 pr-14 focus:border-[#043277] focus:ring-[#043277]">
 
-                    <button
+                   <button
                         type="button"
                         onclick="togglePassword('password','iconPassword')"
-                        class="absolute right-4 top-1/2 translate-y-[10%]">
+                        class="absolute right-4 top-1/2 -translate-y-[50%]">
 
                         <img
                             id="iconPassword"
