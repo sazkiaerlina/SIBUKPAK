@@ -61,7 +61,7 @@
 
                     <th>Nama Mahasiswa</th>
 
-                    <th>Role</th>
+                    <th>Instansi</th>
 
                     <th width="20%">Aksi</th>
 
@@ -81,7 +81,7 @@
 
                     <td>{{ $item->user->name }}</td>
 
-                    <td>{{ ucfirst($item->user->role) }}</td>
+                    <td>{{ ucfirst($item->universitas) }}</td>
 
                     <td>
 
@@ -99,45 +99,35 @@
 
                         </a>
 
-<form
-action="{{ url('/admin/mahasiswa/'.$item->id) }}"
-method="POST"
-class="d-inline form-hapus">
+                        <form
+                        action="{{ url('/admin/mahasiswa/'.$item->id) }}"
+                        method="POST"
+                        class="d-inline form-hapus">
 
-    @csrf
-    @method('DELETE')
+                            @csrf
+                            @method('DELETE')
 
-    <button
-    type="submit"
-    class="btn btn-danger btn-sm">
+                            <button
+                            type="submit"
+                            class="btn btn-danger btn-sm">
 
-        Hapus
+                                Hapus
 
-    </button>
-
-</form>
-
-
-
-
+                            </button>
+                        </form>
                     </td>
-
                 </tr>
 
                 @empty
 
                 <tr>
-
                     <td colspan="5" class="text-center">
                         Belum ada data mahasiswa.
                     </td>
-
                 </tr>
 
                 @endforelse
-
             </tbody>
-
         </table>
 
         <div class="d-flex justify-content-end mt-3">

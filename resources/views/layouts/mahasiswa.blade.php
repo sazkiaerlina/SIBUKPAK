@@ -33,10 +33,10 @@
 <body class="bg-gray-50 min-h-screen">
 
     {{-- Topbar --}}
-    <header class="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
+    <header class="bg-[#043277] text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
 
-            <h1 class="text-base md:text-lg font-bold leading-tight">🎓 Presensi Magang</h1>
+            <h1 class="text-base md:text-lg font-bold leading-tight">SIBUKPAK</h1>
 
             <div class="flex items-center gap-6">
                 {{-- Navigasi 3 Menu (Desktop) --}}
