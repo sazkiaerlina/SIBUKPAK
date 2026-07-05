@@ -83,6 +83,37 @@
                 </td>
             </tr>
 
+            <tr>
+                <th>Laporan Akhir</th>
+                <td>
+                    @if($mahasiswa->laporan_path)
+                        <a href="{{ Storage::url($mahasiswa->laporan_path) }}" target="_blank" class="text-decoration-none">
+                            <i class="bi bi-file-earmark-pdf text-danger"></i> Lihat Laporan
+                        </a>
+                        <span class="text-muted small ms-2">
+                            (diunggah {{ \Carbon\Carbon::parse($mahasiswa->laporan_uploaded_at)->translatedFormat('d M Y') }})
+                        </span>
+                    @else
+                        <span class="badge bg-secondary">Belum unggah</span>
+                    @endif
+                </td>
+            </tr>
+
+            <tr>
+                <th>Sertifikat</th>
+                <td>
+                    @if($mahasiswa->user->certificate && filled($mahasiswa->user->certificate->nomor_surat))
+                        <span class="badge bg-success mb-1">Nomor: {{ $mahasiswa->user->certificate->nomor_surat }}</span>
+                        <br>
+                        <a href="{{ route('admin.laporan.sertifikat.download', $mahasiswa->id) }}" class="btn btn-sm btn-outline-primary mt-1">
+                            <i class="bi bi-download"></i> Download
+                        </a>
+                    @else
+                        <span class="badge bg-secondary">Belum terbit</span>
+                    @endif
+                </td>
+            </tr>
+
         </table>
 
         <a href="{{ url('/admin/mahasiswa') }}" class="btn btn-secondary mt-3">

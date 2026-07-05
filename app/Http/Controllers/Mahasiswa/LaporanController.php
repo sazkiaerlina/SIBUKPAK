@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
+use App\Services\SertifikatService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,5 +31,19 @@ class LaporanController extends Controller
         ]);
 
         return back()->with('success', 'Laporan berhasil diunggah.');
+    }
+
+    /**
+     * Mahasiswa mengunduh sertifikatnya sendiri.
+     * SertifikatService yang menentukan boleh/tidaknya (cek nomor_surat
+     * sudah diisi admin atau belum) — controller ini tidak perlu cek ulang.
+     */
+    public function downloadSertifikat()
+    {
+        $mahasiswa = Auth::user()->mahasiswa;
+
+        $pdf = SertifikatService::generate($mahasiswa);
+
+        return $pdf->download(SertifikatService::namaFile($mahasiswa));
     }
 }

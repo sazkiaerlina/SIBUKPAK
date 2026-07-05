@@ -34,6 +34,8 @@ class Mahasiswa extends Model
         'laporan_path',
         'laporan_uploaded_at',
         'sertifikat_path',
+        'status_laporan',
+        'nomor_surat',
     ];
 
     protected function casts(): array

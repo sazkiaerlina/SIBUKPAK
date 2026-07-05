@@ -1,186 +1,106 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Presensi BPS</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Admin') | BPS Presensi</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-
-/* Rapikan posisi pagination */
-.pagination{
-    margin-top:12px !important;
-}
-
-.pagination .page-link{
-    padding:6px 12px;
-    font-size:14px;
-}
-
-.pagination .page-item{
-    margin-left:10px;
-}
-
-        body{
-            background:#f4f7fc;
-        }
-
-        .navbar-bps{
-            background:#043277;
-        }
-
-        .navbar-bps .navbar-brand,
-        .navbar-bps .nav-link{
-            color:white !important;
-            font-weight:500;
-        }
-
-        .navbar-bps .nav-link:hover{
-            color:#dbeafe !important;
-        }
-
-        .navbar-bps .nav-link.active{
-            font-weight:bold;
-            border-bottom:2px solid white;
-        }
-
-        .card-dashboard{
-            border:none;
-            border-radius:15px;
-            box-shadow:0 3px 10px rgba(0,0,0,.1);
-        }
-
-/* Pagination */
-.pagination{
-    margin-bottom:0;
-}
-
-.pagination .page-link{
-    padding:6px 12px;
-    font-size:14px;
-}
-
-.pagination svg{
-    width:14px;
-    height:14px;
-}
-
+        body { background-color: #f4f6f9; }
+        .navbar-brand { font-weight: 700; }
+        .nav-link.active { font-weight: 600; border-bottom: 2px solid #fff; }
     </style>
-
+    @stack('styles')
 </head>
-
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-bps">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#043277;">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand" href="{{ route('admin.home') }}">🏢 BPS Presensi</a>
 
-    <div class="container-fluid">
-
-        <a class="navbar-brand fw-bold" href="{{ url('/admin/home') }}">
-            BPS Presensi
-        </a>
-
-        <button class="navbar-toggler bg-white"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#menu">
-
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
             <span class="navbar-toggler-icon"></span>
-
         </button>
 
-        <div class="collapse navbar-collapse" id="menu">
-
+        <div class="collapse navbar-collapse" id="navAdmin">
             <ul class="navbar-nav me-auto">
-
-                <!-- Home -->
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/home') ? 'active' : '' }}"
-                       href="{{ url('/admin/home') }}">
-                        <i class="bi bi-house-door"></i>
-                        Home
+                    <a class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}" href="{{ route('admin.home') }}">
+                        <i class="bi bi-house"></i> Home
                     </a>
                 </li>
-
-                <!-- Mahasiswa -->
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/mahasiswa*') ? 'active' : '' }}"
-                       href="{{ url('/admin/mahasiswa') }}">
-                        <i class="bi bi-people"></i>
-                        Mahasiswa
+                    <a class="nav-link {{ request()->routeIs('admin.mahasiswa.*') ? 'active' : '' }}" href="{{ route('admin.mahasiswa.index') }}">
+                        <i class="bi bi-people"></i> Mahasiswa
                     </a>
                 </li>
-
-                <!-- Rekap -->
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/rekap') ? 'active' : '' }}"
-                       href="{{ url('/admin/rekap') }}">
-                        <i class="bi bi-calendar-check"></i>
-                        Rekap Presensi
+                    <a class="nav-link {{ request()->routeIs('admin.rekap') ? 'active' : '' }}" href="{{ route('admin.rekap') }}">
+                        <i class="bi bi-clipboard-check"></i> Rekap Presensi
                     </a>
                 </li>
-
-              <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.verifikasi.*') ? 'active' : '' }}"
-                    href="{{ route('admin.verifikasi.index') }}">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Kelola Pendaftar
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.kelola-pendaftar') || request()->routeIs('admin.verifikasi.*') ? 'active' : '' }}" href="{{ route('admin.kelola-pendaftar') }}">
+                        <i class="bi bi-person-lines-fill"></i> Kelola Pendaftar
                     </a>
                 </li>
-
-                <!-- Sertifikat -->
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/sertifikat') ? 'active' : '' }}"
-                       href="{{ url('/admin/sertifikat') }}">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Sertifikat
+                    <a class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}" href="{{ route('admin.laporan.index') }}">
+                        <i class="bi bi-file-earmark-text"></i> Laporan & Sertifikat
                     </a>
                 </li>
-
-                <!-- Logout -->
                 <li class="nav-item">
-                   <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="nav-link btn btn-link text-white" style="text-decoration: none; border: none; padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);">
-                            <i class="bi bi-box-arrow-right"></i>
-                            Logout
-                        </button>
-                    </form>
+                    <a class="nav-link {{ request()->routeIs('admin.sertifikat-setting.*') ? 'active' : '' }}" href="{{ route('admin.sertifikat-setting.edit') }}">
+                        <i class="bi bi-palette"></i> Template Sertifikat
+                    </a>
                 </li>
-
             </ul>
 
-            <span class="text-white">
-                <i class="bi bi-person-circle"></i>
-                Admin
-            </span>
-
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> {{ auth()->user()->name ?? 'Admin' }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-
     </div>
-
 </nav>
 
-<div class="container mt-4">
+<div class="container-fluid px-4 py-4">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✅ {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @foreach($errors->all() as $error)
+                <p class="mb-0">❌ {{ $error }}</p>
+            @endforeach
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
     @yield('content')
-
 </div>
 
-<!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 @stack('scripts')
-
 </body>
-
 </html>

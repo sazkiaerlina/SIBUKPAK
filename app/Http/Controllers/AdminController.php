@@ -124,9 +124,9 @@ public function mahasiswa(Request $request)
 
 public function detailMahasiswa($id)
 {
-    $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
+    $mahasiswa = Mahasiswa::with(['user', 'user.certificate'])->findOrFail($id);
 
-return view('admin.detail-mahasiswa', compact('mahasiswa'));
+    return view('admin.detail-mahasiswa', compact('mahasiswa'));
 }
 
 public function editMahasiswa($id)
