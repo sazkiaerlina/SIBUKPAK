@@ -69,21 +69,71 @@
             @csrf
             @method('PUT')
 
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Password Saat Ini</label>
-                <input type="password" name="current_password"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition
-                        @error('current_password') border-red-400 bg-red-50 @enderror">
-                @error('current_password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-            </div>
+            
+<div>
+    <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+        Password Saat Ini
+    </label>
 
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Password Baru</label>
-                <input type="password" name="password" placeholder="Minimal 8 karakter"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition
-                        @error('password') border-red-400 bg-red-50 @enderror">
-                @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-            </div>
+    <div class="relative">
+        <input
+            type="password"
+            id="current_password"
+            name="current_password"
+            class="w-full px-4 py-3 pr-12 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition
+            @error('current_password') border-red-400 bg-red-50 @enderror">
+
+        <button
+            type="button"
+            onclick="togglePassword('current_password','iconCurrentPassword')"
+            class="absolute right-3 top-1/2 -translate-y-1/2">
+
+            <img
+                id="iconCurrentPassword"
+                src="{{ asset('assets/images/hidden.png') }}"
+                class="w-5 h-5">
+
+        </button>
+    </div>
+
+    @error('current_password')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
+</div>
+
+
+<div>
+    <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+        Password Baru
+    </label>
+
+    <div class="relative">
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Minimal 8 karakter"
+            class="w-full px-4 py-3 pr-12 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition
+            @error('password') border-red-400 bg-red-50 @enderror">
+
+        <button
+            type="button"
+            onclick="togglePassword('password','iconPassword')"
+            class="absolute right-3 top-1/2 -translate-y-1/2">
+
+            <img
+                id="iconPassword"
+                src="{{ asset('assets/images/hidden.png') }}"
+                class="w-5 h-5">
+
+        </button>
+    </div>
+
+    @error('password')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
+</div>            
+
 
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Password Baru</label>
@@ -144,5 +194,29 @@
     </div>
 
 </div>
+
+<script>
+
+function togglePassword(inputId, iconId){
+
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+
+    if(input.type === "password"){
+
+        input.type = "text";
+        icon.src = "{{ asset('assets/images/eye.png') }}";
+
+    }else{
+
+        input.type = "password";
+        icon.src = "{{ asset('assets/images/hidden.png') }}";
+
+    }
+
+}
+
+</script>
+
 
 @endsection

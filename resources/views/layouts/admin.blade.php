@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-        body { background-color: #f4f6f9; }
-        .navbar-brand { font-weight: 700; }
-        .nav-link.active { font-weight: 600; border-bottom: 2px solid #fff; }
+        
+/* Rapikan tulisan Showing */
+.small.text-muted{
+    position: relative;
+    top: -5px;
+    right: 10px;
+}
+/* Rapikan posisi pagination */
+nav.d-flex.justify-content-between{
+    align-items: center;
+}
+
     </style>
     @stack('styles')
 </head>
@@ -43,9 +52,11 @@
                         <i class="bi bi-clipboard-check"></i> Rekap Presensi
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.kelola-pendaftar') || request()->routeIs('admin.verifikasi.*') ? 'active' : '' }}" href="{{ route('admin.kelola-pendaftar') }}">
-                        <i class="bi bi-person-lines-fill"></i> Kelola Pendaftar
+                 <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.verifikasi.*') ? 'active' : '' }}"
+                    href="{{ route('admin.verifikasi.index') }}">
+                        <i class="bi bi-file-earmark-text"></i>
+                        Kelola Pendaftar
                     </a>
                 </li>
                 <li class="nav-item">
@@ -81,26 +92,16 @@
     </div>
 </nav>
 
-<div class="container-fluid px-4 py-4">
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            ✅ {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach($errors->all() as $error)
-                <p class="mb-0">❌ {{ $error }}</p>
-            @endforeach
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+<div class="container mt-4">
+   
 
     @yield('content')
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @stack('scripts')
 </body>
 </html>

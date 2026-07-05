@@ -176,14 +176,32 @@ public function updateMahasiswa(Request $request, $id)
 
 public function hapusMahasiswa($id)
 {
+    // 1. Cari data mahasiswa (Anak 1)
     $mahasiswa = Mahasiswa::findOrFail($id);
-
+    
+    // 2. Ambil data akun loginnya (Induk Utama)
     $user = $mahasiswa->user;
 
-    $user->delete();
+    // 3. HAPUS CUCU: Hapus semua riwayat presensi milik mahasiswa ini
+    $mahasiswa->presensis()->delete(); 
+
+    // 4. HAPUS ANAK 1: Hapus biodata mahasiswanya
+    $mahasiswa->delete();
+
+    // Pastikan user-nya ada sebelum menghapus relasi lainnya
+    if ($user) {
+        
+        // 5. HAPUS ANAK 2: Hapus sertifikat jika ada di tabel certificates
+        if ($user->certificate) {
+            $user->certificate->delete();
+        }
+
+        // 6. HAPUS INDUK: Terakhir, baru hapus akun loginnya
+        $user->delete();
+    }
 
     return redirect('/admin/mahasiswa')
-            ->with('success', 'Data mahasiswa berhasil dihapus.');
+            ->with('success', 'Data mahasiswa, presensi, beserta sertifikatnya berhasil dihapus permanen.');
 }
 
   public function rekap(Request $request)
