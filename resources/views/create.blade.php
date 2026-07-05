@@ -25,6 +25,25 @@
 >
     <div class="max-w-6xl mx-auto">
 
+        
+        {{-- ── Bar Atas: Tombol Logout (kiri) & Info Akun (kanan) ── --}}
+        <div class="flex items-center justify-between mb-4">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button
+                    type="submit"
+                    class="flex items-center gap-2 bg-white border border-gray-300
+                           text-gray-600 text-sm font-semibold px-4 py-2 rounded-xl
+                           shadow-sm hover:bg-red-50 hover:border-red-300 hover:text-red-600
+                           transition"
+                >
+                    <span class="text-base">←</span>
+                    Keluar
+                </button>
+            </form>
+        </div>
+
+
         {{-- ── Judul ──────────────────────────────────── --}}
         <div class="text-center mb-8">
             <h1 class="text-3xl font-black text-[#043277] tracking-tight">PENDAFTARAN MAGANG</h1>

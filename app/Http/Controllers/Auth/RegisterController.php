@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,7 @@ class RegisterController extends Controller
         ]);
 
         // 2. Simpan data ke tabel users
-        User::create([
+        $user = User::create([
             'name'      => $request->name,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
@@ -43,7 +44,9 @@ class RegisterController extends Controller
             'is_active' => 0            // 🔒 Dikunci! Menunggu ACC dari Admin BPS Ogan Ilir
         ]);
 
-        // 3. Kembalikan ke halaman login dengan membawa pesan sukses
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat! Silakan tunggu verifikasi dari Admin BPS sebelum Anda bisa login.');
+        Auth::login($user);
+
+        return redirect()->route('daftar.create');
+
     }
 }

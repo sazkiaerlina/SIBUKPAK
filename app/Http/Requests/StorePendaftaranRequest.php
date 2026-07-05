@@ -26,11 +26,10 @@ class StorePendaftaranRequest extends FormRequest
             'jenis_instansi'   => ['required', Rule::in(['perguruan_tinggi', 'smk'])],
 
             // ── Data Peserta (ketua / pendaftar utama) ────
-            // nama & email readonly di view, diambil dari akun yang sedang login.
-            // Tetap divalidasi jaga-jaga kalau ada tampering, tapi unique di-ignore ke akun sendiri.
             'nama'             => ['required', 'string', 'max:255'],
-            'tanggal_mulai'    => ['required', 'date'],
-            'tanggal_selesai'  => ['required', 'date', 'after_or_equal:tanggal_mulai'],
+            // Tanggal mulai WAJIB setelah hari ini (tidak boleh hari ini/masa lalu)
+            'tanggal_mulai'    => ['required', 'date', 'after:today'],
+            'tanggal_selesai'  => ['required', 'date', 'after:tanggal_mulai'],
             'jenis_kelamin'    => ['required', Rule::in(['L', 'P'])],
             'instansi'         => ['required', 'string', 'max:255'],
             'email'            => [
@@ -38,7 +37,6 @@ class StorePendaftaranRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore(Auth::id()),
             ],
             'whatsapp'         => ['required', 'string', 'max:20'],
-            // password DIHAPUS — akun sudah ada sejak register, tidak perlu set ulang di sini
 
             // ── Berkas ─────────────────────────────────────
             'surat_pengantar'  => ['required', 'file', 'mimes:pdf', 'max:5120'],
@@ -49,12 +47,12 @@ class StorePendaftaranRequest extends FormRequest
             'anggota.*.nama'                 => ['required_with:anggota', 'string', 'max:255'],
             'anggota.*.jenis_kelamin'        => ['nullable', Rule::in(['L', 'P'])],
             'anggota.*.instansi'             => ['required_with:anggota', 'string', 'max:255'],
-            // jenis_instansi anggota sekarang ikut nilai global (dikirim via hidden input),
-            // tetap divalidasi supaya konsisten
             'anggota.*.jenis_instansi'       => ['required_with:anggota', Rule::in(['perguruan_tinggi', 'smk'])],
             'anggota.*.email'                => ['required_with:anggota', 'email', 'distinct', 'max:255', 'unique:users,email'],
             'anggota.*.whatsapp'             => ['required_with:anggota', 'string', 'max:20'],
-            'anggota.*.nim'                  => ['required_with:anggota', 'string', 'max:30'],
+            // NIM anggota: wajib unik terhadap tabel mahasiswas (cegah duplikat sebelum insert)
+            // DAN distinct (tidak boleh sama antar-anggota dalam 1 form submit yang sama).
+            'anggota.*.nim'                  => ['required_with:anggota', 'string', 'max:30', 'distinct', Rule::unique('mahasiswas', 'nim')],
             'anggota.*.fakultas'             => ['nullable', 'string', 'max:255'],
             'anggota.*.prodi'                => ['nullable', 'string', 'max:255'],
             'anggota.*.jurusan'              => ['nullable', 'string', 'max:255'],
@@ -63,14 +61,15 @@ class StorePendaftaranRequest extends FormRequest
         ];
 
         if ($isPT) {
-            $rules['nim']      = ['required', 'string', 'max:30'];
+            // NIM ketua: wajib unik terhadap tabel mahasiswas
+            $rules['nim']      = ['required', 'string', 'max:30', Rule::unique('mahasiswas', 'nim')];
             $rules['fakultas'] = ['required', 'string', 'max:255'];
             $rules['prodi']    = ['required', 'string', 'max:255'];
             $rules['jurusan']  = ['required', 'string', 'max:255'];
         }
 
         if ($isSMK) {
-            $rules['nim']                 = ['required', 'string', 'max:30'];
+            $rules['nim']                 = ['required', 'string', 'max:30', Rule::unique('mahasiswas', 'nim')];
             $rules['kelas']               = ['required', Rule::in(['X', 'XI', 'XII'])];
             $rules['kompetensi_keahlian'] = ['required', 'string', 'max:255'];
             $rules['jurusan']             = ['required', 'string', 'max:255'];
@@ -87,6 +86,10 @@ class StorePendaftaranRequest extends FormRequest
             'proposal.mimes' => 'Proposal harus berformat PDF.',
             'surat_pengantar.max' => 'Ukuran surat pengantar maksimal 5 MB.',
             'proposal.max' => 'Ukuran proposal maksimal 5 MB.',
+            'tanggal_mulai.after' => 'Tanggal mulai magang harus setelah hari ini.',
+            'nim.unique' => 'NIM/NISN ini sudah terdaftar sebelumnya. Periksa kembali atau hubungi admin jika ini kesalahan.',
+            'anggota.*.nim.unique' => 'NIM/NISN salah satu anggota sudah terdaftar sebelumnya.',
+            'anggota.*.nim.distinct' => 'NIM/NISN antar anggota tidak boleh sama.',
         ];
     }
 }

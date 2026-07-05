@@ -22,7 +22,7 @@ Route::get('/', function () {
 // ── Autentikasi (Login & Register) ───────────────────────
 // Hanya bisa diakses TAMU (belum login). Kalau sudah login,
 // otomatis dilempar ke redirectPath() lewat RedirectIfAuthenticated.
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'preventBackHistory'])->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('login.post');
 
