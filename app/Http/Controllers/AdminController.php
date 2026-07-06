@@ -276,47 +276,60 @@ public function rekap(Request $request)
 public function export(Request $request)
 {
     $periode = $request->periode ?? 'hari_ini';
-    $bulan   = $request->bulan ?? now()->month;
-    $tahun   = $request->tahun ?? now()->year;
-    $tanggalPilih = $request->tanggal_pilih ?? today()->format('Y-m-d');
+    $tanggalDari = $request->tanggal_dari ?? today()->format('Y-m-d');
+    $tanggalSampai = $request->tanggal_sampai ?? today()->format('Y-m-d');
+    $keyword = $request->keyword;
 
     $query = Presensi::with('mahasiswa.user');
 
     switch ($periode) {
 
-        case '7_hari':
-            $query->whereDate('tanggal', '>=', now()->subDays(6));
-            break;
-
-        case '30_hari':
-            $query->whereDate('tanggal', '>=', now()->subDays(29));
-            break;
-
         case 'bulan':
+
             $query->whereMonth('tanggal', now()->month)
                   ->whereYear('tanggal', now()->year);
-            break;
 
-        case 'tahun':
-            $query->whereYear('tanggal', now()->year);
             break;
 
         case 'custom':
-            $query->whereMonth('tanggal', $bulan)
-                  ->whereYear('tanggal', $tahun);
-            break;
 
-        case 'tanggal':
-            $query->whereDate('tanggal', $tanggalPilih);
+            if ($tanggalDari > $tanggalSampai) {
+                [$tanggalDari, $tanggalSampai] =
+                [$tanggalSampai, $tanggalDari];
+            }
+
+            $query->whereBetween('tanggal', [
+                $tanggalDari,
+                $tanggalSampai
+            ]);
+
             break;
 
         case 'semua':
-            // tidak difilter
+
             break;
 
         default:
+
             $query->whereDate('tanggal', today());
+
             break;
+    }
+
+    // Filter pencarian nama/NIM
+    if ($keyword) {
+
+        $query->whereHas('mahasiswa', function ($q) use ($keyword) {
+
+            $q->where('nim', 'like', "%{$keyword}%")
+              ->orWhereHas('user', function ($q2) use ($keyword) {
+
+                  $q2->where('name', 'like', "%{$keyword}%");
+
+              });
+
+        });
+
     }
 
     $data = $query->orderBy('tanggal', 'desc')->get();
@@ -325,7 +338,6 @@ public function export(Request $request)
 
         $handle = fopen('php://output', 'w');
 
-        // Header CSV
         fputcsv($handle, [
             'No',
             'Nama Mahasiswa',
