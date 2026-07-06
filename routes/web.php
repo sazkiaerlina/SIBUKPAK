@@ -80,10 +80,15 @@ Route::middleware(['auth', 'approved'])->prefix('mahasiswa')->name('mahasiswa.')
 // ══════════════════════════════════════════════════════════════
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+
+
     Route::get('/home', [AdminController::class, 'home'])->name('home');
     Route::get('/kelola-pendaftar', [AdminController::class, 'kelolaPendaftar'])->name('kelola-pendaftar');
     Route::get('/rekap', [AdminController::class, 'rekap'])->name('rekap');
     Route::get('/rekap/export', [AdminController::class, 'export'])->name('rekap.export');
+      Route::get('/profil', [AdminController::class, 'profil'])->name('profil');
+    Route::put('/profil/email', [AdminController::class, 'updateEmail'])->name('profil.email');
+    Route::put('/profil/password', [AdminController::class, 'updatePassword'])->name('profil.password');
 
     Route::get('/mahasiswa', [AdminController::class, 'mahasiswa'])->name('mahasiswa.index');
     Route::get('/mahasiswa/{id}', [AdminController::class, 'detailmahasiswa'])->name('mahasiswa.show');

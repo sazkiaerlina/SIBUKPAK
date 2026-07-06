@@ -76,16 +76,27 @@ nav.d-flex.justify-content-between{
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle"></i> {{ auth()->user()->name ?? 'Admin' }}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a href="{{ route('admin.profil') }}" class="dropdown-item">
+                                    <i class="bi bi-person-gear"></i> Profil
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
                 </li>
             </ul>
         </div>

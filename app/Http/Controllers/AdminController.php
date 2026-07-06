@@ -1,11 +1,17 @@
 <?php
 
+
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Presensi;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Models\User;
 
 
 class AdminController extends Controller
@@ -370,6 +376,63 @@ public function export(Request $request)
     );
 
     return $response;
+}
+
+
+public function profil()
+{
+    return view('admin.profil');
+}
+
+
+public function updateEmail(Request $request)
+{
+    $request->validate([
+        'current_email' => ['required', 'email'],
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore(Auth::id()),
+        ],
+    ]);
+
+    $user = User::findOrFail(Auth::id());
+
+    // Cek email lama
+    if ($request->current_email != $user->email) {
+        return back()->withErrors([
+            'current_email' => 'Email saat ini tidak sesuai.'
+        ]);
+    }
+
+    // Update email baru
+    $user->update([
+        'email' => $request->email,
+    ]);
+
+    return back()->with('success', 'Email berhasil diperbarui.');
+}
+
+public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password'=>'required',
+        'password'=>'required|min:8|confirmed',
+    ]);
+
+            $user = User::findOrFail(Auth::id());
+
+    if(!Hash::check($request->current_password,$user->password)){
+        return back()->withErrors([
+            'current_password'=>'Password saat ini salah.'
+        ]);
+    }
+
+   $user->update([
+    'password' => Hash::make($request->password),
+]);
+
+    return back()->with('success','Password berhasil diubah.');
 }
 
 
