@@ -6,119 +6,90 @@
     Rekap Presensi
 </h3>
 
-{{-- batas filter --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+{{-- ═══ FILTER & PENCARIAN ═══ --}}
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
 
-        <a href="{{ route('admin.rekap.export', request()->query()) }}"
-            class="btn btn-success ">
+        <div class="row g-2 align-items-end mb-1">
 
-                Export CSV
+            {{-- Pencarian Nama/NIM --}}
+            <div class="col-12 col-md-4">
+                <form method="GET" action="{{ url('/admin/rekap') }}">
+                    <input type="hidden" name="periode" value="{{ $periode }}">
+                    @if($periode == 'custom')
+                        <input type="hidden" name="tanggal_dari" value="{{ $tanggalDari }}">
+                        <input type="hidden" name="tanggal_sampai" value="{{ $tanggalSampai }}">
+                    @endif
 
-        </a>
+                    <label class="form-label small text-muted mb-1">Cari Mahasiswa</label>
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control"
+                               placeholder="Nama atau NIM..." value="{{ $keyword }}">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-search"></i> Cari
+                        </button>
+                    </div>
+                </form>
+            </div>
 
+            {{-- Filter Periode + Reset (sejajar) --}}
+            <div class="col-12 col-md-4">
+                <label class="form-label small text-muted mb-1">Periode</label>
+                <div class="d-flex gap-2">
+                    <form method="GET" action="{{ url('/admin/rekap') }}" id="form-periode" class="flex-grow-1">
+                        <input type="hidden" name="keyword" value="{{ $keyword }}">
+                        <select name="periode" class="form-select" onchange="document.getElementById('form-periode').submit()">
+                            <option value="hari_ini" {{ $periode == 'hari_ini' ? 'selected' : '' }}>Hari Ini</option>
+                            <option value="bulan"    {{ $periode == 'bulan'    ? 'selected' : '' }}>Bulan Ini</option>
+                            <option value="custom"   {{ $periode == 'custom'   ? 'selected' : '' }}>Pilih Rentang Tanggal</option>
+                            <option value="semua"    {{ $periode == 'semua'    ? 'selected' : '' }}>Semua Data</option>
+                        </select>
+                    </form>
 
-    <form method="GET" action="{{ url('/admin/rekap') }}" class="d-flex gap-2">
+                    @if($keyword || $periode !== 'hari_ini')
+                        <a href="{{ url('/admin/rekap') }}" class="btn btn-outline-secondary flex-shrink-0" title="Reset Filter">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    @endif
+                </div>
+            </div>
 
-        <select
-            name="periode"
-            class="form-select"
-            onchange="this.form.submit()">
+            {{-- Export CSV (kanan) --}}
+            <div class="col-12 col-md-4 d-flex justify-content-md-end">
+                <a href="{{ route('admin.rekap.export', request()->query()) }}" class="btn btn-success">
+                    <i class="bi bi-download"></i> Export CSV
+                </a>
+            </div>
 
-            <option value="hari_ini"
-            {{ $periode=='hari_ini' ? 'selected' : '' }}>
-                Hari Ini
-            </option>
+        </div>
 
-            <option value="7_hari"
-            {{ $periode=='7_hari' ? 'selected' : '' }}>
-                7 Hari Terakhir
-            </option>
-
-            <option value="30_hari"
-            {{ $periode=='30_hari' ? 'selected' : '' }}>
-                30 Hari Terakhir
-            </option>
-
-            <option value="bulan"
-            {{ $periode=='bulan' ? 'selected' : '' }}>
-                Bulan Ini
-            </option>
-
-            <option value="tahun"
-            {{ $periode=='tahun' ? 'selected' : '' }}>
-                Tahun Ini
-            </option>
-
-            <option value="custom"
-            {{ $periode=='custom' ? 'selected' : '' }}>
-                Pilih Bulan & Tahun
-            </option>
-
-            <option value="tanggal"
-            {{ $periode=='tanggal' ? 'selected' : '' }}>
-                Tanggal Tertentu
-            </option>
-
-            <option value="semua"
-            {{ $periode=='semua' ? 'selected' : '' }}>
-                Semua Data
-            </option>
-
-        </select>
-
+        {{-- Baris kedua: Rentang Tanggal — muncul HANYA kalau periode = custom --}}
         @if($periode == 'custom')
+        <div class="row g-2 align-items-end mt-1">
+            <form method="GET" action="{{ url('/admin/rekap') }}" class="row g-2 align-items-end w-100">
+                <input type="hidden" name="periode" value="custom">
+                <input type="hidden" name="keyword" value="{{ $keyword }}">
 
-            <select
-                name="bulan"
-                class="form-select"
-                onchange="this.form.submit()">
-
-                @php
-                    $namaBulan = [
-                        1=>'Januari', 2=>'Februari', 3=>'Maret', 4=>'April',
-                        5=>'Mei', 6=>'Juni', 7=>'Juli', 8=>'Agustus',
-                        9=>'September', 10=>'Oktober', 11=>'November', 12=>'Desember'
-                    ];
-                @endphp
-
-                @foreach($namaBulan as $angka => $nama)
-                    <option value="{{ $angka }}" {{ $bulan == $angka ? 'selected' : '' }}>
-                        {{ $nama }}
-                    </option>
-                @endforeach
-
-            </select>
-
-            <select
-                name="tahun"
-                class="form-select"
-                onchange="this.form.submit()">
-
-                @for($i = now()->year; $i >= now()->year - 5; $i--)
-                    <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
-                        {{ $i }}
-                    </option>
-                @endfor
-
-            </select>
-
+                <div class="col-6 col-md-3">
+                    <label class="form-label small text-muted mb-1">Dari Tanggal</label>
+                    <input type="date" name="tanggal_dari" value="{{ $tanggalDari }}" class="form-control">
+                </div>
+                <div class="col-6 col-md-3">
+                    <label class="form-label small text-muted mb-1">Sampai Tanggal</label>
+                    <input type="date" name="tanggal_sampai" value="{{ $tanggalSampai }}" class="form-control">
+                </div>
+                <div class="col-12 col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-funnel"></i> Terapkan
+                    </button>
+                </div>
+            </form>
+        </div>
         @endif
 
-        @if($periode == 'tanggal')
-
-            <input
-                type="date"
-                name="tanggal_pilih"
-                value="{{ $tanggalPilih }}"
-                class="form-control"
-                onchange="this.form.submit()">
-
-        @endif
-
-    </form>
-
+    </div>
 </div>
-{{-- batas filter --}}
+{{-- ═══ AKHIR FILTER ═══ --}}
 
 <div class="card card-dashboard mt-4">
 
@@ -194,7 +165,7 @@
 
                     <td colspan="6" class="text-center">
 
-                        Belum ada data presensi untuk periode ini.
+                        Belum ada data presensi untuk periode/kata kunci ini.
 
                     </td>
 

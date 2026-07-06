@@ -12,8 +12,8 @@ return [
 
     'nama'   => 'BPS Kabupaten Ogan Ilir',
 
-    'latitude'  => -3.4375,   // GANTI dengan latitude kantor asli
-    'longitude' => 104.6425,  // GANTI dengan longitude kantor asli
+    'latitude'  => -3.2044795555804293, 
+    'longitude' => 104.65294495181287,  // GANTI dengan longitude kantor asli
 
     // Radius toleransi absen, dalam meter. 100 = mahasiswa harus dalam
     // jarak 100 meter dari titik koordinat di atas untuk bisa absen.

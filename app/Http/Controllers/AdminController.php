@@ -210,79 +210,65 @@ public function hapusMahasiswa($id)
             ->with('success', 'Data mahasiswa, presensi, beserta sertifikatnya berhasil dihapus permanen.');
 }
 
-  public function rekap(Request $request)
+/**
+ * Rekap Presensi.
+ * Filter disederhanakan jadi 4 pilihan: hari_ini, bulan, custom (tanggal
+ * bebas), semua. Ditambah pencarian nama/NIM mahasiswa.
+ */
+public function rekap(Request $request)
 {
     $periode = $request->periode ?? 'hari_ini';
-    $bulan   = $request->bulan ?? now()->month;
-    $tahun   = $request->tahun ?? now()->year;
-    $tanggalPilih = $request->tanggal_pilih ?? today()->format('Y-m-d');
-
+    $tanggalDari = $request->tanggal_dari ?? today()->format('Y-m-d');
+    $tanggalSampai = $request->tanggal_sampai ?? today()->format('Y-m-d');
+    $keyword = $request->keyword;
+ 
     $queryTabel = Presensi::with('mahasiswa.user');
-
+ 
     switch ($periode) {
-
-        case '7_hari':
-
-            $queryTabel->whereDate('tanggal', '>=', now()->subDays(6));
-
-            break;
-
-        case '30_hari':
-
-            $queryTabel->whereDate('tanggal', '>=', now()->subDays(29));
-
-            break;
-
+ 
         case 'bulan':
-
             $queryTabel->whereMonth('tanggal', now()->month)
                        ->whereYear('tanggal', now()->year);
-
             break;
-
-        case 'tahun':
-
-            $queryTabel->whereYear('tanggal', now()->year);
-
-            break;
-
+ 
         case 'custom':
-
-            $queryTabel->whereMonth('tanggal', $bulan)
-                       ->whereYear('tanggal', $tahun);
-
+            // Jaga-jaga kalau admin kebalik isi tanggal (dari > sampai), otomatis ditukar
+            if ($tanggalDari > $tanggalSampai) {
+                [$tanggalDari, $tanggalSampai] = [$tanggalSampai, $tanggalDari];
+            }
+            $queryTabel->whereBetween('tanggal', [$tanggalDari, $tanggalSampai]);
             break;
-
-        case 'tanggal':
-
-            $queryTabel->whereDate('tanggal', $tanggalPilih);
-
-            break;
-
+ 
         case 'semua':
-
-            // tidak difilter
-
+            // tidak difilter tanggal
             break;
-
-        default:
-
+ 
+        default: // hari_ini
             $queryTabel->whereDate('tanggal', today());
-
             break;
     }
-
+ 
+    // ── Pencarian nama / NIM mahasiswa ──────────────────────
+    if ($keyword) {
+        $queryTabel->whereHas('mahasiswa', function ($q) use ($keyword) {
+            $q->where('nim', 'like', "%{$keyword}%")
+              ->orWhereHas('user', function ($q2) use ($keyword) {
+                  $q2->where('name', 'like', "%{$keyword}%");
+              });
+        });
+    }
+ 
     $presensiRekap = $queryTabel
         ->orderBy('tanggal', 'desc')
         ->paginate(10)
         ->withQueryString();
-
+ 
     return view('admin.rekap', compact(
         'presensiRekap',
         'periode',
-        'bulan',
-        'tahun',
-        'tanggalPilih'
+        'tanggalDari',
+        'tanggalSampai',
+        'keyword'
     ));
 }
 
