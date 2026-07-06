@@ -28,6 +28,8 @@ Route::middleware(['guest', 'preventBackHistory'])->group(function () {
 
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
+
+    
 });
 
 // Logout hanya untuk yang sudah login
@@ -47,7 +49,7 @@ Route::middleware('auth')->group(function () {
 //  AREA MAHASISWA — wajib login DAN sudah disetujui admin
 //  (middleware 'approved' menolak akses kalau status masih pending)
 // ══════════════════════════════════════════════════════════════
-Route::middleware(['auth', 'approved'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+Route::middleware(['auth', 'approved', 'mahasiswa', 'still-active'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
 
     // ── Dashboard ──────────────────────────────────────────
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

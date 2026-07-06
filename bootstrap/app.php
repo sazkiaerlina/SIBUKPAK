@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
         'approved' => \App\Http\Middleware\EnsureApproved::class,
         'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
+        'mahasiswa' => \App\Http\Middleware\EnsureIsMahasiswa::class,
+        'still-active' => \App\Http\Middleware\EnsureAccountStillActive::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -134,4 +134,19 @@ class Mahasiswa extends Model
             $rekap
         );
     }
+
+    public function hitungStatusMagang(): string
+    {
+        $today = now()->toDateString();
+
+        if ($today < $this->tanggal_mulai->toDateString()) {
+            return 'belum_mulai';
+        }
+
+        if ($today > $this->tanggal_selesai->toDateString()) {
+            return 'selesai';
+        }
+
+        return 'berlangsung';
+    }
 }

@@ -53,6 +53,9 @@
                 {{-- Timeline Status --}}
                 @php
                     $status = $mahasiswa->status_pendaftaran; // pending | diterima | ditolak
+                    $akunAktif = $mahasiswa->user->is_active;
+                    // true kalau sudah pernah diterima TAPI akunnya belakangan dinonaktifkan admin
+                    $dinonaktifkan = $status === 'diterima' && ! $akunAktif;
                 @endphp
 
                 <div class="flex items-center">
@@ -92,34 +95,43 @@
 
                     <div class="flex-1 h-1 {{ $status === 'diterima' ? 'bg-[#043277]' : 'bg-gray-200' }}"></div>
 
-                    {{-- Step 3: Aktif Magang --}}
+                    {{-- Step 3: Aktif Magang (atau Dinonaktifkan) --}}
                     <div class="flex flex-col items-center flex-1">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold
-                            {{ $status === 'diterima' ? 'bg-[#043277] text-white' : 'bg-gray-100 text-gray-400' }}">
-                            🎓
+                            {{ $dinonaktifkan ? 'bg-red-500 text-white' : ($status === 'diterima' ? 'bg-[#043277] text-white' : 'bg-gray-100 text-gray-400') }}">
+                            {{ $dinonaktifkan ? '🔒' : '🎓' }}
                         </div>
                         <p class="text-xs font-semibold mt-2 text-center
-                            {{ $status === 'diterima' ? 'text-[#043277]' : 'text-gray-400' }}">
-                            Aktif Magang
+                            {{ $dinonaktifkan ? 'text-red-500' : ($status === 'diterima' ? 'text-[#043277]' : 'text-gray-400') }}">
+                            {{ $dinonaktifkan ? 'Dinonaktifkan' : 'Aktif Magang' }}
                         </p>
                     </div>
                 </div>
 
                 {{-- Pesan sesuai status --}}
                 <div class="rounded-xl p-4
-                    {{ $status === 'pending' ? 'bg-yellow-50 border border-yellow-200' : ($status === 'diterima' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200') }}">
+                    {{ $status === 'pending' ? 'bg-yellow-50 border border-yellow-200' : ($dinonaktifkan ? 'bg-red-50 border border-red-200' : ($status === 'diterima' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200')) }}">
                     @if($status === 'pending')
                         <p class="text-sm text-yellow-700">
                             <strong>Berkas Anda sedang diperiksa oleh admin BPS.</strong>
                             Proses verifikasi biasanya memakan waktu 1–3 hari kerja. Anda akan bisa login
                             ke dashboard setelah status berubah menjadi <strong>Diterima</strong>.
                         </p>
+                    @elseif($dinonaktifkan)
+                        <p class="text-sm text-red-700">
+                            <strong>🔒 Akun Anda Dinonaktifkan</strong>
+                        </p>
+                        <p class="text-sm text-red-600 mt-1">
+                            Pendaftaran Anda sebenarnya sudah <strong>diterima</strong>, tapi akun ini
+                            saat ini dinonaktifkan oleh admin sehingga tidak bisa mengakses Dashboard.
+                            Silakan hubungi admin BPS Kabupaten Ogan Ilir untuk informasi lebih lanjut.
+                        </p>
                     @elseif($status === 'diterima')
                         <p class="text-sm text-green-700">
                             <strong>Selamat! Pendaftaran Anda telah diterima.</strong>
                             Anda sekarang bisa mengakses Dashboard Absensi.
                         </p>
-                        <a href="{{ route('dashboard') }}"
+                        <a href="{{ route('mahasiswa.dashboard') }}"
                            class="inline-block mt-3 bg-[#043277] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-900 transition">
                             Buka Dashboard →
                         </a>

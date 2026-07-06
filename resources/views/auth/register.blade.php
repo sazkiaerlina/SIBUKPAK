@@ -171,7 +171,7 @@
                 Sudah punya akun?
 
                 <a
-                    href="{{ route('daftar.create') }}"
+                    href="{{ route('login') }}"
                     class="font-semibold text-[#043277] hover:underline">
 
                     Masuk
