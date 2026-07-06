@@ -113,6 +113,7 @@
                     <th>Jam Masuk</th>
                     <th>Jam Pulang</th>
                     <th>Status</th>
+                    <th>Keterangan</th>
                 </tr>
 
             </thead>
@@ -157,13 +158,60 @@
 
                     </td>
 
+                    <td>
+                        @if(in_array($item->status, ['izin', 'sakit']))
+                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="modal" data-bs-target="#modalKeterangan{{ $item->id }}">
+                                <i class="bi bi-eye"></i> Lihat Detail
+                            </button>
+
+                            {{-- Modal detail keterangan & bukti dokumen --}}
+                            <div class="modal fade" id="modalKeterangan{{ $item->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                {{ $item->status == 'sakit' ? '🤒 Detail Sakit' : '📋 Detail Izin' }}
+                                                — {{ $item->mahasiswa->user->name }}
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-muted small mb-1">Tanggal</p>
+                                            <p class="mb-3">{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}</p>
+
+                                            <p class="text-muted small mb-1">Keterangan</p>
+                                            <p class="mb-3">{{ $item->keterangan ?? '-' }}</p>
+
+                                            <p class="text-muted small mb-1">Bukti Dokumen</p>
+                                            @if($item->bukti_dokumen)
+                                                <a href="{{ Storage::url($item->bukti_dokumen) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->bukti_dokumen) }}"
+                                                         class="img-fluid rounded border" style="max-height: 300px;">
+                                                </a>
+                                                <p class="text-muted small mt-1">Klik gambar untuk memperbesar</p>
+                                            @else
+                                                <p class="text-muted fst-italic">Tidak ada bukti dokumen diunggah.</p>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <span class="text-muted">-</span>
+                        @endif
+                    </td>
+
                 </tr>
 
                 @empty
 
                 <tr>
 
-                    <td colspan="6" class="text-center">
+                    <td colspan="7" class="text-center">
 
                         Belum ada data presensi untuk periode/kata kunci ini.
 

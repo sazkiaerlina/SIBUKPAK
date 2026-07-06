@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h4 class="fw-bold mb-1"><i class="bi bi-folder text-warning"></i> Laporan & Sertifikat Mahasiswa</h4>
+<h4 class="fw-bold mb-1">Laporan & Sertifikat Mahasiswa</h4>
 <p class="text-muted mb-4">Isi nomor surat untuk menerbitkan sertifikat — mahasiswa bisa langsung mengunduhnya setelah tersimpan.</p>
 
 <div class="card shadow-sm border-0">

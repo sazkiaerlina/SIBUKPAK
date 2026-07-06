@@ -11,9 +11,11 @@ class SertifikatSetting extends Model
         'nama_top',
         'nama_left',
         'nama_font_size',
+        'nama_color',
         'nomor_top',
         'nomor_left',
         'nomor_font_size',
+        'nomor_color',
     ];
 
     /**

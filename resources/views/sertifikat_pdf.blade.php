@@ -34,7 +34,7 @@
             transform: translate(-50%, -50%);
             font-size: {{ $setting->nama_font_size }}pt;
             font-weight: bold;
-            color: #b8860b;
+            color: {{ $setting->nama_color }};
             white-space: nowrap;
             text-align: center;
         }
@@ -44,7 +44,7 @@
             left: {{ $setting->nomor_left }}%;
             transform: translate(-50%, -50%);
             font-size: {{ $setting->nomor_font_size }}pt;
-            color: #555;
+            color: {{ $setting->nomor_color }};
             white-space: nowrap;
             text-align: center;
         }

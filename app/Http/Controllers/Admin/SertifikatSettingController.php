@@ -24,9 +24,11 @@ class SertifikatSettingController extends Controller
             'nama_top'        => ['required', 'numeric', 'min:0', 'max:100'],
             'nama_left'       => ['required', 'numeric', 'min:0', 'max:100'],
             'nama_font_size'  => ['required', 'integer', 'min:8', 'max:100'],
+            'nama_color'      => ['required', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'nomor_top'       => ['required', 'numeric', 'min:0', 'max:100'],
             'nomor_left'      => ['required', 'numeric', 'min:0', 'max:100'],
             'nomor_font_size' => ['required', 'integer', 'min:6', 'max:50'],
+            'nomor_color'     => ['required', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
         ]);
 
         $setting = SertifikatSetting::current();

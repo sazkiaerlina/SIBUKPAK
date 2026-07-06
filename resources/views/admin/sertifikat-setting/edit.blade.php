@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h4 class="fw-bold mb-1"><i class="bi bi-palette text-primary"></i> Pengaturan Template Sertifikat</h4>
+<h4 class="fw-bold mb-1"> Pengaturan Template Sertifikat</h4>
 <p class="text-muted mb-4">Ganti background sertifikat dan atur posisi nama & nomor surat. Gunakan tombol Preview untuk cek hasil.</p>
 
 <form method="POST" action="{{ route('admin.sertifikat-setting.update') }}" enctype="multipart/form-data">
@@ -32,18 +32,22 @@
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-white fw-bold">Posisi Nama Mahasiswa</div>
         <div class="card-body row g-3">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Jarak dari Atas (%)</label>
                 <input type="number" name="nama_top" value="{{ old('nama_top', $setting->nama_top) }}" step="0.1" min="0" max="100" class="form-control">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Jarak dari Kiri (%)</label>
                 <input type="number" name="nama_left" value="{{ old('nama_left', $setting->nama_left) }}" step="0.1" min="0" max="100" class="form-control">
                 <div class="form-text">50 = tengah horizontal</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Ukuran Font (pt)</label>
                 <input type="number" name="nama_font_size" value="{{ old('nama_font_size', $setting->nama_font_size) }}" min="8" max="100" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small">Warna Teks</label>
+                <input type="color" name="nama_color" value="{{ old('nama_color', $setting->nama_color) }}" class="form-control form-control-color w-100">
             </div>
         </div>
     </div>
@@ -52,17 +56,21 @@
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-white fw-bold">Posisi Nomor Surat</div>
         <div class="card-body row g-3">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Jarak dari Atas (%)</label>
                 <input type="number" name="nomor_top" value="{{ old('nomor_top', $setting->nomor_top) }}" step="0.1" min="0" max="100" class="form-control">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Jarak dari Kiri (%)</label>
                 <input type="number" name="nomor_left" value="{{ old('nomor_left', $setting->nomor_left) }}" step="0.1" min="0" max="100" class="form-control">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label small">Ukuran Font (pt)</label>
                 <input type="number" name="nomor_font_size" value="{{ old('nomor_font_size', $setting->nomor_font_size) }}" min="6" max="50" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small">Warna Teks</label>
+                <input type="color" name="nomor_color" value="{{ old('nomor_color', $setting->nomor_color) }}" class="form-control form-control-color w-100">
             </div>
         </div>
     </div>
