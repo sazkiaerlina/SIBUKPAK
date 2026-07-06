@@ -63,6 +63,8 @@
 
                     <th>Instansi</th>
 
+                    <th width="12%">Status</th>
+
                     <th width="20%">Aksi</th>
 
                 </tr>
@@ -82,6 +84,24 @@
                     <td>{{ $item->user->name }}</td>
 
                     <td>{{ ucfirst($item->universitas) }}</td>
+
+                    <td class="text-center">
+
+                    @if($item->user->is_active)
+
+                        <span class="badge bg-success">
+                            Aktif
+                        </span>
+
+                    @else
+
+                        <span class="badge bg-danger">
+                            Tidak Aktif
+                        </span>
+
+                    @endif
+
+                </td>
 
                     <td>
 
@@ -121,7 +141,7 @@
                 @empty
 
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="6" class="text-center">
                         Belum ada data mahasiswa.
                     </td>
                 </tr>
