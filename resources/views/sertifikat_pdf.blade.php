@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'DejaVu Serif', serif;
+            font-family: Helvetica, sans-serif;
         }
         .page {
             position: relative;
@@ -44,20 +44,22 @@
             left: {{ $setting->nomor_left }}%;
             transform: translate(-50%, -50%);
             font-size: {{ $setting->nomor_font_size }}pt;
+            font-weight: bold;
             color: {{ $setting->nomor_color }};
             white-space: nowrap;
             text-align: center;
         }
         /* Info tambahan (instansi & tanggal) diletakkan tetap relatif
            terhadap posisi nama, supaya otomatis ikut kalau posisi nama diubah. */
+
         .teks-deskripsi {
             position: absolute;
-            top: calc({{ $setting->nama_top }}% + 45px);
+            top: calc({{ $setting->nama_top }}% + 200px);
             left: 15%;
             width: 70%;
-            font-size: 13px;
+            font-size: 20px;
             color: #333;
-            line-height: 1.7;
+            line-height: 1.3;
             text-align: center;
         }
     </style>
@@ -74,11 +76,9 @@
         <div class="teks-nama">{{ $nama }}</div>
 
         <div class="teks-deskripsi">
-            Atas partisipasi dan dedikasinya dalam menyelesaikan program magang
-            dari <strong>{{ $instansi }}</strong>,
-            terhitung sejak tanggal <strong>{{ $mulai }}</strong>
-            sampai dengan <strong>{{ $selesai }}</strong>,
-            dengan penuh tanggung jawab dan kinerja yang baik.
+          <strong>Indralaya {{ $selesai }} <br>
+            Kepala Badan Pusat Statistik<br>
+            Kabupaten Ogan Ilir</strong>
         </div>
 
     </div>

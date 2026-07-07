@@ -29,7 +29,20 @@ nav.d-flex.justify-content-between{
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#043277;">
     <div class="container-fluid px-4">
-        <a class="navbar-brand" href="{{ route('admin.home') }}">🏢 BPS Presensi</a>
+
+       <div class="navbar-brand d-flex align-items-center mb-0">
+
+    <img
+        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        alt="Logo SIBUKPAK"
+        class="me-2"
+        style="height: 38px; width: auto;">
+
+    <span class="fw-bold">
+        BPS Presensi
+    </span>
+
+</div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
             <span class="navbar-toggler-icon"></span>

@@ -36,7 +36,17 @@
     <header class="bg-[#043277] text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
 
-            <h1 class="text-base md:text-lg font-bold leading-tight">SIBUKPAK</h1>
+           
+               <div class="flex items-center gap-3">
+    <img
+        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        alt="Logo SIBUKPAK"
+        class="h-10 w-auto">
+    <h1 class="text-white font-bold text-2xl">
+        SIBUKPAK
+    </h1>
+</div>
+
 
             <div class="flex items-center gap-6">
                 {{-- Navigasi 3 Menu (Desktop) --}}

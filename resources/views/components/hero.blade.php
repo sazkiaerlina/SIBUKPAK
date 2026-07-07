@@ -15,9 +15,20 @@
         <!-- Teks -->
         <div class="w-full lg:w-1/2 text-center lg:text-left">
 
-            <h1 class="text-5xl lg:text-7xl font-extrabold text-black mb-6">
-                SIBUKPAK
-            </h1>
+           
+<div class="flex items-center justify-center lg:justify-start gap-4 mb-6">
+
+    <img
+        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        alt="Logo SIBUKPAK"
+        class="h-16 lg:h-20 w-auto">
+
+    <h1 class="text-5xl lg:text-7xl font-extrabold text-black">
+        SIBUKPAK
+    </h1>
+
+</div>
+
 
             <p class="text-xl text-gray-700 leading-9 max-w-xl">
                 Statistik Berdampak Untuk Kampus Berdampak (SIBUKPAK) 

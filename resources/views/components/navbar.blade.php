@@ -6,9 +6,16 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6
     <div class="max-w-5x1 mx-auto mt-0 bg-[#043277] rounded-2xl px-6 py-4">
         <div class="flex justify-between items-center">
 
-            <h1 class="text-white font-bold text-2xl">
-                SIBUKPAK
-            </h1>
+            
+            <div class="flex items-center gap-3">
+    <img
+        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        alt="Logo SIBUKPAK"
+        class="h-10 w-auto">
+    <h1 class="text-white font-bold text-2xl">
+        SIBUKPAK
+    </h1>
+</div>
 
             <ul class="hidden md:flex gap-8 text-white items-center">
                 <li><a href="#home" class="hover:text-blue-200">Home</a></li>
