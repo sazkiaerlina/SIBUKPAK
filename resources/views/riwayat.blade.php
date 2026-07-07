@@ -135,13 +135,35 @@
                            class="inline-block mt-3 bg-[#043277] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-900 transition">
                             Buka Dashboard →
                         </a>
-                    @else
-                        <p class="text-sm text-red-700">
-                            <strong>Maaf, pendaftaran Anda belum dapat disetujui.</strong>
-                            Silakan hubungi admin BPS untuk informasi lebih lanjut atau lakukan pendaftaran ulang
-                            dengan berkas yang sesuai.
-                        </p>
-                    @endif
+                   
+@else
+
+    <p class="text-sm text-red-700">
+        <strong>Maaf, pendaftaran Anda belum dapat disetujui.</strong>
+    </p>
+
+    @if($mahasiswa->catatan_penolakan)
+
+        <div class="mt-4 p-4 rounded-lg bg-white border border-red-200">
+            <p class="font-semibold text-red-700 mb-2">
+                Catatan dari Admin BPS
+            </p>
+
+            <p class="text-gray-700 whitespace-pre-line">
+                {{ $mahasiswa->catatan_penolakan }}
+            </p>
+        </div>
+
+    @endif
+
+    <p class="text-sm text-red-600 mt-4">
+        Silakan perbaiki berkas sesuai catatan di atas, kemudian lakukan
+        pendaftaran kembali.
+    </p>
+
+@endif
+
+
                 </div>
 
             </div>

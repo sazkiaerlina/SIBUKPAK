@@ -51,18 +51,30 @@ class VerifikasiPendaftaranController extends Controller
     /**
      * Tolak pendaftaran. Kalau kelompok, semua anggota ikut ditolak.
      */
-    public function reject(Request $request, Mahasiswa $mahasiswa)
-    {
-        $request->validate([
-            'catatan' => ['nullable', 'string', 'max:500'],
-        ]);
+    
+public function reject(Request $request, Mahasiswa $mahasiswa)
+{
+    $request->validate([
+        'catatan' => ['nullable', 'string', 'max:500'],
+    ]);
 
-        $this->updateStatusSekelompok($mahasiswa, 'ditolak', isActive: false);
+    $this->updateStatusSekelompok(
+        $mahasiswa,
+        'ditolak',
+        false,
+        $request->catatan
+    );
 
-        return back()->with('success', 'Pendaftaran ditolak.');
-    }
+    return back()->with('success', 'Pendaftaran ditolak.');
+}
 
-    private function updateStatusSekelompok(Mahasiswa $mahasiswa, string $status, bool $isActive): void
+            private function updateStatusSekelompok(
+            Mahasiswa $mahasiswa,
+            string $status,
+            bool $isActive,
+            ?string $catatan = null
+            ): void
+
     {
         // Ambil semua baris dengan kode_kelompok yang sama (kalau individu, cuma 1 baris)
         $query = $mahasiswa->kode_kelompok
@@ -71,9 +83,19 @@ class VerifikasiPendaftaranController extends Controller
 
         $daftarMahasiswa = $query->get();
 
-        foreach ($daftarMahasiswa as $item) {
-            $item->update(['status_pendaftaran' => $status]);
-            $item->user->update(['is_active' => $isActive]);
+       foreach ($daftarMahasiswa as $item) {
+
+    $item->update([
+        'status_pendaftaran' => $status,
+        'catatan_penolakan' => $status === 'ditolak'
+            ? $catatan
+            : null,
+    ]);
+
+    $item->user->update([
+        'is_active' => $isActive
+    ]);
         }
+        
     }
 }

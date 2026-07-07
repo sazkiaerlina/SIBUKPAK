@@ -28,6 +28,7 @@ class Mahasiswa extends Model
         'kode_kelompok',
         'status_magang',
         'status_pendaftaran',
+        'catatan_penolakan',
         'surat_pengantar_path',
         'proposal_path',
         // ── Ditambahkan: kolom laporan & sertifikat (sebelumnya belum fillable) ──
