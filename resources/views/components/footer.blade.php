@@ -26,7 +26,7 @@
                     SIBUKPAK
                 </h2>
 
-                <p class="text-white text-2xl mt-2 leading-relaxed">
+                <p class="text-white text-base mt-2 leading-relaxed">
                     STATISTIK BERDAMPAK UNTUK <br>
                     KAMPUS BERDAMPAK
                 </p>
@@ -36,11 +36,11 @@
             <!-- ================= CENTER ================= -->
             <div>
 
-                <h3 class="text-white text-3xl font-bold mb-6">
+                <h3 class="text-white text-3xl font-bold mb-2 pt-14">
                     Navigasi
                 </h3>
 
-                <ul class="space-y-3 text-white text-2xl">
+                <ul class="space-y-3 text-white text-base">
 
                     <li>
                         <a href="#" class="hover:text-blue-200 transition">

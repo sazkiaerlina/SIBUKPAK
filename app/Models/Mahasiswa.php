@@ -130,7 +130,7 @@ class Mahasiswa extends Model
             ->toArray();
 
         return array_merge(
-            ['hadir' => 0, 'sakit' => 0, 'izin' => 0, 'alpa' => 0],
+            ['hadir' => 0, 'sakit' => 0, 'izin' => 0, 'terlambat' => 0],
             $rekap
         );
     }

@@ -20,7 +20,7 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6
             <ul class="hidden md:flex gap-8 text-white items-center">
                 <li><a href="#home" class="hover:text-blue-200">Home</a></li>
                 <li><a href="#profil" class="hover:text-blue-200">Profil</a></li>
-                <li><a href="#alur" class="hover:text-blue-200">Alur</a></li>
+                <li><a href="#alur" class="hover:text-blue-200">Alur Pendaftaran</a></li>
             </ul>
 
             <div class="hidden md:block">
@@ -57,7 +57,7 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6
             <ul class="space-y-4 text-white">
                 <li><a href="#home" class="block hover:text-blue-200">Home</a></li>
                 <li><a href="#profil" class="block hover:text-blue-200">Profil</a></li>
-                <li><a href="#alur" class="block hover:text-blue-200">Alur</a></li>
+                <li><a href="#alur" class="block hover:text-blue-200">Alur Pendaftaran</a></li>
                 
                 <li class="pt-2">
                     @auth

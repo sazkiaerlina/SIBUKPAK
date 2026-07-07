@@ -103,7 +103,7 @@
 
                     @if(in_array($p->status, ['sakit', 'izin']))
                         <div class="flex items-center gap-3 p-4 bg-yellow-50 rounded-xl border border-yellow-200">
-                            <span class="text-2xl">{{ $p->status === 'sakit' ? '🤒' : '📋' }}</span>
+                            <span class="text-2xl">{{ $p->status === 'sakit' ? 'sakit' : 'izin' }}</span>
                             <div>
                                 <p class="font-semibold text-yellow-800 text-sm">{{ ucfirst($p->status) }} — sudah dilaporkan</p>
                                 <p class="text-yellow-600 text-xs">{{ $p->keterangan }}</p>
@@ -262,7 +262,7 @@
                     ['label' => 'Hadir',  'value' => $statistik['hadir'], 'color' => 'green', 'emoji' => '✅'],
                     ['label' => 'Sakit',  'value' => $statistik['sakit'], 'color' => 'yellow','emoji' => '🤒'],
                     ['label' => 'Izin',   'value' => $statistik['izin'],  'color' => 'blue',  'emoji' => '📋'],
-                    ['label' => 'Alpa',   'value' => $statistik['alpa'],  'color' => 'red',   'emoji' => '❌'],
+                    ['label' => 'Terlambat',   'value' => $statistik['terlambat'],  'color' => 'orange',   'emoji' => '⏰'],
                 ] as $stat)
                 <div class="bg-{{ $stat['color'] }}-50 rounded-xl p-3 text-center border border-{{ $stat['color'] }}-100">
                     <div class="text-xl">{{ $stat['emoji'] }}</div>

@@ -42,6 +42,17 @@ class PresensiController extends Controller
         return round($earthRadius * $c, 2);
     }
 
+    /**
+     * Jam batas pulang tergantung hari: Jumat lebih siang setengah jam
+     * dibanding Senin-Kamis.
+     */
+    private function jamPulangHariIni(): string
+    {
+        return Carbon::now()->isFriday()
+            ? config('kantor.jam_pulang_jumat')
+            : config('kantor.jam_pulang_biasa');
+    }
+
     /** Absen Masuk */
     public function absenMasuk(Request $request)
     {
@@ -94,6 +105,12 @@ class PresensiController extends Controller
             ], 422);
         }
 
+        // ── Tentukan status: Hadir (tepat waktu) atau Terlambat ──
+        $sekarang       = Carbon::now();
+        $batasMasuk     = Carbon::today()->setTimeFromTimeString(config('kantor.jam_masuk_maksimal'));
+        $terlambat      = $sekarang->gt($batasMasuk);
+        $statusPresensi = $terlambat ? 'terlambat' : 'hadir';
+
         // ── Simpan Presensi ───────────────────────────────────
         Presensi::updateOrCreate(
             [
@@ -101,18 +118,23 @@ class PresensiController extends Controller
                 'tanggal'      => Carbon::today(),
             ],
             [
-                'jam_masuk'   => Carbon::now()->format('H:i:s'),
-                'status'      => 'hadir',
+                'jam_masuk'   => $sekarang->format('H:i:s'),
+                'status'      => $statusPresensi,
                 'latitude'    => $request->latitude,
                 'longitude'   => $request->longitude,
                 'jarak_meter' => $jarak,
             ]
         );
 
+        $pesan = $terlambat
+            ? "Absen masuk tercatat, tapi Anda TERLAMBAT (batas masuk {$batasMasuk->format('H:i')}). Jam: {$sekarang->format('H:i')}"
+            : 'Absen masuk berhasil! Jam: ' . $sekarang->format('H:i');
+
         return response()->json([
-            'status'  => 'success',
-            'message' => 'Absen masuk berhasil! Jam: ' . Carbon::now()->format('H:i'),
-            'jarak'   => $jarak,
+            'status'    => 'success',
+            'message'   => $pesan,
+            'jarak'     => $jarak,
+            'terlambat' => $terlambat,
         ]);
     }
 
@@ -149,6 +171,19 @@ class PresensiController extends Controller
             ]);
         }
 
+        // ── Blokir: belum waktunya pulang ──────────────────────
+        // Senin-Kamis jam 16:00, Jumat jam 16:30.
+        $sekarang    = Carbon::now();
+        $jamBatas    = $this->jamPulangHariIni();
+        $batasPulang = Carbon::today()->setTimeFromTimeString($jamBatas);
+
+        if ($sekarang->lt($batasPulang)) {
+            return response()->json([
+                'status'  => 'warning',
+                'message' => "Belum waktunya absen pulang. Jam pulang hari ini mulai {$batasPulang->format('H:i')}.",
+            ]);
+        }
+
         // ── Validasi Geolocation ──────────────────────────────
         $kantor = $this->getKantorConfig();
         $jarak  = $this->hitungJarak(
@@ -168,12 +203,12 @@ class PresensiController extends Controller
 
         // ── Simpan Jam Pulang ─────────────────────────────────
         $presensiHariIni->update([
-            'jam_pulang' => Carbon::now()->format('H:i:s'),
+            'jam_pulang' => $sekarang->format('H:i:s'),
         ]);
 
         return response()->json([
             'status'  => 'success',
-            'message' => 'Absen pulang berhasil! Jam: ' . Carbon::now()->format('H:i'),
+            'message' => 'Absen pulang berhasil! Jam: ' . $sekarang->format('H:i'),
             'jarak'   => $jarak,
         ]);
     }
@@ -184,7 +219,6 @@ class PresensiController extends Controller
         $mahasiswa       = Auth::user()->mahasiswa;
         $presensiHariIni = $mahasiswa?->presensiHariIni();
 
-        // Halaman tetap bisa dibuka kapan saja; info status ditampilkan di view.
         $sudahAbsenMasuk = $presensiHariIni && $presensiHariIni->sudahMasuk();
 
         return view('mahasiswa.ketidakhadiran', compact('presensiHariIni', 'sudahAbsenMasuk'));
@@ -207,7 +241,6 @@ class PresensiController extends Controller
             'bukti_dokumen.max'    => 'Ukuran file maksimal 2MB.',
         ]);
 
-        // ── Blokir: sudah absen masuk hari ini, tidak boleh menimpa jadi izin/sakit ──
         $presensiHariIni = $mahasiswa->presensiHariIni();
 
         if ($presensiHariIni && $presensiHariIni->sudahMasuk()) {
@@ -242,8 +275,6 @@ class PresensiController extends Controller
 
     /**
      * Riwayat Presensi.
-     * Satu-satunya sumber untuk data riwayat kehadiran — jangan duplikat
-     * logic ini di controller lain.
      */
     public function riwayat(Request $request)
     {
@@ -261,7 +292,6 @@ class PresensiController extends Controller
 
         $statistik = $mahasiswa->statistikBulan((int) $tahun, (int) $bulanNum);
 
-        // Daftar bulan sejak mulai magang, untuk dropdown filter
         $daftarBulan = collect();
         $cursor = Carbon::parse($mahasiswa->tanggal_mulai)->startOfMonth();
         while ($cursor->lte(now())) {

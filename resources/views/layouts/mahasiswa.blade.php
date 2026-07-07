@@ -30,7 +30,7 @@
     </style>
     @stack('styles')
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-[#EAF2FF] min-h-screen">
 
     {{-- Topbar --}}
     <header class="bg-[#043277] text-white shadow-lg sticky top-0 z-50">

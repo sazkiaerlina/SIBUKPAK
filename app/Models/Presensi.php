@@ -17,18 +17,18 @@ class Presensi extends Model
         'status',
         'keterangan',
         'bukti_dokumen',
-        'latitude',       
-        'longitude',      
-        'jarak_meter',    
+        'latitude',
+        'longitude',
+        'jarak_meter',
     ];
 
     protected function casts(): array
     {
         return [
-            'tanggal' => 'date',
-            'latitude'    => 'float',   // ← tambah
-            'longitude'   => 'float',   // ← tambah
-            'jarak_meter' => 'float',   // ← tambah
+            'tanggal'     => 'date',
+            'latitude'    => 'float',
+            'longitude'   => 'float',
+            'jarak_meter' => 'float',
         ];
     }
 
@@ -69,22 +69,22 @@ class Presensi extends Model
     public function getBadgeStatusAttribute(): string
     {
         return match ($this->status) {
-            'hadir' => 'bg-green-100 text-green-800',
-            'sakit' => 'bg-yellow-100 text-yellow-800',
-            'izin'  => 'bg-blue-100 text-blue-800',
-            'alpa'  => 'bg-red-100 text-red-800',
-            default => 'bg-gray-100 text-gray-800',
+            'hadir'     => 'bg-green-100 text-green-800',
+            'sakit'     => 'bg-yellow-100 text-yellow-800',
+            'izin'      => 'bg-blue-100 text-blue-800',
+            'terlambat' => 'bg-orange-100 text-orange-800',
+            default     => 'bg-gray-100 text-gray-800',
         };
     }
 
     public function getLabelStatusAttribute(): string
     {
         return match ($this->status) {
-            'hadir' => '✅ Hadir',
-            'sakit' => '🤒 Sakit',
-            'izin'  => '📋 Izin',
-            'alpa'  => '❌ Alpa',
-            default => '-',
+            'hadir'     => 'Hadir',
+            'sakit'     => 'Sakit',
+            'izin'      => 'Izin',
+            'terlambat' => 'Terlambat',
+            default     => '-',
         };
     }
 }

@@ -13,7 +13,7 @@
 
     {{-- ═══ UPLOAD LAPORAN ═══ --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="bg-blue-600 px-6 py-4">
+        <div class="bg-[#043277] px-6 py-4">
             <h2 class="text-white font-bold text-base">Laporan Akhir Magang</h2>
         </div>
         <div class="p-6 space-y-4">
@@ -65,7 +65,7 @@
                 @error('laporan') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
 
                 <button type="submit"
-                    class="w-full py-3 bg-blue-600 text-white font-bold text-sm rounded-xl hover:bg-blue-700 active:scale-95 transition">
+                    class="w-full py-3 bg-[#043277]  text-white font-bold text-sm rounded-xl hover:bg-blue-700 active:scale-95 transition">
                     {{ $mahasiswa->laporan_path ? 'Perbarui Laporan' : 'Unggah Laporan' }}
                 </button>
             </form>
@@ -73,14 +73,11 @@
     </div>
 
     {{-- ═══ SERTIFIKAT ═══ --}}
-    {{-- ═══ SERTIFIKAT ═══ --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="bg-[#043277] px-6 py-4">
             <h2 class="text-white font-bold text-base">Sertifikat Magang</h2>
         </div>
-        <div class="p-6">
-            {{-- UBAH BAGIAN INI: Cukup cek langsung ke kolom nomor_surat di tabel mahasiswa --}}
-          
+        <div class="p-6">          
 
             @if($mahasiswa->sertifikat_path)
 
