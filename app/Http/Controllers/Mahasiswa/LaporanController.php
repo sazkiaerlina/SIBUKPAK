@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
-use App\Services\SertifikatService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LaporanController extends Controller
 {
@@ -38,12 +38,24 @@ class LaporanController extends Controller
      * SertifikatService yang menentukan boleh/tidaknya (cek nomor_surat
      * sudah diisi admin atau belum) — controller ini tidak perlu cek ulang.
      */
+    
+
     public function downloadSertifikat()
-    {
-        $mahasiswa = Auth::user()->mahasiswa;
+{
+    $mahasiswa = Auth::user()->mahasiswa;
 
-        $pdf = SertifikatService::generate($mahasiswa);
+    abort_unless($mahasiswa->sertifikat_path, 404, 'Sertifikat belum tersedia.');
 
-        return $pdf->download(SertifikatService::namaFile($mahasiswa));
-    }
+    return response()->download(
+        storage_path('app/public/' . $mahasiswa->sertifikat_path),
+        'Sertifikat-' . $mahasiswa->user->name . '-' . $mahasiswa->nim . '.pdf',
+        [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]
+    );
+}
+
+
 }

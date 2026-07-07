@@ -80,32 +80,58 @@
         </div>
         <div class="p-6">
             {{-- UBAH BAGIAN INI: Cukup cek langsung ke kolom nomor_surat di tabel mahasiswa --}}
-           @if($mahasiswa->user && $mahasiswa->user->certificate && filled($mahasiswa->user->certificate->nomor_surat))
-                <div class="flex items-center gap-3 border border-blue-200 bg-blue-50 rounded-xl px-4 py-4">
-                    <span class="text-3xl">🎓</span>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold text-blue-700">Sertifikat Anda sudah tersedia!</p>
-                        <p class="text-xs text-blue-500">
-                            Nomor: {{ $mahasiswa->user->certificate->nomor_surat }}
-                        </p>
-                    </div>
-                    <a href="{{ route('mahasiswa.sertifikat.download') }}"
-                       class="bg-[#043277] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-blue-900 transition whitespace-nowrap">
-                        ⬇️ Unduh
-                    </a>
-                </div>
-            @else
-                <div class="flex items-center gap-3 border border-gray-200 bg-gray-50 rounded-xl px-4 py-4">
-                    <span class="text-3xl">⏳</span>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600">Sertifikat belum tersedia</p>
-                        <p class="text-xs text-gray-400">
-                            Sertifikat akan diterbitkan oleh admin setelah masa magang selesai
-                            dan laporan Anda diverifikasi.
-                        </p>
-                    </div>
-                </div>
-            @endif
+          
+
+            @if($mahasiswa->sertifikat_path)
+
+<div class="flex items-center gap-3 border border-blue-200 bg-blue-50 rounded-xl px-4 py-4">
+
+    <span class="text-3xl">🎓</span>
+
+    <div class="flex-1">
+
+        <p class="text-sm font-semibold text-blue-700">
+            Sertifikat Anda sudah tersedia!
+        </p>
+
+        <p class="text-xs text-blue-500">
+            Sertifikat telah diunggah oleh admin dan siap diunduh.
+        </p>
+
+    </div>
+
+    <a href="{{ route('mahasiswa.sertifikat.download') }}"
+       class="bg-[#043277] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-blue-900 transition whitespace-nowrap">
+
+        ⬇️ Unduh
+
+    </a>
+
+</div>
+
+@else
+
+<div class="flex items-center gap-3 border border-gray-200 bg-gray-50 rounded-xl px-4 py-4">
+
+    <span class="text-3xl">⏳</span>
+
+    <div>
+
+        <p class="text-sm font-semibold text-gray-600">
+            Sertifikat belum tersedia
+        </p>
+
+        <p class="text-xs text-gray-400">
+            Sertifikat akan muncul setelah admin mengunggah file sertifikat Anda.
+        </p>
+
+    </div>
+
+</div>
+
+@endif
+
+
         </div>
     </div>
 

@@ -82,8 +82,5 @@ class User extends Authenticatable
         return route('mahasiswa.dashboard');
     }
 
-    public function certificate()
-    {
-        return $this->hasOne(Certificate::class);
-    }
+   
 }

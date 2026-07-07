@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Certificate;
 use App\Models\Mahasiswa;
-use App\Services\SertifikatService;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LaporanSertifikatController extends Controller
 {
@@ -23,30 +23,58 @@ class LaporanSertifikatController extends Controller
     }
 
     /**
-     * Simpan nomor surat ke tabel certificates.
-     * Mengisi nomor surat = otomatis membuka akses download sertifikat mahasiswa.
-     */
-    public function simpanSertifikat(Request $request, Mahasiswa $mahasiswa)
-    {
-        $data = $request->validate([
-            'nomor_surat' => ['required', 'string', 'max:100'],
-        ], [
-            'nomor_surat.required' => 'Nomor surat wajib diisi.',
-        ]);
+ * Mengunggah file sertifikat mahasiswa.
+ * File yang diunggah akan langsung tersedia untuk diunduh oleh mahasiswa.
+ */
+    
 
-        Certificate::updateOrCreate(
-            ['user_id' => $mahasiswa->user_id],
-            $data
-        );
+public function simpanSertifikat(Request $request, Mahasiswa $mahasiswa)
+{
+    $request->validate([
+        'sertifikat' => 'required|mimes:pdf|max:10240',
+    ]);
 
-        return back()->with('success', 'Nomor surat tersimpan. Mahasiswa kini bisa mengunduh sertifikatnya.');
+    if ($mahasiswa->sertifikat_path) {
+        Storage::disk('public')->delete($mahasiswa->sertifikat_path);
     }
 
-    /** Admin mengunduh/preview sertifikat */
-    public function downloadSertifikat(Mahasiswa $mahasiswa)
-    {
-        $pdf = SertifikatService::generate($mahasiswa);
+   
+$namaFile = 'Sertifikat-' .
+    Str::slug($mahasiswa->user->name) .
+     '-'.
+     $mahasiswa->nim .
+    '.pdf';
 
-        return $pdf->download(SertifikatService::namaFile($mahasiswa));
-    }
+$path = $request->file('sertifikat')->storeAs(
+    'sertifikat',
+    $namaFile,
+    'public'
+);
+
+
+    $mahasiswa->update([
+        'sertifikat_path' => $path,
+    ]);
+
+    return back()->with('success', 'Sertifikat berhasil diupload.');
+}
+
+
+    // batas
+public function downloadSertifikat(Mahasiswa $mahasiswa)
+{
+    abort_unless($mahasiswa->sertifikat_path, 404);
+
+    return response()->download(
+        storage_path('app/public/' . $mahasiswa->sertifikat_path),
+        'Sertifikat-' . $mahasiswa->user->name . '-' . $mahasiswa->nim . '.pdf',
+        [
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]
+    );
+}
+
+
 }

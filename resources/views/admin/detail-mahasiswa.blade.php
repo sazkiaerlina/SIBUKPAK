@@ -102,15 +102,32 @@
             <tr>
                 <th>Sertifikat</th>
                 <td>
-                    @if($mahasiswa->user->certificate && filled($mahasiswa->user->certificate->nomor_surat))
-                        <span class="badge bg-success mb-1">Nomor: {{ $mahasiswa->user->certificate->nomor_surat }}</span>
+
+                    @if($mahasiswa->sertifikat_path)
+
+                        <span class="badge bg-success mb-2">
+                            Sertifikat sudah diunggah
+                        </span>
+
                         <br>
-                        <a href="{{ route('admin.laporan.sertifikat.download', $mahasiswa->id) }}" class="btn btn-sm btn-outline-primary mt-1">
-                            <i class="bi bi-download"></i> Download
+
+                        <a href="{{ route('admin.laporan.sertifikat.download', $mahasiswa->id) }}"
+                        class="btn btn-sm btn-outline-primary mt-1">
+
+                            <i class="bi bi-download"></i>
+
+                            Lihat Sertifikat
+
                         </a>
+
                     @else
-                        <span class="badge bg-secondary">Belum terbit</span>
+
+                        <span class="badge bg-secondary">
+                            Belum diunggah
+                        </span>
+
                     @endif
+
                 </td>
             </tr>
 

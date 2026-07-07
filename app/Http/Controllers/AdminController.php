@@ -130,7 +130,7 @@ public function mahasiswa(Request $request)
 
 public function detailMahasiswa($id)
 {
-    $mahasiswa = Mahasiswa::with(['user', 'user.certificate'])->findOrFail($id);
+    $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
 
     return view('admin.detail-mahasiswa', compact('mahasiswa'));
 }

@@ -77,11 +77,7 @@ nav.d-flex.justify-content-between{
                         <i class="bi bi-file-earmark-text"></i> Laporan & Sertifikat
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.sertifikat-setting.*') ? 'active' : '' }}" href="{{ route('admin.sertifikat-setting.edit') }}">
-                        <i class="bi bi-palette"></i> Template Sertifikat
-                    </a>
-                </li>
+               
             </ul>
 
             <ul class="navbar-nav">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\VerifikasiPendaftaranController;
 use App\Http\Controllers\Admin\LaporanSertifikatController;
-use App\Http\Controllers\Admin\SertifikatSettingController;
+
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PendaftaranController;
@@ -108,8 +108,4 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::patch('/laporan-sertifikat/{mahasiswa}/simpan', [LaporanSertifikatController::class, 'simpanSertifikat'])->name('laporan.sertifikat.simpan');
     Route::get('/laporan-sertifikat/{mahasiswa}/download', [LaporanSertifikatController::class, 'downloadSertifikat'])->name('laporan.sertifikat.download');
 
-    // ── Pengaturan Template Sertifikat ──────────────────────
-    Route::get('/sertifikat-setting', [SertifikatSettingController::class, 'edit'])->name('sertifikat-setting.edit');
-    Route::put('/sertifikat-setting', [SertifikatSettingController::class, 'update'])->name('sertifikat-setting.update');
-    Route::get('/sertifikat-setting/preview', [SertifikatSettingController::class, 'preview'])->name('sertifikat-setting.preview');
 });
