@@ -1,9 +1,10 @@
 <nav
 x-data="{ open:false }"
 id="navbar"
-class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6xl mx-auto mt-3 px-1">
+class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-7xl mx-auto mt-3 px-4">
 
-    <div class="max-w-5x1 mx-auto mt-0 bg-[#043277] rounded-2xl px-6 py-4">
+
+<div class="bg-[#043277] rounded-2xl px-6 py-4">
         <div class="flex justify-between items-center">
 
             
@@ -21,6 +22,7 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-6
                 <li><a href="#home" class="hover:text-blue-200">Home</a></li>
                 <li><a href="#profil" class="hover:text-blue-200">Profil</a></li>
                 <li><a href="#alur" class="hover:text-blue-200">Alur Pendaftaran</a></li>
+                <li><a href="#informasi" class="hover:text-blue-200">Informasi Magang</a></li>
             </ul>
 
             <div class="hidden md:block">

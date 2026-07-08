@@ -10,6 +10,8 @@
 
 <x-timeline />
 
+<x-formasi-magang />
+
 <x-footer />
 
 @endsection
