@@ -19,11 +19,15 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-7
 </div>
 
             <ul class="hidden md:flex gap-8 text-white items-center">
-                <li><a href="#home" class="hover:text-blue-200">Home</a></li>
-                <li><a href="#profil" class="hover:text-blue-200">Profil</a></li>
-                <li><a href="#alur" class="hover:text-blue-200">Alur Pendaftaran</a></li>
-                <li><a href="#informasi" class="hover:text-blue-200">Informasi Magang</a></li>
+    <li><a href="#home" class="hover:text-blue-200">Home</a></li>
+
+    <li><a href="#profil" class="hover:text-blue-200">Profil</a></li>
+
+    <li><a href="#alur" class="hover:text-blue-200">Alur Pendaftaran</a></li>
+
+    <li><a href="#formasi" class="hover:text-blue-200">Informasi Magang</a></li>
             </ul>
+
 
             <div class="hidden md:block">
                 @auth
@@ -56,10 +60,18 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-7
             x-transition
             class="md:hidden mt-5 border-t border-blue-400 pt-4">
 
+           
             <ul class="space-y-4 text-white">
-                <li><a href="#home" class="block hover:text-blue-200">Home</a></li>
-                <li><a href="#profil" class="block hover:text-blue-200">Profil</a></li>
-                <li><a href="#alur" class="block hover:text-blue-200">Alur Pendaftaran</a></li>
+    <li><a href="#home" class="block hover:text-blue-200">Home</a></li>
+
+    <li><a href="#profil" class="block hover:text-blue-200">Profil</a></li>
+
+     <li><a href="#alur" class="block hover:text-blue-200">Alur Pendaftaran</a></li>
+
+    <li><a href="#formasi" class="block hover:text-blue-200">Informasi Magang</a></li>
+
+            </ul>
+    
                 
                 <li class="pt-2">
                     @auth
