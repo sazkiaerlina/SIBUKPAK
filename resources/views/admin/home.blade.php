@@ -78,12 +78,12 @@
         </div>
     </div>
 
-    <!-- Total Alpa -->
+    <!-- Total Terlambat -->
     <div class="col-md-3 mb-3">
         <div class="card card-dashboard">
             <div class="card-body text-center">
-                <h6>Total Alpa</h6>
-                <h2>{{ $totalAlpa }}</h2>
+                <h6>Total Terlambat</h6>
+                <h2>{{ $totalTerlambat }}</h2>
             </div>
         </div>
     </div>
@@ -147,9 +147,9 @@
 
                             <span class="badge bg-success">Hadir</span>
 
-                        @elseif($item->status == 'alpa')
+                        @elseif($item->status == 'terlambat')
 
-                            <span class="badge bg-danger">Alpa</span>
+                            <span class="badge bg-danger">Terlambat</span>
 
                         @elseif($item->status == 'izin')
 
@@ -269,7 +269,7 @@ new Chart(ctx,{
 
         labels:[
             'Hadir',
-            'Alpa',
+            'Terlambat',
             'Izin / Sakit'
         ],
 
@@ -279,7 +279,7 @@ new Chart(ctx,{
 
             data:[
                 {{ $totalHadir }},
-                {{ $totalAlpa }},
+                {{ $totalTerlambat }},
                 {{ $totalIzinSakit }}
             ],
 
@@ -366,7 +366,7 @@ new Chart(ctxBar,{
 
         labels:[
             'Hadir',
-            'Alpa',
+            'Terlambat',
             'Izin / Sakit'
         ],
 
@@ -376,7 +376,7 @@ new Chart(ctxBar,{
 
             data:[
                 {{ $totalHadir }},
-                {{ $totalAlpa }},
+                {{ $totalTerlambat}},
                 {{ $totalIzinSakit }}
             ],
 

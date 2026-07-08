@@ -2,8 +2,8 @@
 
 return [
     'nama'   => 'BPS Kabupaten Ogan Ilir',
-    'latitude'  => -3.208947262100186, 
-    'longitude' => 104.65085749200793,
+    'latitude'  => -3.2046026242430736, 
+    'longitude' => 104.65294202377936,
     'radius_meter' => 100,
     'zoom' => 17,
     'jam_masuk_maksimal' => '08:00:00',

@@ -88,8 +88,8 @@ public function home(Request $request)
                     ->where('status', 'hadir')
                     ->count();
 
-    $totalAlpa = (clone $queryStatistik)
-                    ->where('status', 'alpa')
+    $totalTerlambat = (clone $queryStatistik)
+                    ->where('status', 'terlambat')
                     ->count();
 
     $totalIzinSakit = (clone $queryStatistik)
@@ -100,7 +100,7 @@ public function home(Request $request)
         'presensiHariIni',
         'totalMahasiswa',
         'totalHadir',
-        'totalAlpa',
+        'totalTerlambat',
         'totalIzinSakit',
         'periode'
     ));

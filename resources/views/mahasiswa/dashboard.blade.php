@@ -179,8 +179,9 @@
             <div class="mb-5">
 
                 {{-- ── MODAL MAP ABSEN ──────────────────────────────────── --}}
-                <div id="modal-absen"
-                    class="fixed inset-0 bg-black/70 z-50 hidden flex-col">
+                 <div id="modal-absen"
+                    class="fixed inset-0 bg-black/70 z-[9999] hidden flex-col"
+                    style="height: 100dvh;">
 
                     <div class="bg-white px-4 py-3 flex items-center justify-between shadow">
                         <div>
@@ -193,9 +194,11 @@
 
                     <div id="map" class="flex-1 w-full" style="min-height: 340px;"></div>
 
-                    <div class="bg-white px-4 py-4 shadow-lg space-y-3">
-                        <div id="info-jarak"
-                            class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-200">
+                    
+                        <div class="bg-white px-4 py-4 shadow-lg space-y-3" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));">
+                    <div id="info-jarak"
+                        class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-200">
+
                             <div class="text-2xl" id="jarak-icon">📡</div>
                             <div class="flex-1">
                                 <p class="text-xs text-gray-500" id="jarak-label">Mendeteksi lokasi Anda...</p>
@@ -311,11 +314,14 @@ let koordinatUser = null;
 let jarakUser     = null;
 let watchId       = null;
 
+
 function bukaModalAbsen(tipe) {
     tipeAbsen = tipe;
+    document.body.style.overflow = 'hidden';
 
     document.getElementById('modal-judul').textContent =
         tipe === 'masuk' ? 'Absen Masuk' : 'Absen Pulang';
+
     document.getElementById('modal-subjudul').textContent =
         'Pastikan Anda berada di area kantor';
 
@@ -332,8 +338,10 @@ function bukaModalAbsen(tipe) {
 }
 
 function tutupModalAbsen() {
+    document.body.style.overflow = '';
     document.getElementById('modal-absen').classList.add('hidden');
     document.getElementById('modal-absen').classList.remove('flex');
+
 
     if (watchId !== null) {
         navigator.geolocation.clearWatch(watchId);
