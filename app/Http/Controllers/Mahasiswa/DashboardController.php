@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         $statistik = $mahasiswa
             ? $mahasiswa->statistikBulan(now()->year, now()->month)
-            : ['hadir' => 0, 'sakit' => 0, 'izin' => 0, 'alpa' => 0];
+            : ['hadir' => 0, 'sakit' => 0, 'izin' => 0, 'terlambat' => 0];
 
         // ── Status masa magang: belum mulai / aktif / sudah selesai ──
         // Menentukan apakah fitur absen & izin boleh diakses hari ini.

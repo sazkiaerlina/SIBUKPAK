@@ -35,8 +35,6 @@ class LaporanController extends Controller
 
     /**
      * Mahasiswa mengunduh sertifikatnya sendiri.
-     * SertifikatService yang menentukan boleh/tidaknya (cek nomor_surat
-     * sudah diisi admin atau belum) — controller ini tidak perlu cek ulang.
      */
     
 

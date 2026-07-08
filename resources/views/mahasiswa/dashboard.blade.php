@@ -148,9 +148,6 @@
 
             {{-- ═══════════════════════════════════════════════════
                  TOMBOL ABSEN
-                 - Kalau masa magang TIDAK aktif -> tombol abu-abu,
-                   tanpa fungsi, dengan teks penjelas, TANPA modal.
-                 - Kalau aktif -> logic asli (sudahMasuk/sudahPulang).
             ═══════════════════════════════════════════════════ --}}
             @php
                 $sudahMasuk        = $presensiHariIni && $presensiHariIni->sudahMasuk();
@@ -318,7 +315,7 @@ function bukaModalAbsen(tipe) {
     tipeAbsen = tipe;
 
     document.getElementById('modal-judul').textContent =
-        tipe === 'masuk' ? '🟢 Absen Masuk' : '🔴 Absen Pulang';
+        tipe === 'masuk' ? 'Absen Masuk' : 'Absen Pulang';
     document.getElementById('modal-subjudul').textContent =
         'Pastikan Anda berada di area kantor';
 
@@ -469,8 +466,8 @@ function updateInfoJarak(jarak) {
         elInfo.className    = 'flex items-center gap-3 p-3 rounded-xl bg-green-50 border border-green-300';
 
         const labelBtn = tipeAbsen === 'masuk'
-            ? '🟢 Konfirmasi Absen Masuk'
-            : '🔴 Konfirmasi Absen Pulang';
+            ? 'Konfirmasi Absen Masuk'
+            : 'Konfirmasi Absen Pulang';
         const warnaBg = tipeAbsen === 'masuk'
             ? 'bg-green-500 hover:bg-green-600'
             : 'bg-orange-500 hover:bg-orange-600';
