@@ -19,7 +19,7 @@
 <div class="flex items-center justify-center lg:justify-start gap-4 mb-6">
 
     <img
-        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
         class="h-16 lg:h-20 w-auto">
 

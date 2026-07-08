@@ -39,7 +39,7 @@
            
                <div class="flex items-center gap-3">
     <img
-        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
         class="h-10 w-auto">
     <h1 class="text-white font-bold text-2xl">

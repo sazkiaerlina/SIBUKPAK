@@ -10,7 +10,7 @@ class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 max-w-7
             
             <div class="flex items-center gap-3">
     <img
-        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
         class="h-10 w-auto">
     <h1 class="text-white font-bold text-2xl">
