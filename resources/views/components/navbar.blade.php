@@ -1,20 +1,20 @@
 <nav
 x-data="{ open:false }"
 id="navbar"
-class="fixed inset-x-0 top-0 z-50 transition-transform duration-300">
+class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300">
 
 
 <div class="max-w-7xl mx-auto mt-3 px-4">
-    <div class="bg-[#043277] rounded-2xl px-4 sm:px-6 py-4 overflow-hidden">
+    <div class="bg-[#043277] rounded-2xl px-6 py-4">
         <div class="flex justify-between items-center">
 
             
-            <div class="flex items-center gap-2 min-w-0">
+            <div class="flex items-center gap-3">
     <img
         src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
         class="h-10 w-auto">
-    <h1 class="text-white font-bold text-xl sm:text-2xl whitespace-nowrap">
+    <h1 class="text-white font-bold text-2xl">
         SIBUKPAK
     </h1>
 </div>
