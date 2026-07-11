@@ -1,6 +1,6 @@
 <section id="home" class="max-w-7xl mx-auto px-6 pt-36 pb-20">
 
-    <div class="flex flex-col lg:flex-row items-center justify-between gap-12 max-w-8x5 mx-auto mt-3 px-15">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-12 max-w-7xl mx-auto mt-3 px-4 sm:px-6 lg:px-8">
 
         <!-- Gambar -->
         <div class="w-full lg:w-1/2 flex justify-center lg:justify-start">
@@ -13,7 +13,7 @@
         </div>
 
         <!-- Teks -->
-        <div class="w-full lg:w-1/2 text-center lg:text-left">
+        <div class="w-full lg:w-1/2 text-center lg:text-left flex flex-col items-center lg:items-start">
 
            
 <div class="flex items-center justify-center lg:justify-start gap-4 mb-6">
@@ -23,14 +23,14 @@
         alt="Logo SIBUKPAK"
         class="h-16 lg:h-20 w-auto">
 
-    <h1 class="text-5xl lg:text-7xl font-extrabold text-black">
+    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-black">
         SIBUKPAK
     </h1>
 
 </div>
 
 
-            <p class="text-xl text-gray-700 leading-9 max-w-xl">
+            <p class="text-lg sm:text-xl text-gray-700 leading-8 sm:leading-9 max-w-xl mx-auto lg:mx-0">
                 Statistik Berdampak Untuk Kampus Berdampak (SIBUKPAK) 
                 merupakan platform Badan Pusat Statistik Kabupaten Ogan Ilir
                 yang mendukung digitalisasi proses magang mahasiswa. Melalui website ini, 
@@ -39,8 +39,8 @@
             </p>
 
             <a
-                href="{{ route('register') }}"
-                class="inline-block mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-xl px-10 py-4 rounded-2xl shadow-lg transition">
+            href="{{ route('register') }}"
+            class="inline-block mt-10 bg-[#043277] hover:bg-[#0D3D88] text-white text-lg sm:text-xl px-8 sm:px-10 py-4 rounded-2xl shadow-lg transition">
 
                 Daftar Magang
 
