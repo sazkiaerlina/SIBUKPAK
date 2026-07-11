@@ -88,6 +88,10 @@
                            class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-gray-50 transition">
                             <span>👤</span> Edit Profil
                         </a>
+                        <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank"
+                           class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-gray-50 transition">
+                            <span>📖</span> Buku Panduan
+                        </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\VerifikasiPendaftaranController;
 use App\Http\Controllers\Admin\LaporanSertifikatController;
+use App\Http\Controllers\Admin\PanduanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PendaftaranController;
@@ -106,5 +107,10 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::get('/laporan-sertifikat', [LaporanSertifikatController::class, 'index'])->name('laporan.index');
     Route::patch('/laporan-sertifikat/{mahasiswa}/simpan', [LaporanSertifikatController::class, 'simpanSertifikat'])->name('laporan.sertifikat.simpan');
     Route::get('/laporan-sertifikat/{mahasiswa}/download', [LaporanSertifikatController::class, 'downloadSertifikat'])->name('laporan.sertifikat.download');
+
+    // ── Buku Panduan ─────────────────────────────────────────
+    Route::get('/panduan', [PanduanController::class, 'edit'])->name('panduan.edit');
+    Route::post('/panduan/mahasiswa', [PanduanController::class, 'uploadMahasiswa'])->name('panduan.mahasiswa');
+    Route::post('/panduan/admin', [PanduanController::class, 'uploadAdmin'])->name('panduan.admin');
 
 });
