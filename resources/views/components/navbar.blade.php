@@ -1,11 +1,11 @@
 <nav
 x-data="{ open:false }"
 id="navbar"
-class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300">
+class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidden">
 
 
-<div class="max-w-7xl mx-auto mt-3 px-4">
-    <div class="bg-[#043277] rounded-2xl px-6 py-4">
+<div class="w-full max-w-7xl mx-auto mt-3 px-4">
+    <div class="w-full bg-[#043277] rounded-2xl px-6 py-4">
         <div class="flex justify-between items-center">
 
             
