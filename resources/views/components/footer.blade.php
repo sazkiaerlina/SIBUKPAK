@@ -60,6 +60,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="#kontak" class="hover:text-blue-200 transition">
+                            Panduan
+                        </a>
+
+                    </li>
+
                 </ul>
 
             </div>

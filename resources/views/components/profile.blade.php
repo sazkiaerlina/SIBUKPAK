@@ -46,10 +46,10 @@
 
                     <button
 
-    @click="menu='tugas'"
-    :class="menu=='tugas'
-        ? 'w-full bg-blue-900 text-white rounded-xl px-5 py-4 flex items-center gap-3 font-semibold'
-        : 'w-full bg-blue-100 hover:bg-blue-200 rounded-xl px-5 py-4 flex items-center gap-3'">
+                    @click="menu='tugas'"
+                    :class="menu=='tugas'
+                        ? 'w-full bg-blue-900 text-white rounded-xl px-5 py-4 flex items-center gap-3 font-semibold'
+                        : 'w-full bg-blue-100 hover:bg-blue-200 rounded-xl px-5 py-4 flex items-center gap-3'">
 
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -66,10 +66,10 @@
 
                     <button
 
-    @click="menu='visi'"
-    :class="menu=='visi'
-        ? 'w-full bg-blue-900 text-white rounded-xl px-5 py-4 flex items-center gap-3 font-semibold'
-        : 'w-full bg-blue-100 hover:bg-blue-200 rounded-xl px-5 py-4 flex items-center gap-3'">
+                        @click="menu='visi'"
+                        :class="menu=='visi'
+                            ? 'w-full bg-blue-900 text-white rounded-xl px-5 py-4 flex items-center gap-3 font-semibold'
+                            : 'w-full bg-blue-100 hover:bg-blue-200 rounded-xl px-5 py-4 flex items-center gap-3'">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="2"
@@ -86,101 +86,95 @@
                 </div>
 
                 <!-- Content -->
-                <!-- Content -->
-<div class="lg:col-span-3">
+                <div class="lg:col-span-3">
 
-    <!-- ================= PROFIL ================= -->
-    <div x-show="menu=='profil'">
+                    <!-- ================= PROFIL ================= -->
+                    <div x-show="menu=='profil'">
 
-        <h2 class="text-3xl font-bold text-blue-900 mb-6">
-            Profil BPS
-        </h2>
+                        <h2 class="text-3xl font-bold text-blue-900 mb-6">
+                            Profil BPS
+                        </h2>
 
-        <p class="text-gray-700 leading-8 text-justify">
-            Badan Pusat Statistik (BPS) merupakan Lembaga Pemerintah Non-Kementerian 
-            yang bertanggung jawab langsung kepada Presiden serta berperan sebagai 
-            lembaga statistik yang independen dan tepercaya. 
-            BPS bertugas menyediakan data statistik berkualitas sebagai dasar perencanaan, 
-            pengambilan keputusan, dan evaluasi pembangunan guna mendukung perumusan kebijakan 
-            berbasis data menuju Indonesia Emas 2045.
-        </p>
-    
-    </div>
-
-
-    <!-- ================= TUGAS ================= -->
-    <div x-show="menu=='tugas'">
-
-        <h2 class="text-3xl font-bold text-blue-900 mb-6">
-            Tugas & Fungsi
-        </h2>
-
-         <h4 class="text-2xl font-bold mt-6 mb-2">
-            Tugas
-        </h4>
-
-        <p class="text-gray-700 leading-8 text-justify">
-              BPS mempunyai tugas melaksanakan tugas pemerintahan 
-              di bidang kegiatan statistik sesuai dengan ketentuan peraturan perundang-undangan.
-        </p>
-
-         <h4 class="text-2xl font-bold mt-6 mb-2">
-            Fungsi
-        </h4>
-
-        <ul class="list-disc pl-6 mt-2 space-y-2 text-gray-700">
-            Dalam melaksanakan tugas, BPS menyelenggarakan fungsi:
-            <li>Pengkajian, penyusunan, dan perumusan kebijakan di bidang statistik;</li>
-            <li>Pengoordinasian kegiatan statistik nasional dan regional;</li>
-            <li>Penetapan dan penyelenggaraan statistik dasar;</li>
-            <li>Penetapan sistem statistik nasional;</li>
-            <li>Pembinaan dan fasilitasi terhadap kegiatan instansi pemerintah 
-                di bidang kegiatan statistik; dan</li>
-            <li>Penyelenggaraan pembinaan dan pelayanan administrasi umum 
-                di bidang perencanaan umum, ketatausahaan, organisasi, tata laksana, 
-                kepegawaian,keuangan, kearsipan, kehumasan, perlengkapan, dan rumah tangga.</li>
-        </ul>
-
-    </div>
+                        <p class="text-gray-700 leading-8 text-justify">
+                            Badan Pusat Statistik (BPS) merupakan Lembaga Pemerintah Non-Kementerian 
+                            yang bertanggung jawab langsung kepada Presiden serta berperan sebagai 
+                            lembaga statistik yang independen dan tepercaya. 
+                            BPS bertugas menyediakan data statistik berkualitas sebagai dasar perencanaan, 
+                            pengambilan keputusan, dan evaluasi pembangunan guna mendukung perumusan kebijakan 
+                            berbasis data menuju Indonesia Emas 2045.
+                        </p>
+                    
+                    </div>
 
 
-    <!-- ================= VISI ================= -->
-    <div x-show="menu=='visi'">
+                    <!-- ================= TUGAS ================= -->
+                    <div x-show="menu=='tugas'">
 
-        <h2 class="text-3xl font-bold text-blue-900 mb-6">
-            Visi & Misi
-        </h2>
+                        <h2 class="text-3xl font-bold text-blue-900 mb-6">
+                            Tugas & Fungsi
+                        </h2>
 
-        <h4 class="text-2xl font-bold mt-6 mb-2">
-            Visi
-        </h4>
+                        <h4 class="text-2xl font-bold mt-6 mb-2">
+                            Tugas
+                        </h4>
 
-        <p class="text-gray-700 leading-8 text-justify font-bold">
-            “Lembaga yang Independen, Tepercaya, 
-            dan Berperan Aktif dalam Mendukung Perumusan Kebijakan Berbasis Data Bersama Indonesia Maju Menuju Indonesia Emas 2045”.
-        </p>
+                        <p class="text-gray-700 leading-8 text-justify">
+                            BPS mempunyai tugas melaksanakan tugas pemerintahan 
+                            di bidang kegiatan statistik sesuai dengan ketentuan peraturan perundang-undangan.
+                        </p>
 
-        <h4 class="text-2xl font-bold mt-6 mb-2">
-            Misi
-        </h4>
+                        <h4 class="text-2xl font-bold mt-6 mb-2">
+                            Fungsi
+                        </h4>
 
-        <ul class="list-disc pl-6 space-y-2 text-gray-700">
-            Misi BPS dirumuskan dengan memperhatikan fungsi dan kewenangan BPS. Selaras dengan arah kebijakan di dalam RPJPN 2025-2045, RPJMN 2025-2029, serta Visi Presiden dan Wakil Presiden 2024-2029 yaitu “Bersama Indonesia Maju Menuju Indonesia Emas 2045” dengan uraian sebagai berikut: 
+                        <ul class="list-disc pl-6 mt-2 space-y-2 text-gray-700">
+                            Dalam melaksanakan tugas, BPS menyelenggarakan fungsi:
+                            <li>Pengkajian, penyusunan, dan perumusan kebijakan di bidang statistik;</li>
+                            <li>Pengoordinasian kegiatan statistik nasional dan regional;</li>
+                            <li>Penetapan dan penyelenggaraan statistik dasar;</li>
+                            <li>Penetapan sistem statistik nasional;</li>
+                            <li>Pembinaan dan fasilitasi terhadap kegiatan instansi pemerintah 
+                                di bidang kegiatan statistik; dan</li>
+                            <li>Penyelenggaraan pembinaan dan pelayanan administrasi umum 
+                                di bidang perencanaan umum, ketatausahaan, organisasi, tata laksana, 
+                                kepegawaian,keuangan, kearsipan, kehumasan, perlengkapan, dan rumah tangga.</li>
+                        </ul>
 
-            <li>Menyediakan Data Statistik Berkualitas dan Insight 
-                untuk Perumusan Kebijakan dan Pengambilan Keputusan</li>
-            <li>Menguatkan Kepemimpinan BPS dalam penyelenggaraan Sistem Statistik Nasional (SSN)</li>
-            <li>Menguatkan kapasitas kelembagaan statistik yang efektif dan efisien</li>
-            
-        </ul>
+                    </div>
 
-    </div>
 
-</div>
+                    <!-- ================= VISI ================= -->
+                    <div x-show="menu=='visi'">
 
+                        <h2 class="text-3xl font-bold text-blue-900 mb-6">
+                            Visi & Misi
+                        </h2>
+
+                        <h4 class="text-2xl font-bold mt-6 mb-2">
+                            Visi
+                        </h4>
+
+                        <p class="text-gray-700 leading-8 text-justify font-bold">
+                            “Lembaga yang Independen, Tepercaya, 
+                            dan Berperan Aktif dalam Mendukung Perumusan Kebijakan Berbasis Data Bersama Indonesia Maju Menuju Indonesia Emas 2045”.
+                        </p>
+
+                        <h4 class="text-2xl font-bold mt-6 mb-2">
+                            Misi
+                        </h4>
+
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            Misi BPS dirumuskan dengan memperhatikan fungsi dan kewenangan BPS. Selaras dengan arah kebijakan di dalam RPJPN 2025-2045, RPJMN 2025-2029, serta Visi Presiden dan Wakil Presiden 2024-2029 yaitu “Bersama Indonesia Maju Menuju Indonesia Emas 2045” dengan uraian sebagai berikut: 
+
+                            <li>Menyediakan Data Statistik Berkualitas dan Insight 
+                                untuk Perumusan Kebijakan dan Pengambilan Keputusan</li>
+                            <li>Menguatkan Kepemimpinan BPS dalam penyelenggaraan Sistem Statistik Nasional (SSN)</li>
+                            <li>Menguatkan kapasitas kelembagaan statistik yang efektif dan efisien</li>
+                            
+                        </ul>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </div>
 </section>

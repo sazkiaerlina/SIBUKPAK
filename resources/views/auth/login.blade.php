@@ -29,7 +29,7 @@
 <div class="relative w-full lg:w-1/2 min-h-[350px] lg:min-h-screen overflow-hidden">
 
     <img
-    src="{{ asset('assets/images/bgbps1.png') }}"
+    src="{{ asset('assets/images/bg.jpeg') }}"
     alt="Gedung BPS Kabupaten Ogan Ilir"
     class="absolute inset-0 w-full h-full object-cover"
     style="object-position: 65% center;">

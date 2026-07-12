@@ -18,15 +18,41 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
         SIBUKPAK
     </h1>
 </div>
-
             <ul class="hidden md:flex gap-8 text-white items-center">
-    <li><a href="#home" class="hover:text-blue-200">Home</a></li>
+                <li>
+                    <a href="#home" 
+                        @click.prevent="document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });"
+                        class="hover:text-blue-200">
+                        Home
+                    </a>
+                </li>
 
-    <li><a href="#profil" class="hover:text-blue-200">Profil</a></li>
+                <li>
+                    <a href="#profil" 
+                        @click.prevent="document.querySelector('#profil').scrollIntoView({ behavior: 'smooth' });" 
+                        class="hover:text-blue-200">
+                        Profil
+                    </a>
+                </li>
 
-    <li><a href="#alur" class="hover:text-blue-200">Alur Pendaftaran</a></li>
+                <li>
+                    <a href="#alur" 
+                        @click.prevent="document.querySelector('#alur').scrollIntoView({ behavior: 'smooth' });" 
+                        class="hover:text-blue-200">
+                        Alur Pendaftaran
+                    </a>
+                </li>
 
-    <li><a href="#formasi" class="hover:text-blue-200">Informasi Magang</a></li>
+                <li>
+                    <a href="#formasi" 
+                        @click.prevent="document.querySelector('#formasi').scrollIntoView({ behavior: 'smooth' });" 
+                        class="hover:text-blue-200">
+                        Informasi Magang
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
             </ul>
 
 
@@ -34,11 +60,11 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                 @auth
                     @if(auth()->user()->is_admin)
                         <a href="{{ route('admin.home') }}" class="bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
-                            Login
+                            Dashboard
                         </a>
                     @else
                         <a href="{{ route('mahasiswa.dashboard') }}" class="bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
-                            Login
+                            Dashboard
                         </a>
                     @endif
                 @else
@@ -59,28 +85,54 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
         <div
             x-show="open"
             x-transition
-            class="md:hidden mt-5 border-t border-blue-400 pt-4">
+            class="md:hidden mt-5 border-t border-[#043277] pt-4">
 
            
-            <ul class="space-y-4 text-white">
-    <li><a href="#home" class="block hover:text-blue-200">Home</a></li>
+            <ul class="space-y-2 text-white">
+                <li>
+                    <a href="#home" 
+                        @click.prevent="document.querySelector('#home').scrollIntoView({ behavior: 'smooth' }); open = false;" 
+                        class="block hover:text-blue-200">
+                        Home
+                    </a>
+                </li>
 
-    <li><a href="#profil" class="block hover:text-blue-200">Profil</a></li>
+                <li>
+                    <a href="#profil" 
+                        @click.prevent="document.querySelector('#profil').scrollIntoView({ behavior: 'smooth' }); open = false;" 
+                        class="block hover:text-blue-200">
+                        Profil
+                    </a>
+                </li>
 
-     <li><a href="#alur" class="block hover:text-blue-200">Alur Pendaftaran</a></li>
+                <li>
+                    <a href="#alur" 
+                        @click.prevent="document.querySelector('#alur').scrollIntoView({ behavior: 'smooth' }); open = false;" 
+                        class="block hover:text-blue-200">
+                        Alur Pendaftaran
+                    </a>
+                </li>
 
-    <li><a href="#formasi" class="block hover:text-blue-200">Informasi Magang</a></li>
+                <li>
+                    <a href="#formasi" 
+                        @click.prevent="document.querySelector('#formasi').scrollIntoView({ behavior: 'smooth' }); open = false;" 
+                        class="block hover:text-blue-200">
+                        Informasi Magang
+                    </a>
+                </li>
+
+                <li><a href="{{ asset('storage/panduan/panduan-admin.pdf') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
 
                     
                 <li class="pt-2">
                     @auth
                         @if(auth()->user()->is_admin)
                             <a href="{{ route('admin.home') }}" class="block text-center bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition w-full">
-                                Dashboard Admin
+                                Dashboard 
                             </a>
                         @else
                             <a href="{{ route('mahasiswa.dashboard') }}" class="block text-center bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition w-full">
-                                Dashboard Mahasiswa
+                                Dashboard 
                             </a>
                         @endif
                     @else
@@ -96,22 +148,23 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
 </nav>
 
 <script>
-let lastScroll = 0;
-const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
 
-window.addEventListener('scroll', function(){
-    let currentScroll = window.pageYOffset;
-    if(currentScroll <= 0){
-        navbar.style.transform = "translateY(0)";
-        return;
-    }
-    if(currentScroll > lastScroll){
-        // Scroll ke bawah
-        navbar.style.transform = "translateY(-120%)";
-    }else{
-        // Scroll ke atas
-        navbar.style.transform = "translateY(0)";
-    }
-    lastScroll = currentScroll;
-});
+    window.addEventListener('scroll', function(){
+        let currentScroll = window.pageYOffset;
+        if(currentScroll <= 0){
+            navbar.style.transform = "translateY(0)";
+            return;
+        }
+        if(currentScroll > lastScroll){
+            // Scroll ke bawah
+            navbar.style.transform = "translateY(-120%)";
+        }else{
+            // Scroll ke atas
+            navbar.style.transform = "translateY(0)";
+        }
+        lastScroll = currentScroll;
+    });
+
 </script>

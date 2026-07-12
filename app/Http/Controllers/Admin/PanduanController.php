@@ -30,7 +30,6 @@ class PanduanController extends Controller
             'file.max'   => 'Ukuran file maksimal 20 MB.',
         ]);
 
-        // Hapus file lama (kalau ada), lalu simpan yang baru dengan nama tetap
         Storage::disk('public')->putFileAs(
             'panduan',
             $request->file('file'),

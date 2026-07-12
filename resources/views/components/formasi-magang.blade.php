@@ -3,7 +3,7 @@
     <div class="text-center mb-14">
 
         <h2 class="text-4xl font-bold text-[#043277]">
-            Informasi bidang 
+            Informasi Bidang 
         </h2>
 
         <p class="text-blue-600 font-semibold mt-2">
@@ -11,8 +11,8 @@
         </p>
 
         <p class="text-gray-500 mt-4 max-w-2xl mx-auto leading-7">
-            Berikut adalah informasi mengenai fungsi dan peran di BPS Kabupaten Ogan Ilir yang
-            dapat menjadi pilihan bidang magang sesuai minat dan latar belakang pendidikan Anda.
+            Berikut adalah informasi mengenai tugas dan fungsi dari setiap unit kerja. <br>
+            Informasi ini dapat Anda jadikan panduan untuk memilih posisi magang yang paling relevan dengan jurusan dan minat pendidikan Anda.
         </p>
 
     </div>
