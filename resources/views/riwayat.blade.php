@@ -245,7 +245,7 @@
                 <h2 class="text-white font-bold text-base">Berkas Terunggah</h2>
             </div>
             <div class="p-6 space-y-3">
-                <a href="{{ Storage::url($mahasiswa->surat_pengantar_path) }}" target="_blank"
+                <a href="{{ route('daftar.surat-pengantar', $mahasiswa) }}" target="_blank"
                    class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3 hover:bg-blue-50 transition">
                     <span class="text-2xl">📄</span>
                     <div>
@@ -253,7 +253,7 @@
                         <p class="text-xs text-gray-400">Klik untuk melihat file</p>
                     </div>
                 </a>
-                <a href="{{ Storage::url($mahasiswa->proposal_path) }}" target="_blank"
+                <a href="{{ route('daftar.proposal', $mahasiswa) }}" target="_blank"
                    class="flex items-center gap-3 border border-gray-100 rounded-xl px-4 py-3 hover:bg-blue-50 transition">
                     <span class="text-2xl">📄</span>
                     <div>

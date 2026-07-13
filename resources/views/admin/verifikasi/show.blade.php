@@ -296,7 +296,7 @@
             <div class="flex-grow-1">
                 <div class="fw-semibold">Surat Pengantar</div>
                 @if($mahasiswa->surat_pengantar_path)
-                    <a href="{{ asset('storage/'.$mahasiswa->surat_pengantar_path) }}" target="_blank" class="small">
+                    <a href="{{ route('admin.verifikasi.surat-pengantar', $mahasiswa) }}" target="_blank" class="small">
                         Klik untuk melihat file
                     </a>
                 @else
@@ -310,7 +310,7 @@
             <div class="flex-grow-1">
                 <div class="fw-semibold">Proposal Magang</div>
                 @if($mahasiswa->proposal_path)
-                    <a href="{{ asset('storage/'.$mahasiswa->proposal_path) }}" target="_blank" class="small">
+                    <a href="{{ route('admin.verifikasi.proposal', $mahasiswa) }}" target="_blank" class="small">
                         Klik untuk melihat file
                     </a>
                 @else

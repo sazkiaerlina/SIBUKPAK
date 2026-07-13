@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePendaftaranRequest;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PendaftaranController extends Controller
@@ -136,5 +138,58 @@ class PendaftaranController extends Controller
         }
 
         return view('riwayat', compact('mahasiswa', 'anggotaLain'));
+    }
+
+     public function showSuratPengantar(Mahasiswa $mahasiswa)
+    {
+        $this->authorizeAkses($mahasiswa);
+
+        abort_unless($mahasiswa->surat_pengantar_path, 404, 'Surat pengantar belum diunggah.');
+        abort_unless(
+            Storage::disk('public')->exists($mahasiswa->surat_pengantar_path),
+            404,
+            'File surat pengantar tidak ditemukan.'
+        );
+
+        return response()->file(
+            Storage::disk('public')->path($mahasiswa->surat_pengantar_path),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="surat-pengantar-' . $mahasiswa->nim . '.pdf"',
+            ]
+        );
+    }
+
+    /**
+     * Tampilkan file Proposal Magang milik mahasiswa yang login.
+     */
+    public function showProposal(Mahasiswa $mahasiswa)
+    {
+        $this->authorizeAkses($mahasiswa);
+
+        abort_unless($mahasiswa->proposal_path, 404, 'Proposal belum diunggah.');
+        abort_unless(
+            Storage::disk('public')->exists($mahasiswa->proposal_path),
+            404,
+            'File proposal tidak ditemukan.'
+        );
+
+        return response()->file(
+            Storage::disk('public')->path($mahasiswa->proposal_path),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="proposal-' . $mahasiswa->nim . '.pdf"',
+            ]
+        );
+    }
+
+
+    private function authorizeAkses(Mahasiswa $mahasiswa): void
+    {
+        abort_unless(
+            Auth::id() === $mahasiswa->user_id || Auth::user()->is_admin ?? false,
+            403,
+            'Anda tidak berhak mengakses file ini.'
+        );
     }
 }

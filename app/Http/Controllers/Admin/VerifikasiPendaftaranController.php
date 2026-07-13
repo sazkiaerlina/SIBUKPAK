@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VerifikasiPendaftaranController extends Controller
 {
@@ -76,7 +77,6 @@ public function reject(Request $request, Mahasiswa $mahasiswa)
             ): void
 
     {
-        // Ambil semua baris dengan kode_kelompok yang sama (kalau individu, cuma 1 baris)
         $query = $mahasiswa->kode_kelompok
             ? Mahasiswa::where('kode_kelompok', $mahasiswa->kode_kelompok)
             : Mahasiswa::where('id', $mahasiswa->id);
@@ -97,5 +97,41 @@ public function reject(Request $request, Mahasiswa $mahasiswa)
     ]);
         }
         
+    }
+
+    public function showSuratPengantar(Mahasiswa $mahasiswa)
+    {
+        abort_unless($mahasiswa->surat_pengantar_path, 404, 'Surat pengantar belum diunggah.');
+        abort_unless(
+            Storage::disk('public')->exists($mahasiswa->surat_pengantar_path),
+            404,
+            'File surat pengantar tidak ditemukan.'
+        );
+
+        return response()->file(
+            Storage::disk('public')->path($mahasiswa->surat_pengantar_path),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="surat-pengantar-' . $mahasiswa->nim . '.pdf"',
+            ]
+        );
+    }
+
+    public function showProposal(Mahasiswa $mahasiswa)
+    {
+        abort_unless($mahasiswa->proposal_path, 404, 'Proposal belum diunggah.');
+        abort_unless(
+            Storage::disk('public')->exists($mahasiswa->proposal_path),
+            404,
+            'File proposal tidak ditemukan.'
+        );
+
+        return response()->file(
+            Storage::disk('public')->path($mahasiswa->proposal_path),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="proposal-' . $mahasiswa->nim . '.pdf"',
+            ]
+        );
     }
 }

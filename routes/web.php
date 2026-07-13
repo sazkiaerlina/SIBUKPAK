@@ -43,6 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/daftar', [PendaftaranController::class, 'store'])->name('daftar.store');
     Route::get('/daftar/sukses/{mahasiswa}', [PendaftaranController::class, 'riwayat'])
         ->name('daftar.sukses');
+
+    // ── File pendaftaran (tanpa storage:link) ──────────────
+    Route::get('/daftar/{mahasiswa}/surat-pengantar', [PendaftaranController::class, 'showSuratPengantar'])
+        ->name('daftar.surat-pengantar');
+    Route::get('/daftar/{mahasiswa}/proposal', [PendaftaranController::class, 'showProposal'])
+        ->name('daftar.proposal');
 });
 
 // ══════════════════════════════════════════════════════════════
@@ -106,6 +112,12 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::get('/verifikasi/{mahasiswa}', [VerifikasiPendaftaranController::class, 'show'])->name('verifikasi.show');
     Route::patch('/verifikasi/{mahasiswa}/approve', [VerifikasiPendaftaranController::class, 'approve'])->name('verifikasi.approve');
     Route::patch('/verifikasi/{mahasiswa}/reject', [VerifikasiPendaftaranController::class, 'reject'])->name('verifikasi.reject');
+
+    // ── File pendaftaran (tanpa storage:link) ──────────────
+    Route::get('/verifikasi/{mahasiswa}/surat-pengantar', [VerifikasiPendaftaranController::class, 'showSuratPengantar'])
+        ->name('verifikasi.surat-pengantar');
+    Route::get('/verifikasi/{mahasiswa}/proposal', [VerifikasiPendaftaranController::class, 'showProposal'])
+        ->name('verifikasi.proposal');
 
     // ── Laporan & Sertifikat ────────────────────────────────
     Route::get('/laporan-sertifikat', [LaporanSertifikatController::class, 'index'])->name('laporan.index');
