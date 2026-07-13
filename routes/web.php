@@ -20,20 +20,24 @@ Route::get('/', function () {
 })->name('home');
 
 // ── Autentikasi (Login & Register) ───────────────────────
+// Hanya bisa diakses TAMU (belum login). Kalau sudah login,
+// otomatis dilempar ke redirectPath() lewat RedirectIfAuthenticated.
 Route::middleware(['guest', 'preventBackHistory'])->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('login.post');
 
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
+
+    
 });
 
-// Logout 
+// Logout hanya untuk yang sudah login
 Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout')
     ->middleware('auth');
 
-// Pendaftaran Magang 
+// ── Pendaftaran Magang (Satu Pintu Utama) ────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/daftar', [PendaftaranController::class, 'create'])->name('daftar.create');
     Route::post('/daftar', [PendaftaranController::class, 'store'])->name('daftar.store');
@@ -42,7 +46,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // ══════════════════════════════════════════════════════════════
-//  MAHASISWA 
+//  AREA MAHASISWA — wajib login DAN sudah disetujui admin
+//  (middleware 'approved' menolak akses kalau status masih pending)
 // ══════════════════════════════════════════════════════════════
 Route::middleware(['auth', 'approved', 'mahasiswa', 'still-active'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
 
@@ -69,13 +74,18 @@ Route::middleware(['auth', 'approved', 'mahasiswa', 'still-active'])->prefix('ma
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
     Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
     Route::put('/profil/password', [ProfilController::class, 'updatePassword'])->name('profil.password');
+
+    // ── Buku Panduan ─────────────────────────────────────────
+    Route::get('/panduan', [PanduanController::class, 'showMahasiswa'])->name('panduan.show');
 });
 
 
 // ══════════════════════════════════════════════════════════════
-//  ADMIN
+//  AREA ADMIN
 // ══════════════════════════════════════════════════════════════
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+
 
     Route::get('/home', [AdminController::class, 'home'])->name('home');
     Route::get('/kelola-pendaftar', [AdminController::class, 'kelolaPendaftar'])->name('kelola-pendaftar');
@@ -105,5 +115,7 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::get('/panduan', [PanduanController::class, 'edit'])->name('panduan.edit');
     Route::post('/panduan/mahasiswa', [PanduanController::class, 'uploadMahasiswa'])->name('panduan.mahasiswa');
     Route::post('/panduan/admin', [PanduanController::class, 'uploadAdmin'])->name('panduan.admin');
+    Route::get('/panduan/lihat/mahasiswa', [PanduanController::class, 'showMahasiswa'])->name('panduan.mahasiswa.show');
+    Route::get('/panduan/lihat/admin', [PanduanController::class, 'showAdmin'])->name('panduan.admin.show');
 
 });

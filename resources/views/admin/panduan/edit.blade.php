@@ -40,7 +40,7 @@
                 Status:
                 @if($adaMahasiswa)
                     <span class="badge bg-success">Sudah ada file</span>
-                    <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank" class="ms-2 small">
+                    <a href="{{ route('admin.panduan.mahasiswa.show') }}" target="_blank" class="ms-2 small">
                         Lihat file saat ini
                     </a>
                 @else
@@ -73,7 +73,7 @@
                 Status:
                 @if($adaAdmin)
                     <span class="badge bg-success">Sudah ada file</span>
-                    <a href="{{ asset('storage/panduan/panduan-admin.pdf') }}" target="_blank" class="ms-2 small">
+                    <a href="{{ route('admin.panduan.admin.show') }}" target="_blank" class="ms-2 small">
                         Lihat file saat ini
                     </a>
                 @else

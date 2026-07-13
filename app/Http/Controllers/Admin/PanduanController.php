@@ -30,6 +30,7 @@ class PanduanController extends Controller
             'file.max'   => 'Ukuran file maksimal 20 MB.',
         ]);
 
+        // Hapus file lama (kalau ada), lalu simpan yang baru dengan nama tetap
         Storage::disk('public')->putFileAs(
             'panduan',
             $request->file('file'),
@@ -56,5 +57,43 @@ class PanduanController extends Controller
         );
 
         return back()->with('success', 'Buku panduan admin berhasil diperbarui.');
+    }
+
+    /**
+     * Menampilkan PDF panduan mahasiswa LANGSUNG lewat Laravel,
+     * tidak bergantung pada symlink public/storage (aman di semua hosting).
+     */
+    public function showMahasiswa()
+    {
+        if (!Storage::disk('public')->exists(self::PATH_MAHASISWA)) {
+            abort(404, 'Buku panduan mahasiswa belum diunggah oleh admin.');
+        }
+
+        return response()->file(
+            Storage::disk('public')->path(self::PATH_MAHASISWA),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="panduan-mahasiswa.pdf"',
+            ]
+        );
+    }
+
+    /**
+     * Menampilkan PDF panduan admin LANGSUNG lewat Laravel,
+     * tidak bergantung pada symlink public/storage.
+     */
+    public function showAdmin()
+    {
+        if (!Storage::disk('public')->exists(self::PATH_ADMIN)) {
+            abort(404, 'Buku panduan admin belum diunggah.');
+        }
+
+        return response()->file(
+            Storage::disk('public')->path(self::PATH_ADMIN),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="panduan-admin.pdf"',
+            ]
+        );
     }
 }

@@ -33,13 +33,13 @@ nav.d-flex.justify-content-between{
        <div class="navbar-brand d-flex align-items-center mb-0">
 
     <img
-        src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
+        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
         alt="Logo SIBUKPAK"
         class="me-2"
         style="height: 38px; width: auto;">
 
     <span class="fw-bold">
-        PANDU
+        BPS Presensi
     </span>
 
 </div>
@@ -94,7 +94,7 @@ nav.d-flex.justify-content-between{
                             </li>
 
                             <li>
-                                <a href="{{ asset('storage/panduan/panduan-admin.pdf') }}" target="_blank" class="dropdown-item">
+                                <a href="{{ route('admin.panduan.admin.show') }}" target="_blank" class="dropdown-item">
                                     <i class="bi bi-book"></i> Buku Panduan
                                 </a>
                             </li>
