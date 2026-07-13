@@ -87,7 +87,7 @@
                 <th>Laporan Akhir</th>
                 <td>
                     @if($mahasiswa->laporan_path)
-                        <a href="{{ Storage::url($mahasiswa->laporan_path) }}" target="_blank" class="text-decoration-none">
+                        <a href="{{ route('admin.laporan.laporan.show', $item->id) }}" target="_blank" class="text-decoration-none">
                             <i class="bi bi-file-earmark-pdf text-danger"></i> Lihat Laporan
                         </a>
                         <span class="text-muted small ms-2">
