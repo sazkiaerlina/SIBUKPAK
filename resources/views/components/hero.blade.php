@@ -6,7 +6,7 @@
         <div class="w-full lg:w-1/2 flex justify-center lg:justify-start">
 
             <img
-                src="{{ asset('assets/images/kantor_bps.png') }}"
+                src="{{ asset('assets/images/kantor_bps_v2.png') }}"
                 alt="Kantor BPS"
                 class="w-[320px] lg:w-[400px] xl:w-[460px] h-auto">
 
