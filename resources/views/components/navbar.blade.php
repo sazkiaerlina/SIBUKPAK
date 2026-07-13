@@ -15,7 +15,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
         alt="Logo SIBUKPAK"
         class="h-10 w-auto">
     <h1 class="text-white font-bold text-2xl">
-        SIBUKPAK
+        PANDU
     </h1>
 </div>
             <ul class="hidden md:flex gap-8 text-white items-center">

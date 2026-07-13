@@ -24,7 +24,7 @@
         class="h-16 lg:h-20 w-auto">
 
     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-black">
-        SIBUKPAK
+        PANDU
     </h1>
 
 </div>

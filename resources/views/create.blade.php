@@ -47,7 +47,7 @@
         {{-- ── Judul ──────────────────────────────────── --}}
         <div class="text-center mb-8">
             <h1 class="text-3xl font-black text-[#043277] tracking-tight">PENDAFTARAN MAGANG</h1>
-            <p class="text-gray-500 text-sm mt-2">BPS Kabupaten Ogan Ilir — SIBUKPAK</p>
+            <p class="text-gray-500 text-sm mt-2">BPS Kabupaten Ogan Ilir — PANDU</p>
         </div>
 
         {{-- ── Error Global ────────────────────────────── --}}

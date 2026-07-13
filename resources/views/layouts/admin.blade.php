@@ -39,7 +39,7 @@ nav.d-flex.justify-content-between{
         style="height: 38px; width: auto;">
 
     <span class="fw-bold">
-        BPS Presensi
+        PANDU
     </span>
 
 </div>

@@ -43,7 +43,7 @@
         alt="Logo SIBUKPAK"
         class="h-10 w-auto">
     <h1 class="text-white font-bold text-2xl">
-        SIBUKPAK
+        PANDU
     </h1>
 </div>
 

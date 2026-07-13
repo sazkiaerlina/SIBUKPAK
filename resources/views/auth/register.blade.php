@@ -48,7 +48,7 @@
     </h1>
 
     <p class="text-white mt-4 text-lg">
-        SIBUKPAK Statistik Berdampak Untuk Kampus Berdampak
+        PANDU Statistik Berdampak Untuk Kampus Berdampak
     </p>
 
 </div>

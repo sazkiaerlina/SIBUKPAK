@@ -23,7 +23,7 @@
                     
 
                 <h2 class="text-white text-3xl font-bold">
-                    SIBUKPAK
+                    PANDU
                 </h2>
 
                 <p class="text-white text-base mt-2 leading-relaxed">

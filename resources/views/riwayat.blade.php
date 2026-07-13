@@ -9,7 +9,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-2xl font-black text-[#043277] tracking-tight">Riwayat Pendaftaran</h1>
-                <p class="text-gray-500 text-sm mt-1">BPS Kabupaten Ogan Ilir — SIBUKPAK</p>
+                <p class="text-gray-500 text-sm mt-1">BPS Kabupaten Ogan Ilir — PANDU</p>
             </div>
 
             <form method="POST" action="{{ route('logout') }}">
