@@ -33,13 +33,13 @@ nav.d-flex.justify-content-between{
        <div class="navbar-brand d-flex align-items-center mb-0">
 
     <img
-        src="{{ asset('assets/images/logoSIBUKPAK.PNG') }}"
+        src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
         class="me-2"
         style="height: 38px; width: auto;">
 
     <span class="fw-bold">
-        BPS Presensi
+        PANDU
     </span>
 
 </div>
