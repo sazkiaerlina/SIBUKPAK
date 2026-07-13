@@ -46,7 +46,7 @@
 
                         <td>
 
-                            <a href="{{ Storage::url($item->laporan_path) }}"
+                            <a href="{{ route('admin.laporan.laporan.show', $item->id) }}"
                                target="_blank"
                                class="text-decoration-none">
 

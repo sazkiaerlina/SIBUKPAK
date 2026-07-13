@@ -76,5 +76,23 @@ public function downloadSertifikat(Mahasiswa $mahasiswa)
     );
 }
 
+/**
+ * Admin melihat file laporan yang diunggah mahasiswa,
+ * LANGSUNG lewat Laravel (tidak bergantung symlink public/storage).
+ */
+public function showLaporan(Mahasiswa $mahasiswa)
+{
+    abort_unless($mahasiswa->laporan_path, 404, 'Laporan belum diunggah.');
+    abort_unless(Storage::disk('public')->exists($mahasiswa->laporan_path), 404, 'File laporan tidak ditemukan.');
+
+    return response()->file(
+        Storage::disk('public')->path($mahasiswa->laporan_path),
+        [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="laporan-' . $mahasiswa->nim . '.pdf"',
+        ]
+    );
+}
+
 
 }

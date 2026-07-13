@@ -68,6 +68,7 @@ Route::middleware(['auth', 'approved', 'mahasiswa', 'still-active'])->prefix('ma
     // ── Laporan & Sertifikat ────────────────────────────────
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
     Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.store');
+    Route::get('/laporan/lihat', [LaporanController::class, 'showLaporan'])->name('laporan.show');
     Route::get('/sertifikat', [LaporanController::class, 'downloadSertifikat'])->name('sertifikat.download');
 
     // ── Profil ──────────────────────────────────────────────
@@ -110,6 +111,7 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::get('/laporan-sertifikat', [LaporanSertifikatController::class, 'index'])->name('laporan.index');
     Route::patch('/laporan-sertifikat/{mahasiswa}/simpan', [LaporanSertifikatController::class, 'simpanSertifikat'])->name('laporan.sertifikat.simpan');
     Route::get('/laporan-sertifikat/{mahasiswa}/download', [LaporanSertifikatController::class, 'downloadSertifikat'])->name('laporan.sertifikat.download');
+    Route::get('/laporan-sertifikat/{mahasiswa}/lihat', [LaporanSertifikatController::class, 'showLaporan'])->name('laporan.laporan.show');
 
     // ── Buku Panduan ─────────────────────────────────────────
     Route::get('/panduan', [PanduanController::class, 'edit'])->name('panduan.edit');

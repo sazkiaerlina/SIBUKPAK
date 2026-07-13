@@ -34,26 +34,44 @@ class LaporanController extends Controller
     }
 
     /**
+     * Menampilkan file laporan milik mahasiswa yang sedang login,
+     * LANGSUNG lewat Laravel (tidak bergantung symlink public/storage).
+     */
+    public function showLaporan()
+    {
+        $mahasiswa = Auth::user()->mahasiswa;
+
+        abort_unless($mahasiswa->laporan_path, 404, 'Laporan belum diunggah.');
+        abort_unless(Storage::disk('public')->exists($mahasiswa->laporan_path), 404, 'File laporan tidak ditemukan.');
+
+        return response()->file(
+            Storage::disk('public')->path($mahasiswa->laporan_path),
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="laporan-' . $mahasiswa->nim . '.pdf"',
+            ]
+        );
+    }
+
+    /**
      * Mahasiswa mengunduh sertifikatnya sendiri.
      */
-    
-
     public function downloadSertifikat()
-{
-    $mahasiswa = Auth::user()->mahasiswa;
+    {
+        $mahasiswa = Auth::user()->mahasiswa;
 
-    abort_unless($mahasiswa->sertifikat_path, 404, 'Sertifikat belum tersedia.');
+        abort_unless($mahasiswa->sertifikat_path, 404, 'Sertifikat belum tersedia.');
 
-    return response()->download(
-        storage_path('app/public/' . $mahasiswa->sertifikat_path),
-        'Sertifikat-' . $mahasiswa->user->name . '-' . $mahasiswa->nim . '.pdf',
-        [
-            'Cache-Control' => 'no-store, no-cache, must-revalidate',
-            'Pragma' => 'no-cache',
-            'Expires' => '0',
-        ]
-    );
-}
+        return response()->download(
+            storage_path('app/public/' . $mahasiswa->sertifikat_path),
+            'Sertifikat-' . $mahasiswa->user->name . '-' . $mahasiswa->nim . '.pdf',
+            [
+                'Cache-Control' => 'no-store, no-cache, must-revalidate',
+                'Pragma' => 'no-cache',
+                'Expires' => '0',
+            ]
+        );
+    }
 
 
 }

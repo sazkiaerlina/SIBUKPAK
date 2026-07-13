@@ -27,7 +27,7 @@
                             Diunggah pada {{ \Carbon\Carbon::parse($mahasiswa->laporan_uploaded_at)->translatedFormat('d F Y, H:i') }}
                         </p>
                     </div>
-                    <a href="{{ Storage::url($mahasiswa->laporan_path) }}" target="_blank"
+                    <a href="{{ route('mahasiswa.laporan.show') }}" target="_blank"
                        class="text-xs font-semibold text-blue-600 hover:underline whitespace-nowrap">
                         Lihat File
                     </a>
