@@ -31,9 +31,11 @@
 
 
            <p class="text-lg sm:text-xl text-gray-700 leading-8 sm:leading-9 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-                Statistik Berdampak Untuk Kampus Berdampak. PANDU merupakan platform Badan Pusat Statistik Kabupaten Ogan Ilir 
-                yang mendukung digitalisasi proses magang mahasiswa. Melalui website ini, mahasiswa dapat melakukan pendaftaran magang 
-                secara online dan melakukan absensi harian secara mudah setelah diterima sebagai peserta magang di BPS Kabupaten Ogan Ilir.
+                PANDU merupakan platform digital inovatif milik Badan Pusat Statistik Kabupaten Ogan Ilir yang 
+                dikembangkan untuk mendukung inisiatif Statistik Berdampak untuk Kampus Berdampak. 
+                Melalui website ini, proses administrasi magang mahasiswa didigitalisasi secara penuh, 
+                mulai dari pendaftaran secara daring (online) hingga pencatatan absensi harian secara praktis 
+                dan real-time setelah diterima sebagai peserta magang di BPS Kabupaten Ogan Ilir.
             </p>
 
           <div class="mt-10 text-center lg:text-left">
