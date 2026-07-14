@@ -77,7 +77,7 @@
                     <input type="file" name="bukti_dokumen" accept=".jpg,.jpeg,.png"
                         class="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5
                             focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <p class="text-xs text-gray-400 mt-1">Format JPG/PNG, maksimal 5MB.</p>
+                    <p class="text-xs text-gray-400 mt-1">Format JPG/PNG, maksimal 15 MB.</p>
                     @error('bukti_dokumen') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
