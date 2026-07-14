@@ -60,29 +60,36 @@
 
                         <td>
 
+                          
                             <form method="POST"
-                                  action="{{ route('admin.laporan.sertifikat.simpan',$item->id) }}"
-                                  enctype="multipart/form-data">
+      action="{{ route('admin.laporan.sertifikat.simpan',$item->id) }}"
+      enctype="multipart/form-data">
 
-                                @csrf
-                                @method('PATCH')
+    @csrf
+    @method('PATCH')
 
-                                <input
-                                    type="file"
-                                    name="sertifikat"
-                                    accept=".pdf"
-                                    class="form-control form-control-sm mb-2">
+    <input
+        type="file"
+        name="sertifikat"
+        accept=".pdf"
+        class="form-control form-control-sm"
+        required>
 
-                                <button
-                                    class="btn btn-success btn-sm w-100">
+    <small class="text-muted d-block mt-1 mb-2">
+        Format PDF • Maks. 2 MB
+    </small>
 
-                                    <i class="bi bi-upload"></i>
+    <button
+        class="btn btn-success btn-sm w-100">
 
-                                    Upload Sertifikat
+        <i class="bi bi-upload"></i>
 
-                                </button>
+        Upload Sertifikat
 
-                            </form>
+    </button>
+
+</form>
+
 
                             @if($item->sertifikat_path)
 

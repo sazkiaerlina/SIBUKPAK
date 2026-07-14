@@ -48,13 +48,21 @@
                 @endif
             </p>
 
-            <form method="POST" action="{{ route('admin.panduan.mahasiswa') }}" enctype="multipart/form-data" class="d-flex gap-2">
-                @csrf
-                <input type="file" name="file" accept=".pdf" class="form-control" required>
-                <button type="submit" class="btn text-white" style="background:#043277; white-space:nowrap;">
-                    Upload
-                </button>
-            </form>
+            <form method="POST" action="{{ route('admin.panduan.mahasiswa') }}" enctype="multipart/form-data">
+    @csrf
+
+    <div class="d-flex gap-2">
+        <input type="file" name="file" accept=".pdf" class="form-control" required>
+
+        <button type="submit" class="btn text-white" style="background:#043277; white-space:nowrap;">
+            Upload
+        </button>
+    </div>
+
+    <small class="text-muted">
+        Format: PDF • Maks. ukuran file 2 MB
+    </small>
+</form>
 
         </div>
 
@@ -81,13 +89,21 @@
                 @endif
             </p>
 
-            <form method="POST" action="{{ route('admin.panduan.admin') }}" enctype="multipart/form-data" class="d-flex gap-2">
-                @csrf
-                <input type="file" name="file" accept=".pdf" class="form-control" required>
-                <button type="submit" class="btn text-white" style="background:#043277; white-space:nowrap;">
-                    Upload
-                </button>
-            </form>
+            <form method="POST" action="{{ route('admin.panduan.mahasiswa') }}" enctype="multipart/form-data">
+    @csrf
+
+    <div class="d-flex gap-2">
+        <input type="file" name="file" accept=".pdf" class="form-control" required>
+
+        <button type="submit" class="btn text-white" style="background:#043277; white-space:nowrap;">
+            Upload
+        </button>
+    </div>
+
+    <small class="text-muted">
+        Format: PDF • Maks. ukuran file 2 MB
+    </small>
+</form>
 
         </div>
 
