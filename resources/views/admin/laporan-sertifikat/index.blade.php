@@ -76,7 +76,7 @@
         required>
 
     <small class="text-muted d-block mt-1 mb-2">
-        Format PDF • Maks. 10 MB
+        Format PDF • Maks. 5 MB
     </small>
 
     <button

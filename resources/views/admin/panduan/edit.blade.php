@@ -60,7 +60,7 @@
     </div>
 
     <small class="text-muted">
-        Format: PDF • Maks. ukuran file 10 MB
+        Format: PDF • Maks. ukuran file 5 MB
     </small>
 </form>
 
@@ -89,7 +89,7 @@
                 @endif
             </p>
 
-            <form method="POST" action="{{ route('admin.panduan.mahasiswa') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.panduan.admin') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="d-flex gap-2">
@@ -101,7 +101,7 @@
     </div>
 
     <small class="text-muted">
-        Format: PDF • Maks. ukuran file 10 MB
+        Format: PDF • Maks. ukuran file 5 MB
     </small>
 </form>
 
