@@ -60,7 +60,7 @@
     </div>
 
     <small class="text-muted">
-        Format: PDF • Maks. ukuran file 2 MB
+        Format: PDF • Maks. ukuran file 20 MB
     </small>
 </form>
 
