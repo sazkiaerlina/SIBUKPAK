@@ -103,7 +103,7 @@
 
                     @if(in_array($p->status, ['sakit', 'izin']))
                         <div class="flex items-center gap-3 p-4 bg-yellow-50 rounded-xl border border-yellow-200">
-                            <span class="text-2xl">{{ $p->status === 'sakit' ? 'sakit' : 'izin' }}</span>
+                            <span class="text-2xl">{{ $p->status === 'sakit' ? '🤒' : '📝' }}</span>
                             <div>
                                 <p class="font-semibold text-yellow-800 text-sm">{{ ucfirst($p->status) }} — sudah dilaporkan</p>
                                 <p class="text-yellow-600 text-xs">{{ $p->keterangan }}</p>
