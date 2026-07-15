@@ -113,6 +113,12 @@ Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group
     Route::patch('/verifikasi/{mahasiswa}/approve', [VerifikasiPendaftaranController::class, 'approve'])->name('verifikasi.approve');
     Route::patch('/verifikasi/{mahasiswa}/reject', [VerifikasiPendaftaranController::class, 'reject'])->name('verifikasi.reject');
 
+    // ── Lihat berkas (dipakai ulang dari PendaftaranController, sudah handle admin di authorizeAkses()) ──
+    Route::get('/verifikasi/{mahasiswa}/surat-pengantar', [PendaftaranController::class, 'showSuratPengantar'])
+        ->name('verifikasi.surat-pengantar');
+    Route::get('/verifikasi/{mahasiswa}/proposal', [PendaftaranController::class, 'showProposal'])
+        ->name('verifikasi.proposal');
+
     // ── Laporan & Sertifikat ────────────────────────────────
     Route::get('/laporan-sertifikat', [LaporanSertifikatController::class, 'index'])->name('laporan.index');
     Route::patch('/laporan-sertifikat/{mahasiswa}/simpan', [LaporanSertifikatController::class, 'simpanSertifikat'])->name('laporan.sertifikat.simpan');
