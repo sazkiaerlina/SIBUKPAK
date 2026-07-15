@@ -1,10 +1,10 @@
 <nav
 x-data="{ open:false }"
 id="navbar"
-class="fixed top-0 inset-x-0 z-50 transition-transform duration-300 overflow-x-hidden">
+class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidden">
 
 
-<div class="max-w-7xl mx-auto mt-3 px-6">
+<div class="w-full max-w-7xl mx-auto mt-3 px-4">
     <div class="w-full bg-[#043277] rounded-2xl px-6 py-4">
         <div class="flex justify-between items-center">
 
@@ -52,13 +52,13 @@ class="fixed top-0 inset-x-0 z-50 transition-transform duration-300 overflow-x-h
                 </li>
 
                 <li>
-                    <a href="{{ route('panduan.public') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
+                    <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
             </ul>
 
 
             <div class="hidden md:block">
                 @auth
-                    @if(auth()->user()->isAdmin())
+                    @if(auth()->user()->is_admin)
                         <a href="{{ route('admin.home') }}" class="bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">
                             Dashboard
                         </a>
@@ -121,12 +121,12 @@ class="fixed top-0 inset-x-0 z-50 transition-transform duration-300 overflow-x-h
                     </a>
                 </li>
 
-                <li><a href="{{ route('panduan.public') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
+                <li><a href="{{ asset('storage/panduan/panduan-admin.pdf') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
 
                     
                 <li class="pt-2">
                     @auth
-                        @if(auth()->user()->isAdmin())
+                        @if(auth()->user()->is_admin)
                             <a href="{{ route('admin.home') }}" class="block text-center bg-white text-[#043277] font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition w-full">
                                 Dashboard 
                             </a>
