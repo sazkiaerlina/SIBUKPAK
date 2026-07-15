@@ -6,12 +6,13 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Presensi;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Models\User;
+
 
 
 class AdminController extends Controller
@@ -446,5 +447,19 @@ public function sertifikat()
     return view('admin.sertifikat');
 }
 
+public function lihatBuktiPresensi(Presensi $presensi)
+{
+    abort_unless($presensi->bukti_dokumen, 404, 'Bukti dokumen tidak ada.');
+    abort_unless(
+        Storage::disk('public')->exists($presensi->bukti_dokumen),
+        404,
+        'File bukti dokumen tidak ditemukan.'
+    );
+ 
+    return response()->file(
+        Storage::disk('public')->path($presensi->bukti_dokumen)
+    );
+
+}
 
 }

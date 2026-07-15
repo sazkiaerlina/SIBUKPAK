@@ -185,8 +185,8 @@
 
                                             <p class="text-muted small mb-1">Bukti Dokumen</p>
                                             @if($item->bukti_dokumen)
-                                                <a href="{{ Storage::url($item->bukti_dokumen) }}" target="_blank">
-                                                    <img src="{{ Storage::url($item->bukti_dokumen) }}"
+                                                <a href="{{ route('admin.rekap.bukti', $item->id) }}" target="_blank">
+                                                    <img src="{{ route('admin.rekap.bukti', $item->id) }}"
                                                          class="img-fluid rounded border" style="max-height: 300px;">
                                                 </a>
                                                 <p class="text-muted small mt-1">Klik gambar untuk memperbesar</p>
