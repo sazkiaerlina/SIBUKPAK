@@ -46,7 +46,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                     </a>
                 </li>
                 <li>
-                    <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
+                    <a href="{{ route('panduan.public') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
 
             </ul>
 
@@ -109,7 +109,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                         Informasi Magang
                     </a>
                 </li>
-                <li><a href="{{ route('mahasiswa.panduan.show') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
+                <li><a href="{{ route('panduan.public') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
                 <li class="pt-2">
                     @auth
                         @if(auth()->user()->is_admin)
