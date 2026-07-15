@@ -46,6 +46,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/daftar', [PendaftaranController::class, 'store'])->name('daftar.store');
     Route::get('/daftar/sukses/{mahasiswa}', [PendaftaranController::class, 'riwayat'])
         ->name('daftar.sukses');
+
+    // ── Lihat berkas (tidak butuh storage:link, baca langsung dari disk) ──
+    Route::get('/daftar/surat-pengantar/{mahasiswa}', [PendaftaranController::class, 'showSuratPengantar'])
+        ->name('daftar.surat-pengantar');
+    Route::get('/daftar/proposal/{mahasiswa}', [PendaftaranController::class, 'showProposal'])
+        ->name('daftar.proposal');
 });
 
 // ══════════════════════════════════════════════════════════════

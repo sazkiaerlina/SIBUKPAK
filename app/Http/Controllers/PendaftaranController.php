@@ -186,8 +186,11 @@ class PendaftaranController extends Controller
 
     private function authorizeAkses(Mahasiswa $mahasiswa): void
     {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
         abort_unless(
-            Auth::id() === $mahasiswa->user_id || Auth::user()->is_admin ?? false,
+            Auth::id() === $mahasiswa->user_id || ($user && $user->isAdmin()),
             403,
             'Anda tidak berhak mengakses file ini.'
         );
