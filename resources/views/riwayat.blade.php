@@ -114,8 +114,7 @@
                     @if($status === 'pending')
                         <p class="text-sm text-yellow-700">
                             <strong>Berkas Anda sedang diperiksa oleh admin BPS.</strong>
-                            Proses verifikasi biasanya memakan waktu 1–3 hari kerja. Anda akan bisa login
-                            ke dashboard setelah status berubah menjadi <strong>Diterima</strong>.
+                            Anda akan bisa login ke dashboard setelah status berubah menjadi <strong>Diterima</strong>.
                         </p>
                     @elseif($dinonaktifkan)
                         <p class="text-sm text-red-700">
