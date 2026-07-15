@@ -5,16 +5,16 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
 
 
 <div class="w-full max-w-7xl mx-auto mt-3 px-4">
-    <div class="w-full bg-[#043277] rounded-2xl px-6 py-4">
+    <div class="w-full bg-[#043277] rounded-xl md:rounded-2xl px-4 py-2.5 md:px-6 md:py-4">
         <div class="flex justify-between items-center">
 
             
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 md:gap-3">
     <img
         src="{{ asset('assets/images/logoSIBUKPAK.png') }}"
         alt="Logo SIBUKPAK"
-        class="h-10 w-auto">
-    <h1 class="text-white font-bold text-2xl">
+        class="h-7 md:h-10 w-auto">
+    <h1 class="text-white font-bold text-lg md:text-2xl">
         PANDU
     </h1>
 </div>
@@ -52,7 +52,8 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                 </li>
 
                 <li>
-                    <a href="{{ asset('storage/panduan/panduan-mahasiswa.pdf') }}" target="_blank" class="hover:text-blue-200">Panduan</a></li>
+                    <a href="{{ route('panduan.public') }}" target="_blank" class="hover:text-blue-200">Panduan</a>
+                </li>
             </ul>
 
 
@@ -76,7 +77,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
 
             <button
                 @click="open = !open"
-                class="text-white text-3xl md:hidden focus:outline-none">
+                class="text-white text-2xl md:hidden focus:outline-none leading-none p-1">
                 ☰
             </button>
 
@@ -85,14 +86,14 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
         <div
             x-show="open"
             x-transition
-            class="md:hidden mt-5 border-t border-[#043277] pt-4">
+            class="md:hidden mt-4 border-t border-blue-800 pt-3">
 
            
-            <ul class="space-y-2 text-white">
+            <ul class="space-y-1 text-white text-sm">
                 <li>
                     <a href="#home" 
                         @click.prevent="document.querySelector('#home').scrollIntoView({ behavior: 'smooth' }); open = false;" 
-                        class="block hover:text-blue-200">
+                        class="block py-1.5 hover:text-blue-200">
                         Home
                     </a>
                 </li>
@@ -100,7 +101,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                 <li>
                     <a href="#profil" 
                         @click.prevent="document.querySelector('#profil').scrollIntoView({ behavior: 'smooth' }); open = false;" 
-                        class="block hover:text-blue-200">
+                        class="block py-1.5 hover:text-blue-200">
                         Profil
                     </a>
                 </li>
@@ -108,7 +109,7 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                 <li>
                     <a href="#alur" 
                         @click.prevent="document.querySelector('#alur').scrollIntoView({ behavior: 'smooth' }); open = false;" 
-                        class="block hover:text-blue-200">
+                        class="block py-1.5 hover:text-blue-200">
                         Alur Pendaftaran
                     </a>
                 </li>
@@ -116,12 +117,12 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
                 <li>
                     <a href="#formasi" 
                         @click.prevent="document.querySelector('#formasi').scrollIntoView({ behavior: 'smooth' }); open = false;" 
-                        class="block hover:text-blue-200">
+                        class="block py-1.5 hover:text-blue-200">
                         Informasi Magang
                     </a>
                 </li>
 
-                <li><a href="{{ asset('storage/panduan/panduan-admin.pdf') }}" target="_blank" class="block hover:text-blue-200">Panduan</a></li>
+                <li><a href="{{ route('panduan.public') }}" target="_blank" class="block py-1.5 hover:text-blue-200">Panduan</a></li>
 
                     
                 <li class="pt-2">
@@ -158,13 +159,10 @@ class="fixed top-0 w-full z-50 transition-transform duration-300 overflow-x-hidd
             return;
         }
         if(currentScroll > lastScroll){
-            // Scroll ke bawah
             navbar.style.transform = "translateY(-120%)";
         }else{
-            // Scroll ke atas
             navbar.style.transform = "translateY(0)";
         }
         lastScroll = currentScroll;
     });
-
 </script>
