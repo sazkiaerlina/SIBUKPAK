@@ -709,7 +709,7 @@
                                               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                     </svg>
                                     <p class="text-sm text-gray-600 font-medium">Klik untuk memilih file</p>
-                                    <p class="text-xs text-gray-400 mt-1">Format PDF • Maksimal 15 MB</p>
+                                    <p class="text-xs text-gray-400 mt-1">Format PDF • Maksimal 5 MB</p>
                                 </div>
                             </template>
                             <template x-if="fileName">
@@ -751,7 +751,7 @@
                                               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                     </svg>
                                     <p class="text-sm text-gray-600 font-medium">Klik untuk memilih file</p>
-                                    <p class="text-xs text-gray-400 mt-1">Format PDF • Maksimal 15 MB</p>
+                                    <p class="text-xs text-gray-400 mt-1">Format PDF • Maksimal 5 MB</p>
                                 </div>
                             </template>
                             <template x-if="fileName">
@@ -788,7 +788,7 @@
                             </li>
                             <li>
                                 Berkas harus berformat <strong>PDF</strong>,
-                                maksimal <strong>15 MB</strong> per file.
+                                maksimal <strong>5 MB</strong> per file.
                             </li>
                         </ul>
                     </div>

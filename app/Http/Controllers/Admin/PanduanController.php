@@ -24,7 +24,7 @@ class PanduanController extends Controller
     public function uploadMahasiswa(Request $request)
     {
         $request->validate([
-            'file' => ['required', 'file', 'mimes:pdf', 'max:20480'], // 20 MB
+            'file' => ['required', 'file', 'mimes:pdf', 'max:10240'], // 20 MB
         ], [
             'file.mimes' => 'File harus berformat PDF.',
             'file.max'   => 'Ukuran file maksimal 20 MB.',
@@ -44,7 +44,7 @@ class PanduanController extends Controller
     public function uploadAdmin(Request $request)
     {
         $request->validate([
-            'file' => ['required', 'file', 'mimes:pdf', 'max:20480'],
+            'file' => ['required', 'file', 'mimes:pdf', 'max:10240'],
         ], [
             'file.mimes' => 'File harus berformat PDF.',
             'file.max'   => 'Ukuran file maksimal 20 MB.',

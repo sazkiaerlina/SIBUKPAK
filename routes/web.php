@@ -83,13 +83,10 @@ Route::middleware(['auth', 'approved', 'mahasiswa', 'still-active'])->prefix('ma
     Route::get('/panduan', [PanduanController::class, 'showMahasiswa'])->name('panduan.show');
 });
 
-
 // ══════════════════════════════════════════════════════════════
 //  AREA ADMIN
 // ══════════════════════════════════════════════════════════════
 Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
-
-
 
     Route::get('/home', [AdminController::class, 'home'])->name('home');
     Route::get('/kelola-pendaftar', [AdminController::class, 'kelolaPendaftar'])->name('kelola-pendaftar');
